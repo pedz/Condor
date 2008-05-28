@@ -1,0 +1,14 @@
+./script/generate scaffold ptf name:string
+./script/generate scaffold apar name:string abstract:string
+./script/generate scaffold defect name:string
+./script/generate scaffold base name:string
+./script/generate scaffold lpp name:string base_id:integer
+./script/generate scaffold family name:string
+./script/generate scaffold release name:string family_id:integer
+./script/generate scaffold fileset lpp_id:integer vrmf:string
+./script/generate scaffold service_pack name:string
+./script/generate scaffold apar_defect_map apar_id:integer defect_id:integer
+./script/generate scaffold apar_ptf_map apar_id:integer ptf_id:integer
+./script/generate scaffold defect_release_map defect_id:integer release_id:integer
+./script/generate scaffold fileset_ptf_map fileset_id:integer ptf_id:integer
+./script/generate scaffold service_pack_fileset_map service_pack_id:integer fileset_id:integer
