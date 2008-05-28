@@ -1,0 +1,22 @@
+<h1>Editing apar_defect_map</h1>
+
+<%= error_messages_for :apar_defect_map %>
+
+<% form_for(@apar_defect_map) do |f| %>
+  <p>
+    <b>Apar</b><br />
+    <%= f.text_field :apar_id %>
+  </p>
+
+  <p>
+    <b>Defect</b><br />
+    <%= f.text_field :defect_id %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @apar_defect_map %> |
+<%= link_to 'Back', apar_defect_maps_path %>

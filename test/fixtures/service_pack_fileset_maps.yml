@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  service_pack_id: 1
+  fileset_id: 1
+
+two:
+  service_pack_id: 1
+  fileset_id: 1

@@ -1,0 +1,22 @@
+<h1>Editing fileset_ptf_map</h1>
+
+<%= error_messages_for :fileset_ptf_map %>
+
+<% form_for(@fileset_ptf_map) do |f| %>
+  <p>
+    <b>Fileset</b><br />
+    <%= f.text_field :fileset_id %>
+  </p>
+
+  <p>
+    <b>Ptf</b><br />
+    <%= f.text_field :ptf_id %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @fileset_ptf_map %> |
+<%= link_to 'Back', fileset_ptf_maps_path %>

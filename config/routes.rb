@@ -1,4 +1,32 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :service_pack_fileset_maps
+
+  map.resources :fileset_ptf_maps
+
+  map.resources :defect_release_maps
+
+  map.resources :apar_ptf_maps
+
+  map.resources :apar_defect_maps
+
+  map.resources :service_packs
+
+  map.resources :filesets
+
+  map.resources :releases
+
+  map.resources :families
+
+  map.resources :lpps
+
+  map.resources :bases
+
+  map.resources :defects
+
+  map.resources :apars
+
+  map.resources :ptfs
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

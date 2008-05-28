@@ -1,0 +1,17 @@
+<h1>Editing ptf</h1>
+
+<%= error_messages_for :ptf %>
+
+<% form_for(@ptf) do |f| %>
+  <p>
+    <b>Name</b><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @ptf %> |
+<%= link_to 'Back', ptfs_path %>

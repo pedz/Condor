@@ -1,0 +1,22 @@
+<h1>Listing lpps</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Base</th>
+  </tr>
+
+<% for lpps in @lpps %>
+  <tr>
+    <td><%=h lpps.name %></td>
+    <td><%=h lpps.base_id %></td>
+    <td><%= link_to 'Show', lpps %></td>
+    <td><%= link_to 'Edit', edit_lpps_path(lpps) %></td>
+    <td><%= link_to 'Destroy', lpps, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New lpps', new_lpps_path %>

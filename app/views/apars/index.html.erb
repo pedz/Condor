@@ -1,0 +1,22 @@
+<h1>Listing apars</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Abstract</th>
+  </tr>
+
+<% for apar in @apars %>
+  <tr>
+    <td><%=h apar.name %></td>
+    <td><%=h apar.abstract %></td>
+    <td><%= link_to 'Show', apar %></td>
+    <td><%= link_to 'Edit', edit_apar_path(apar) %></td>
+    <td><%= link_to 'Destroy', apar, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New apar', new_apar_path %>

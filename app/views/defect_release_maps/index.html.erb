@@ -1,0 +1,22 @@
+<h1>Listing defect_release_maps</h1>
+
+<table>
+  <tr>
+    <th>Defect</th>
+    <th>Release</th>
+  </tr>
+
+<% for defect_release_map in @defect_release_maps %>
+  <tr>
+    <td><%=h defect_release_map.defect_id %></td>
+    <td><%=h defect_release_map.release_id %></td>
+    <td><%= link_to 'Show', defect_release_map %></td>
+    <td><%= link_to 'Edit', edit_defect_release_map_path(defect_release_map) %></td>
+    <td><%= link_to 'Destroy', defect_release_map, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New defect_release_map', new_defect_release_map_path %>

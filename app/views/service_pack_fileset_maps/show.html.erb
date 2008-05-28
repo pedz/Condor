@@ -1,0 +1,13 @@
+<p>
+  <b>Service pack:</b>
+  <%=h @service_pack_fileset_map.service_pack_id %>
+</p>
+
+<p>
+  <b>Fileset:</b>
+  <%=h @service_pack_fileset_map.fileset_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_pack_fileset_map_path(@service_pack_fileset_map) %> |
+<%= link_to 'Back', service_pack_fileset_maps_path %>

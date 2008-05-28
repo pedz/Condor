@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  lpp_id: 1
+  vrmf: MyString
+
+two:
+  lpp_id: 1
+  vrmf: MyString

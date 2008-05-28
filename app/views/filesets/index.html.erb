@@ -1,0 +1,22 @@
+<h1>Listing filesets</h1>
+
+<table>
+  <tr>
+    <th>Lpp</th>
+    <th>Vrmf</th>
+  </tr>
+
+<% for fileset in @filesets %>
+  <tr>
+    <td><%=h fileset.lpp_id %></td>
+    <td><%=h fileset.vrmf %></td>
+    <td><%= link_to 'Show', fileset %></td>
+    <td><%= link_to 'Edit', edit_fileset_path(fileset) %></td>
+    <td><%= link_to 'Destroy', fileset, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New fileset', new_fileset_path %>

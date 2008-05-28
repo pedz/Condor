@@ -1,0 +1,22 @@
+<h1>Listing fileset_ptf_maps</h1>
+
+<table>
+  <tr>
+    <th>Fileset</th>
+    <th>Ptf</th>
+  </tr>
+
+<% for fileset_ptf_map in @fileset_ptf_maps %>
+  <tr>
+    <td><%=h fileset_ptf_map.fileset_id %></td>
+    <td><%=h fileset_ptf_map.ptf_id %></td>
+    <td><%= link_to 'Show', fileset_ptf_map %></td>
+    <td><%= link_to 'Edit', edit_fileset_ptf_map_path(fileset_ptf_map) %></td>
+    <td><%= link_to 'Destroy', fileset_ptf_map, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New fileset_ptf_map', new_fileset_ptf_map_path %>

@@ -1,0 +1,17 @@
+<h1>Editing service_pack</h1>
+
+<%= error_messages_for :service_pack %>
+
+<% form_for(@service_pack) do |f| %>
+  <p>
+    <b>Name</b><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @service_pack %> |
+<%= link_to 'Back', service_packs_path %>

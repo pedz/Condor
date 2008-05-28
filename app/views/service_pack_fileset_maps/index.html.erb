@@ -1,0 +1,22 @@
+<h1>Listing service_pack_fileset_maps</h1>
+
+<table>
+  <tr>
+    <th>Service pack</th>
+    <th>Fileset</th>
+  </tr>
+
+<% for service_pack_fileset_map in @service_pack_fileset_maps %>
+  <tr>
+    <td><%=h service_pack_fileset_map.service_pack_id %></td>
+    <td><%=h service_pack_fileset_map.fileset_id %></td>
+    <td><%= link_to 'Show', service_pack_fileset_map %></td>
+    <td><%= link_to 'Edit', edit_service_pack_fileset_map_path(service_pack_fileset_map) %></td>
+    <td><%= link_to 'Destroy', service_pack_fileset_map, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New service_pack_fileset_map', new_service_pack_fileset_map_path %>

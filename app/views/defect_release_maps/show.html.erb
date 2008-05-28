@@ -1,0 +1,13 @@
+<p>
+  <b>Defect:</b>
+  <%=h @defect_release_map.defect_id %>
+</p>
+
+<p>
+  <b>Release:</b>
+  <%=h @defect_release_map.release_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_defect_release_map_path(@defect_release_map) %> |
+<%= link_to 'Back', defect_release_maps_path %>
