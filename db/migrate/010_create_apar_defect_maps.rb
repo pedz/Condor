@@ -6,6 +6,8 @@ class CreateAparDefectMaps < ActiveRecord::Migration
 
       t.timestamps
     end
+    execute "ALTER TABLE apar_defect_maps ADD CONSTRAINT
+             unique_apar_defect_map_apar_defect UNIQUE (apar_id, defect_id)"
   end
 
   def self.down

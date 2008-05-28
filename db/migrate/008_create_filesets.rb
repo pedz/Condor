@@ -3,9 +3,10 @@ class CreateFilesets < ActiveRecord::Migration
     create_table :filesets do |t|
       t.integer :lpp_id
       t.string :vrmf
-
       t.timestamps
     end
+    execute "ALTER TABLE filesets ADD CONSTRAINT unique_fileset_lpp_id_vrmf
+             UNIQUE (lpp_id, vrmf)"
   end
 
   def self.down
