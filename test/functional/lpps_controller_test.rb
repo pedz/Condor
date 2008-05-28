@@ -12,15 +12,15 @@ class LppsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_should_create_lpps
-    assert_difference('Lpps.count') do
-      post :create, :lpps => { }
+  def test_should_create_lpp
+    assert_difference('Lpp.count') do
+      post :create, :lpp => { }
     end
 
-    assert_redirected_to lpps_path(assigns(:lpps))
+    assert_redirected_to lpp_path(assigns(:lpp))
   end
 
-  def test_should_show_lpps
+  def test_should_show_lpp
     get :show, :id => lpps(:one).id
     assert_response :success
   end
@@ -30,13 +30,13 @@ class LppsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_should_update_lpps
-    put :update, :id => lpps(:one).id, :lpps => { }
-    assert_redirected_to lpps_path(assigns(:lpps))
+  def test_should_update_lpp
+    put :update, :id => lpps(:one).id, :lpp => { }
+    assert_redirected_to lpp_path(assigns(:lpp))
   end
 
-  def test_should_destroy_lpps
-    assert_difference('Lpps.count', -1) do
+  def test_should_destroy_lpp
+    assert_difference('Lpp.count', -1) do
       delete :destroy, :id => lpps(:one).id
     end
 

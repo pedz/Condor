@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :lpps
+
   map.resources :service_pack_fileset_maps
 
   map.resources :fileset_ptf_maps
@@ -16,8 +18,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :releases
 
   map.resources :families
-
-  map.resources :lpps
 
   map.resources :bases
 
