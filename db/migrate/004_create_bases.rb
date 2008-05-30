@@ -4,7 +4,9 @@ class CreateBases < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
-    execute "ALTER TABLE bases ADD CONSTRAINT unique_base_name UNIQUE (name)"
+    execute "ALTER TABLE bases
+             ADD CONSTRAINT unique_base_name
+             UNIQUE (name)" 
   end
 
   def self.down

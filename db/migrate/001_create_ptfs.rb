@@ -4,7 +4,9 @@ class CreatePtfs < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
-    execute "ALTER TABLE ptfs ADD CONSTRAINT unique_ptf_name UNIQUE (name)"
+    execute "ALTER TABLE ptfs
+             ADD CONSTRAINT unique_ptf_name
+             UNIQUE (name)"
   end
 
   def self.down

@@ -5,7 +5,9 @@ class CreateLpps < ActiveRecord::Migration
       t.integer :base_id
       t.timestamps
     end
-    execute "ALTER TABLE lpps ADD CONSTRAINT unique_lpp_name UNIQUE (name)"
+    execute "ALTER TABLE lpps
+             ADD CONSTRAINT unique_lpp_name
+             UNIQUE (name, base_id)" 
   end
 
   def self.down

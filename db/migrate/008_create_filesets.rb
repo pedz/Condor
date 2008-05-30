@@ -5,7 +5,8 @@ class CreateFilesets < ActiveRecord::Migration
       t.string :vrmf
       t.timestamps
     end
-    execute "ALTER TABLE filesets ADD CONSTRAINT unique_fileset_lpp_id_vrmf
+    execute "ALTER TABLE filesets
+             ADD CONSTRAINT unique_fileset_lpp_id_vrmf
              UNIQUE (lpp_id, vrmf)"
   end
 

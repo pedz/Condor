@@ -4,7 +4,9 @@ class CreateDefects < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
-    execute "ALTER TABLE defects ADD CONSTRAINT unique_defect_name UNIQUE (name)"
+    execute "ALTER TABLE defects
+             ADD CONSTRAINT unique_defect_name
+             UNIQUE (name)" 
   end
 
   def self.down
