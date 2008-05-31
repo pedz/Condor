@@ -10,6 +10,14 @@ class CreateAparPtfMaps < ActiveRecord::Migration
              UNIQUE (apar_id, ptf_id)"
     execute "CREATE INDEX apar_ptf_maps_ptf_idx
              ON apar_ptf_maps(ptf_id)"
+    execute "ALTER TABLE apar_ptf_maps
+             ADD CONSTRAINT fk_apar_ptf_maps_apar_id
+             FOREIGN KEY (apar_id) REFERENCES apars(id)
+             ON DELETE CASCADE"
+    execute "ALTER TABLE apar_ptf_maps
+             ADD CONSTRAINT fk_apar_ptf_maps_ptf_id
+             FOREIGN KEY (ptf_id) REFERENCES ptfs(id)
+             ON DELETE CASCADE"
   end
 
   def self.down

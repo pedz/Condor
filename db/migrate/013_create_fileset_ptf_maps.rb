@@ -10,6 +10,14 @@ class CreateFilesetPtfMaps < ActiveRecord::Migration
              UNIQUE (fileset_id, ptf_id)"
     execute "CREATE INDEX fileset_ptf_maps_ptf_idx
              ON fileset_ptf_maps(ptf_id);"
+    execute "ALTER TABLE fileset_ptf_maps
+             ADD CONSTRAINT fk_fileset_ptf_maps_fileset_id
+             FOREIGN KEY (fileset_id) REFERENCES filesets(id)
+             ON DELETE CASCADE"
+    execute "ALTER TABLE fileset_ptf_maps
+             ADD CONSTRAINT fk_fileset_ptf_maps_ptf_id
+             FOREIGN KEY (ptf_id) REFERENCES ptfs(id)
+             ON DELETE CASCADE"
   end
 
   def self.down

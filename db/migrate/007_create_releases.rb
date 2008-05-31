@@ -8,6 +8,10 @@ class CreateReleases < ActiveRecord::Migration
     execute "ALTER TABLE releases
              ADD CONSTRAINT unique_release_name
              UNIQUE (name, family_id)"
+    execute "ALTER TABLE releases
+             ADD CONSTRAINT fk_releases_family_id
+             FOREIGN KEY (family_id) REFERENCES families(id)
+             ON DELETE CASCADE"
   end
 
   def self.down
