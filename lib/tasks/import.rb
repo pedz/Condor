@@ -3,9 +3,10 @@
 File.open(ARGV[0]) do |file|
   Apar.transaction do 
     file.each_line do |line|
-      fields = line.split(/\|/)
-      
       puts file.lineno if (d, m = file.lineno.divmod(1000)) && m == 0
+
+      fields = line.split(/\|/)
+      next if fields.length != 9
       
       ptf = Ptf.find_or_create_by_name fields[0]
       apar = Apar.find_or_create_by_name fields[1]
