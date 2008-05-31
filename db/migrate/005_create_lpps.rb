@@ -2,7 +2,7 @@ class CreateLpps < ActiveRecord::Migration
   def self.up
     create_table :lpps do |t|
       t.string :name
-      t.integer :base_id
+      t.integer :base_id, :null => false
       t.timestamps
     end
     execute "ALTER TABLE lpps

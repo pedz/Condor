@@ -1,8 +1,8 @@
 class CreateFilesetPtfMaps < ActiveRecord::Migration
   def self.up
     create_table :fileset_ptf_maps do |t|
-      t.integer :fileset_id
-      t.integer :ptf_id
+      t.integer :fileset_id, :null => false
+      t.integer :ptf_id, :null => false
       t.timestamps
     end
     execute "ALTER TABLE fileset_ptf_maps

@@ -1,8 +1,8 @@
 class CreateAparPtfMaps < ActiveRecord::Migration
   def self.up
     create_table :apar_ptf_maps do |t|
-      t.integer :apar_id
-      t.integer :ptf_id
+      t.integer :apar_id, :null => false
+      t.integer :ptf_id, :null => false
       t.timestamps
     end
     execute "ALTER TABLE apar_ptf_maps

@@ -2,7 +2,7 @@ class CreateReleases < ActiveRecord::Migration
   def self.up
     create_table :releases do |t|
       t.string :name
-      t.integer :family_id
+      t.integer :family_id, :null => false
       t.timestamps
     end
     execute "ALTER TABLE releases

@@ -1,8 +1,8 @@
 class CreateAparDefectMaps < ActiveRecord::Migration
   def self.up
     create_table :apar_defect_maps do |t|
-      t.integer :apar_id
-      t.integer :defect_id
+      t.integer :apar_id, :null => false
+      t.integer :defect_id, :null => false
 
       t.timestamps
     end

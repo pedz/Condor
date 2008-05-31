@@ -12,8 +12,8 @@
 ActiveRecord::Schema.define(:version => 15) do
 
   create_table "apar_defect_maps", :force => true do |t|
-    t.integer  "apar_id"
-    t.integer  "defect_id"
+    t.integer  "apar_id",    :null => false
+    t.integer  "defect_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(:version => 15) do
   add_index "apar_defect_maps", ["apar_id", "defect_id"], :name => "unique_apar_defect_map_apar_defect", :unique => true
 
   create_table "apar_ptf_maps", :force => true do |t|
-    t.integer  "apar_id"
-    t.integer  "ptf_id"
+    t.integer  "apar_id",    :null => false
+    t.integer  "ptf_id",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(:version => 15) do
   add_index "bases", ["name"], :name => "unique_base_name", :unique => true
 
   create_table "defect_release_maps", :force => true do |t|
-    t.integer  "defect_id"
-    t.integer  "release_id"
+    t.integer  "defect_id",  :null => false
+    t.integer  "release_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(:version => 15) do
   add_index "families", ["name"], :name => "unique_familie_name", :unique => true
 
   create_table "fileset_ptf_maps", :force => true do |t|
-    t.integer  "fileset_id"
-    t.integer  "ptf_id"
+    t.integer  "fileset_id", :null => false
+    t.integer  "ptf_id",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(:version => 15) do
   add_index "fileset_ptf_maps", ["fileset_id", "ptf_id"], :name => "unique_fileset_ptf_map_fileset_ptf", :unique => true
 
   create_table "filesets", :force => true do |t|
-    t.integer  "lpp_id"
+    t.integer  "lpp_id",     :null => false
     t.string   "vrmf"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(:version => 15) do
 
   create_table "lpps", :force => true do |t|
     t.string   "name"
-    t.integer  "base_id"
+    t.integer  "base_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(:version => 15) do
 
   create_table "releases", :force => true do |t|
     t.string   "name"
-    t.integer  "family_id"
+    t.integer  "family_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -120,8 +120,8 @@ ActiveRecord::Schema.define(:version => 15) do
   add_index "releases", ["name", "family_id"], :name => "unique_release_name", :unique => true
 
   create_table "service_pack_fileset_maps", :force => true do |t|
-    t.integer  "service_pack_id"
-    t.integer  "fileset_id"
+    t.integer  "service_pack_id", :null => false
+    t.integer  "fileset_id",      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

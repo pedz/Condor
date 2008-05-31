@@ -1,8 +1,8 @@
 class CreateDefectReleaseMaps < ActiveRecord::Migration
   def self.up
     create_table :defect_release_maps do |t|
-      t.integer :defect_id
-      t.integer :release_id
+      t.integer :defect_id, :null => false
+      t.integer :release_id, :null => false
       t.timestamps
     end
     execute "ALTER TABLE defect_release_maps
