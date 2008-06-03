@@ -26,11 +26,11 @@ File.open(ARGV[0]) do |file|
       
       fileset = lpp.filesets.find_or_create_by_vrmf fields[8]
       
-      AparDefectMap.find_or_create_by_apar_id_and_defect_id(apar.id, defect.id)
       AparPtfMap.find_or_create_by_apar_id_and_ptf_id(apar.id, ptf.id)
       releases.each do |release|
-        DefectReleaseMap.find_or_create_by_defect_id_and_release_id(defect.id,
-                                                                    release.id)
+        AparDefectReleaseMap.find_or_create_by_apar_id_and_defect_id_and_release_id(apar.id,
+                                                                                    defect.id,
+                                                                                    release.id)
       end
       FilesetPtfMap.find_or_create_by_fileset_id_and_ptf_id(fileset.id, ptf.id)
     end

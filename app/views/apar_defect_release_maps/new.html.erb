@@ -1,0 +1,26 @@
+<h1>New apar_defect_release_map</h1>
+
+<%= error_messages_for :apar_defect_release_map %>
+
+<% form_for(@apar_defect_release_map) do |f| %>
+  <p>
+    <b>Apar</b><br />
+    <%= f.text_field :apar_id %>
+  </p>
+
+  <p>
+    <b>Defect</b><br />
+    <%= f.text_field :defect_id %>
+  </p>
+
+  <p>
+    <b>Release</b><br />
+    <%= f.text_field :release_id %>
+  </p>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', apar_defect_release_maps_path %>

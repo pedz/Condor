@@ -11,15 +11,16 @@
 
 ActiveRecord::Schema.define(:version => 15) do
 
-  create_table "apar_defect_maps", :force => true do |t|
+  create_table "apar_defect_release_maps", :force => true do |t|
     t.integer  "apar_id",    :null => false
     t.integer  "defect_id",  :null => false
+    t.integer  "release_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "apar_defect_maps", ["defect_id"], :name => "apar_defect_maps_defect_idx"
-  add_index "apar_defect_maps", ["apar_id", "defect_id"], :name => "unique_apar_defect_map_apar_defect", :unique => true
+  add_index "apar_defect_release_maps", ["defect_id"], :name => "apar_defect_release_maps_defect_idx"
+  add_index "apar_defect_release_maps", ["apar_id", "defect_id", "release_id"], :name => "unique_apar_defect_release_map_apar_defect_release", :unique => true
 
   create_table "apar_ptf_maps", :force => true do |t|
     t.integer  "apar_id",    :null => false
@@ -47,16 +48,6 @@ ActiveRecord::Schema.define(:version => 15) do
   end
 
   add_index "bases", ["name"], :name => "unique_base_name", :unique => true
-
-  create_table "defect_release_maps", :force => true do |t|
-    t.integer  "defect_id",  :null => false
-    t.integer  "release_id", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "defect_release_maps", ["release_id"], :name => "defect_release_maps_release_idx"
-  add_index "defect_release_maps", ["defect_id", "release_id"], :name => "unique_defect_release_map_defect_release", :unique => true
 
   create_table "defects", :force => true do |t|
     t.string   "name"

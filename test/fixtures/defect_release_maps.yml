@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  defect_id: 1
-  release_id: 1
-
-two:
-  defect_id: 1
-  release_id: 1

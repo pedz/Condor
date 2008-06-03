@@ -1,15 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :apar_defect_release_maps
+
   map.resources :lpps
 
   map.resources :service_pack_fileset_maps
 
   map.resources :fileset_ptf_maps
 
-  map.resources :defect_release_maps
-
   map.resources :apar_ptf_maps
-
-  map.resources :apar_defect_maps
 
   map.resources :service_packs
 
