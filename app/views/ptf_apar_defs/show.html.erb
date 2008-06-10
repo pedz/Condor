@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <td>PTF</td>
+      <td>APAR</td>
+      <td>Defect</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ptfapardefs.each do |ptfapardef| %>
+    <tr>
+      <td><%= h ptfapardef.ptf %></td>
+      <td><%= h ptfapardef.apar %></td>
+      <td><%= h ptfapardef.defect %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

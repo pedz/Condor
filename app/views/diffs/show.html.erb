@@ -1,0 +1,10 @@
+<div id="control-table">
+  <div id="control">
+    <button id="prev-diff">Prev</button>
+    Hunk <span id="hunk-index">0</span> of
+    <span id="hunk-count"><%= @mc.diff_count %></span>
+    <button id="next-diff">Next</button>
+  </div>
+</div>
+<%= put_file_div(@mc.old_seq, "top", @old_params) %>
+<%= put_file_div(@mc.new_seq, "bot", @new_params) %>

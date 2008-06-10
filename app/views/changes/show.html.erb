@@ -1,0 +1,34 @@
+<% @title = "Changes for defect #{params[:id]}" %>
+<h2><%= h @title %></h2>
+<%  change = @changes.shift %>
+<%  until change.nil? %>
+<%    defect = change.defect %>
+      <ul class="defect">
+	Defect <%= h defect %>: <%= change.abstract %>
+<%    until change.nil? || change.defect != defect %>
+<%      release = change.release %>
+        <ul class="release">
+	  Product <%= h release %> [<%= h change.level %>]
+<%      until change.nil? || change.release != release %>
+          <ul class="change">
+	    <%= link_to change.prev_sccsid,
+		    src_files_path(change.release,
+		                   change.path.split(/\//),
+		                   change.prev_sccsid) %>
+	    <%= link_to "->",
+		    diffs_path(change.release,
+		               change.path.split(/\//),
+		               change.sccsid) %>
+	    <%= link_to change.sccsid,
+		    src_files_path(change.release,
+		                   change.path.split(/\//),
+		                   change.sccsid) %>
+	    <%= h change.type %>
+	    <%= h change.path %>
+<%        change = @changes.shift %>
+          </ul>
+<%      end %>
+        </ul>
+<%    end %>
+      </ul>
+<%  end %>

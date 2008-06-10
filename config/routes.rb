@@ -1,29 +1,27 @@
 ActionController::Routing::Routes.draw do |map|
+  map.src_files('src_files/:release/*path/:version',
+                :controller => 'src_files',
+                :action => 'show',
+                :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/ )
+  map.diffs('diffs/:release/*path/:version',
+            :controller => 'diffs',
+            :action => 'show',
+            :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/ )
   map.resources :apar_defect_release_maps
-
-  map.resources :lpps
-
-  map.resources :service_pack_fileset_maps
-
-  map.resources :fileset_ptf_maps
-
   map.resources :apar_ptf_maps
-
-  map.resources :service_packs
-
-  map.resources :filesets
-
-  map.resources :releases
-
-  map.resources :families
-
-  map.resources :bases
-
-  map.resources :defects
-
   map.resources :apars
-
+  map.resources :bases
+  map.resources :changes
+  map.resources :defects
+  map.resources :families
+  map.resources :fileset_ptf_maps
+  map.resources :filesets
+  map.resources :lpps
+  map.resources :ptf_apar_defs
   map.resources :ptfs
+  map.resources :releases
+  map.resources :service_pack_fileset_maps
+  map.resources :service_packs
 
   # The priority is based upon order of creation: first created -> highest priority.
 
