@@ -17,4 +17,11 @@ class LdapUser < ActiveLdap::Base
       nil
     end
   end
+
+  private
+
+  def to_real_attribute_name(name, allow_normalized_name=nil)
+    allow_normalized_name = true if allow_normalized_name.nil?
+    super(name, allow_normalized_name)
+  end
 end
