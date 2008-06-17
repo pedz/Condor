@@ -16,44 +16,45 @@
 
 # Represents a simplistic (non-contextual) change. Represents the removal or
 # addition of an element from either the old or the new sequenced enumerable.
-class Diff::LCS::Change
+module Diff::LCS
+  class Change
     # Returns the action this Change represents. Can be '+' (#adding?), '-'
     # (#deleting?), '=' (#unchanged?), # or '!' (#changed?). When created by
     # Diff::LCS#diff or Diff::LCS#sdiff, it may also be '>' (#finished_a?) or
     # '<' (#finished_b?).
-  attr_reader :action
-  attr_reader :position
-  attr_reader :element
-
-  include Comparable
-  def ==(other)
-    (self.action == other.action) and
-    (self.position == other.position) and
-    (self.element == other.element)
-  end
-
-  def <=>(other)
-    r = self.action <=> other.action
-    r = self.position <=> other.position if r.zero?
-    r = self.element <=> other.element if r.zero?
-    r
-  end
-
-  def initialize(action, position, element)
-    @action = action
-    @position = position
-    @element = element
-  end
-
+    attr_reader :action
+    attr_reader :position
+    attr_reader :element
+    
+    include Comparable
+    def ==(other)
+      (self.action == other.action) and
+        (self.position == other.position) and
+        (self.element == other.element)
+    end
+    
+    def <=>(other)
+      r = self.action <=> other.action
+      r = self.position <=> other.position if r.zero?
+      r = self.element <=> other.element if r.zero?
+      r
+    end
+    
+    def initialize(action, position, element)
+      @action = action
+      @position = position
+      @element = element
+    end
+    
     # Creates a Change from an array produced by Change#to_a.
-  def to_a
-    [@action, @position, @element]
+    def to_a
+      [@action, @position, @element]
+    end
+    
+    def self.from_a(arr)
+      Diff::LCS::Change.new(arr[0], arr[1], arr[2])
+    end
+    
+    include Diff::LCS::ChangeTypeTests
   end
-
-  def self.from_a(arr)
-    Diff::LCS::Change.new(arr[0], arr[1], arr[2])
-  end
-
-  include Diff::LCS::ChangeTypeTests
 end
-
