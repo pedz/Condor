@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 15) do
+ActiveRecord::Schema.define(:version => 20080620001210) do
+
+  create_table "aix_files", :force => true do |t|
+    t.string   "path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "aix_files", ["path"], :name => "unique_aix_files_path", :unique => true
 
   create_table "apar_defect_release_maps", :force => true do |t|
     t.integer  "apar_id",    :null => false
@@ -65,6 +73,15 @@ ActiveRecord::Schema.define(:version => 15) do
 
   add_index "families", ["name"], :name => "unique_familie_name", :unique => true
 
+  create_table "fileset_aix_file_maps", :force => true do |t|
+    t.integer  "fileset_id"
+    t.integer  "aix_file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fileset_aix_file_maps", ["aix_file_id", "fileset_id"], :name => "unique_fileset_aix_file_map_fileset_aix_file", :unique => true
+
   create_table "fileset_ptf_maps", :force => true do |t|
     t.integer  "fileset_id", :null => false
     t.integer  "ptf_id",     :null => false
@@ -84,6 +101,32 @@ ActiveRecord::Schema.define(:version => 15) do
 
   add_index "filesets", ["lpp_id", "vrmf"], :name => "unique_fileset_lpp_id_vrmf", :unique => true
 
+  create_table "image_path_fileset_maps", :force => true do |t|
+    t.integer  "image_path_id"
+    t.integer  "fileset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "image_path_fileset_maps", ["fileset_id", "image_path_id"], :name => "unique_image_path_fileset_map_image_path_fileset", :unique => true
+
+  create_table "image_path_package_maps", :force => true do |t|
+    t.integer  "image_path_id"
+    t.integer  "package_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "image_path_package_maps", ["image_path_id", "package_id"], :name => "unique_image_path_package_maps_image_path_package", :unique => true
+
+  create_table "image_paths", :force => true do |t|
+    t.string   "path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "image_paths", ["path"], :name => "unique_image_path_path", :unique => true
+
   create_table "lpps", :force => true do |t|
     t.string   "name"
     t.integer  "base_id",    :null => false
@@ -91,7 +134,24 @@ ActiveRecord::Schema.define(:version => 15) do
     t.datetime "updated_at"
   end
 
-  add_index "lpps", ["name", "base_id"], :name => "unique_lpp_name", :unique => true
+  add_index "lpps", ["base_id", "name"], :name => "unique_lpp_name", :unique => true
+
+  create_table "package_fileset_maps", :force => true do |t|
+    t.integer  "package_id"
+    t.integer  "fileset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "package_fileset_maps", ["fileset_id", "package_id"], :name => "unique_package_fileset_map_package_fileset", :unique => true
+
+  create_table "packages", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "packages", ["name"], :name => "unique_package_name", :unique => true
 
   create_table "ptfs", :force => true do |t|
     t.string   "name"
@@ -108,7 +168,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.datetime "updated_at"
   end
 
-  add_index "releases", ["name", "family_id"], :name => "unique_release_name", :unique => true
+  add_index "releases", ["family_id", "name"], :name => "unique_release_name", :unique => true
 
   create_table "service_pack_fileset_maps", :force => true do |t|
     t.integer  "service_pack_id", :null => false
@@ -118,7 +178,7 @@ ActiveRecord::Schema.define(:version => 15) do
   end
 
   add_index "service_pack_fileset_maps", ["fileset_id"], :name => "service_pack_fileset_maps_fileset_idx"
-  add_index "service_pack_fileset_maps", ["service_pack_id", "fileset_id"], :name => "unique_service_pack_fileset_map_service_pack_fileset", :unique => true
+  add_index "service_pack_fileset_maps", ["fileset_id", "service_pack_id"], :name => "unique_service_pack_fileset_map_service_pack_fileset", :unique => true
 
   create_table "service_packs", :force => true do |t|
     t.string   "name"

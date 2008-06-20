@@ -1,0 +1,13 @@
+<p>
+  <b>Image path:</b>
+  <%=h @image_path_package_map.image_path_id %>
+</p>
+
+<p>
+  <b>Package:</b>
+  <%=h @image_path_package_map.package_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_image_path_package_map_path(@image_path_package_map) %> |
+<%= link_to 'Back', image_path_package_maps_path %>

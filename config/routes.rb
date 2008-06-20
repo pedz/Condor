@@ -1,4 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :image_path_fileset_maps
+
+  map.resources :fileset_aix_file_maps
+
+  map.resources :package_fileset_maps
+
+  map.resources :image_path_package_maps
+
+  map.resources :aix_files
+
+  map.resources :packages
+
+  map.resources :image_paths
+
   map.src_files('src_files/:release/*path/:version',
                 :controller => 'src_files',
                 :action => 'show',

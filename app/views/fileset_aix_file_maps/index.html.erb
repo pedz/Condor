@@ -1,0 +1,22 @@
+<h1>Listing fileset_aix_file_maps</h1>
+
+<table>
+  <tr>
+    <th>Fileset</th>
+    <th>Aix file</th>
+  </tr>
+
+<% for fileset_aix_file_map in @fileset_aix_file_maps %>
+  <tr>
+    <td><%=h fileset_aix_file_map.fileset_id %></td>
+    <td><%=h fileset_aix_file_map.aix_file_id %></td>
+    <td><%= link_to 'Show', fileset_aix_file_map %></td>
+    <td><%= link_to 'Edit', edit_fileset_aix_file_map_path(fileset_aix_file_map) %></td>
+    <td><%= link_to 'Destroy', fileset_aix_file_map, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New fileset_aix_file_map', new_fileset_aix_file_map_path %>
