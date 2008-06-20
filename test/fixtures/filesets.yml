@@ -2,8 +2,8 @@
 
 one:
   lpp_id: 1
-  vrmf: MyString
+  vrmf: 1.2.3.4
 
 two:
-  lpp_id: 1
-  vrmf: MyString
+  lpp_id: 2
+  vrmf: 5.6.7.8

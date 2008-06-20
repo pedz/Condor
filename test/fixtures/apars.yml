@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
-  abstract: MyString
+  name: IX12345
+  abstract: APAR IX12345 Abstract
 
 two:
-  name: MyString
-  abstract: MyString
+  name: IZ98765
+  abstract: Abstract for IZ98765

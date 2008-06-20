@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  apar_id: 1
-  defect_id: 1
-  release_id: 1
-
-two:
-  apar_id: 1
-  defect_id: 1
-  release_id: 1
+# one:
+#   apar_id: 1
+#   defect_id: 1
+#   release_id: 1
+# 
+# two:
+#   apar_id: 1
+#   defect_id: 1
+#   release_id: 1

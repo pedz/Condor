@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  fileset_id: 1
-  aix_file_id: 1
-
-two:
-  fileset_id: 1
-  aix_file_id: 1
+# one:
+#   fileset_id: 1
+#   aix_file_id: 1
+# 
+# two:
+#   fileset_id: 1
+#   aix_file_id: 1

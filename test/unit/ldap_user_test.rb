@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class LdapUserTest < Test::Unit::TestCase
-  fixtures :ldap_users
+  # fixtures :ldap_users
 
   # Replace this with your real tests.
   def test_truth

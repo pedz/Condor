@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
+  name: devices.pci.hopscotch
   base_id: 1
 
 two:
-  name: MyString
-  base_id: 1
+  name: bos.tty.rte
+  base_id: 2
