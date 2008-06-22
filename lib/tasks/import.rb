@@ -21,7 +21,7 @@ File.open(ARGV[0]) do |file|
       
       if apar.abstract.nil?
         apar.abstract = fields[7]
-        apar.save
+        apar.save!
       end
       
       fileset = lpp.filesets.find_or_create_by_vrmf fields[8]
