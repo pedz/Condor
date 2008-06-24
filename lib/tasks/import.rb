@@ -5,6 +5,7 @@ File.open(ARGV[0]) do |file|
     file.each_line do |line|
       puts file.lineno if (d, m = file.lineno.divmod(1000)) && m == 0
 
+      line.chomp!
       fields = line.split(/\|/)
       next if fields.length != 9
       
