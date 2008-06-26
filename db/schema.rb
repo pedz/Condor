@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080620001210) do
+ActiveRecord::Schema.define(:version => 20080626210411) do
 
   create_table "aix_files", :force => true do |t|
     t.string   "path"
@@ -48,14 +48,6 @@ ActiveRecord::Schema.define(:version => 20080620001210) do
   end
 
   add_index "apars", ["name"], :name => "unique_apar_name", :unique => true
-
-  create_table "bases", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "bases", ["name"], :name => "unique_base_name", :unique => true
 
   create_table "defects", :force => true do |t|
     t.string   "name"
@@ -127,14 +119,22 @@ ActiveRecord::Schema.define(:version => 20080620001210) do
 
   add_index "image_paths", ["path"], :name => "unique_image_path_path", :unique => true
 
-  create_table "lpps", :force => true do |t|
+  create_table "lpp_bases", :force => true do |t|
     t.string   "name"
-    t.integer  "base_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "lpps", ["base_id", "name"], :name => "unique_lpp_name", :unique => true
+  add_index "lpp_bases", ["name"], :name => "unique_lpp_base_name", :unique => true
+
+  create_table "lpps", :force => true do |t|
+    t.string   "name"
+    t.integer  "lpp_base_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "lpps", ["lpp_base_id", "name"], :name => "unique_lpp_name", :unique => true
 
   create_table "package_fileset_maps", :force => true do |t|
     t.integer  "package_id"
