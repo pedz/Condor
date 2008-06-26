@@ -1,4 +1,4 @@
 class Lpp < ActiveRecord::Base
-  belongs_to :base
+  belongs_to :lpp_base
   has_many :filesets
 end

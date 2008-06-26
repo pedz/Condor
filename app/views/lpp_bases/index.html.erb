@@ -1,0 +1,20 @@
+<h1>Listing lpp_bases</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<% for lpp_base in @lpp_bases %>
+  <tr>
+    <td><%=h lpp_base.name %></td>
+    <td><%= link_to 'Show', lpp_base %></td>
+    <td><%= link_to 'Edit', edit_lpp_base_path(lpp_base) %></td>
+    <td><%= link_to 'Destroy', lpp_base, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New lpp_base', new_lpp_base_path %>

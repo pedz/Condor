@@ -24,12 +24,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :apar_defect_release_maps
   map.resources :apar_ptf_maps
   map.resources :apars
-  map.resources :bases
   map.resources :changes
   map.resources :defects
   map.resources :families
   map.resources :fileset_ptf_maps
   map.resources :filesets
+  map.resources :lpp_bases
   map.resources :lpps
   map.resources :ptf_apar_defs
   map.resources :ptfs

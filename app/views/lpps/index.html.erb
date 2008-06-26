@@ -3,13 +3,13 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Base</th>
+    <th>LppBase</th>
   </tr>
 
 <% for lpp in @lpps %>
   <tr>
     <td><%=h lpp.name %></td>
-    <td><%=h lpp.base_id %></td>
+    <td><%=h lpp.lpp_base_id %></td>
     <td><%= link_to 'Show', lpp %></td>
     <td><%= link_to 'Edit', edit_lpp_path(lpp) %></td>
     <td><%= link_to 'Destroy', lpp, :confirm => 'Are you sure?', :method => :delete %></td>

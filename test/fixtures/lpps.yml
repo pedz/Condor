@@ -2,8 +2,8 @@
 
 one:
   name: devices.pci.hopscotch
-  base_id: 1
+  lpp_base_id: 1
 
 two:
   name: bos.tty.rte
-  base_id: 2
+  lpp_base_id: 2

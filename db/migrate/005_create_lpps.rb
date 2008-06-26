@@ -2,15 +2,15 @@ class CreateLpps < ActiveRecord::Migration
   def self.up
     create_table :lpps do |t|
       t.string :name
-      t.integer :base_id, :null => false
+      t.integer :lpp_base_id, :null => false
       t.timestamps
     end
     execute "ALTER TABLE lpps
              ADD CONSTRAINT unique_lpp_name
-             UNIQUE (name, base_id)" 
+             UNIQUE (name, lpp_base_id)" 
     execute "ALTER TABLE lpps
-             ADD CONSTRAINT fk_lpps_base_id
-             FOREIGN KEY (base_id) REFERENCES bases(id)
+             ADD CONSTRAINT fk_lpps_lpp_base_id
+             FOREIGN KEY (lpp_base_id) REFERENCES lpp_bases(id)
              ON DELETE CASCADE"
   end
 

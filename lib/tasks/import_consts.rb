@@ -12,8 +12,8 @@ File.open(ARGV[0]) do |file|
       ptf = Ptf.find_or_create_by_name fields[0]
       apar = Apar.find_or_create_by_name fields[1]
       defect = Defect.find_or_create_by_name fields[2]
-      base = Base.find_or_create_by_name fields[3]
-      lpp = base.lpps.find_or_create_by_name fields[4]
+      lpp_base = LppBase.find_or_create_by_name fields[3]
+      lpp = lpp_base.lpps.find_or_create_by_name fields[4]
       
       family = Family.find_or_create_by_name fields[6]
       releases = fields[5].split(/ /).map do |release|
@@ -37,3 +37,4 @@ File.open(ARGV[0]) do |file|
     end
   end
 end
+./config/ldap.yml

@@ -1,2 +1,2 @@
-module BasesHelper
+module LppBasesHelper
 end

@@ -16,7 +16,7 @@ begin
   fileset = nil
   aix_file = nil
   package = nil
-  base = nil
+  lpp_base = nil
   lpp = nil
   
   $stdin.each_line do |line|
@@ -97,11 +97,11 @@ begin
         package = Package.find_or_create_by_name fields[1]
       end
       
-      base_name = fields[2].sub(/\..*/, '')
-      unless base && base.name == base_name
-        if base
-          base.save!
-          bse = nil
+      lpp_base_name = fields[2].sub(/\..*/, '')
+      unless lpp_base && lpp_base.name == lpp_base_name
+        if lpp_base
+          lpp_base.save!
+          lpp_base = nil
         end
         if lpp
           lpp.save!
@@ -111,7 +111,7 @@ begin
           fileset.save!
           fileset = nil
         end
-        base = Base.find_or_create_by_name fields[2].sub(/\..*/, '')
+        lpp_base = LppBase.find_or_create_by_name fields[2].sub(/\..*/, '')
       end
       
       unless lpp && lpp.name == fields[2]
@@ -123,7 +123,7 @@ begin
           fileset.save!
           fileset = nil
         end
-        lpp = base.lpps.find_or_create_by_name fields[2]
+        lpp = lpp_base.lpps.find_or_create_by_name fields[2]
       end
       
       unless fileset && fileset.vrmf == fields[3]
@@ -180,8 +180,8 @@ begin
     package.save!
   end
   
-  if base
-    base.save!
+  if lpp_base
+    lpp_base.save!
   end
   
   if lpp
