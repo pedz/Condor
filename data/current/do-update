@@ -1,0 +1,26 @@
+#!/bin/ksh -x
+
+touch now
+all=$( find . -type l -print )
+if [[ -r last-update ]] ; then
+  newer=$( find -L $all -newer last-update -print )
+else
+  newer="${all}"
+fi
+for i in $newer ; do
+  rm -rf here
+  sort $i -o here
+  if [[ -r ../completed/$i ]] ; then
+    comm -13 ../completed/$i here > new-lines
+  else
+    cp here new-lines
+  fi
+  if ( cd ../.. ; lib/tasks/import_consts.rb data/current/new-lines ) ; then
+    mkdir -p $( dirname ../completed/$i )
+    mv here ../completed/$i
+  else
+    exit 1
+  fi
+  rm -f new-lines
+done
+mv now last-update

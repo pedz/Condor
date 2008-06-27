@@ -37,4 +37,3 @@ File.open(ARGV[0]) do |file|
     end
   end
 end
-./config/ldap.yml
