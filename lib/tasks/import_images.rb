@@ -20,7 +20,7 @@ begin
   lpp = nil
   
   $stdin.each_line do |line|
-    # puts $stdin.lineno if (d, m = $stdin.lineno.divmod(1000)) && m == 0
+    puts $stdin.lineno if (d, m = $stdin.lineno.divmod(1000)) && m == 0
     line.chomp!
     fields = line.split           # split on spaces
     case fields.length
