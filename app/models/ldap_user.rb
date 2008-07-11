@@ -6,7 +6,7 @@ class LdapUser < ActiveLdap::Base
   belongs_to :mgr, :class => 'LdapUser', :foreign_key => 'manager', :primary_key => 'dn'
   belongs_to :deptmnt, :class => 'LdapDept', :foreign_key => 'department', :primary_key => 'dn'
   has_many   :manages, :class => 'LdapUser', :foreign_key => 'dn', :primary_key => 'manager'
- 
+
   def self.authenticate_from_email(email, password)
     return nil unless (u = find(:attribute => 'mail', :value => email))
     begin
