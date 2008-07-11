@@ -1,36 +1,48 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :image_path_fileset_maps
+  # Path for swinfos
+  map.swinfos('swinfos/:item',
+              :controller => 'swinfos',
+              :action => 'show')
+  
+  # Path for which_filesets
+  map.which_filesets('which_filesets/*path',
+                    :controller => 'which_filesets',
+                    :action => 'show')
 
-  map.resources :fileset_aix_file_maps
+  # Special path for CMVC changes
+  map.changes('changes/:id',
+              :controller => 'changes',
+              :action => 'show')
 
-  map.resources :package_fileset_maps
-
-  map.resources :image_path_package_maps
-
-  map.resources :aix_files
-
-  map.resources :packages
-
-  map.resources :image_paths
-
+  # Special path for CMVC source files
   map.src_files('src_files/:release/*path/:version',
                 :controller => 'src_files',
                 :action => 'show',
                 :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/ )
+
+  # Special path for diffs
   map.diffs('diffs/:release/*path/:version',
             :controller => 'diffs',
             :action => 'show',
             :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/ )
+
+  # Normal resource paths created by rake for basic database forms.
+  map.resources :aix_files
   map.resources :apar_defect_release_maps
   map.resources :apar_ptf_maps
   map.resources :apars
-  map.resources :changes
   map.resources :defects
   map.resources :families
+  map.resources :fileset_aix_file_maps
   map.resources :fileset_ptf_maps
   map.resources :filesets
+  map.resources :image_path_fileset_maps
+  map.resources :image_path_package_maps
+  map.resources :image_paths
   map.resources :lpp_bases
   map.resources :lpps
+  map.resources :package_fileset_maps
+  map.resources :packages
   map.resources :ptf_apar_defs
   map.resources :ptfs
   map.resources :releases

@@ -18,9 +18,11 @@ begin
   package = nil
   lpp_base = nil
   lpp = nil
+  last_bad_image_path = nil
+  last_bad_fileset = nil
   
   $stdin.each_line do |line|
-    puts $stdin.lineno if (d, m = $stdin.lineno.divmod(1000)) && m == 0
+    puts $stdin.lineno
     line.chomp!
     fields = line.split           # split on spaces
     case fields.length
@@ -39,7 +41,16 @@ begin
           fileset.save!
           fileset = nil
         end
-        image_path = ImagePath.find_by_path fields[0] # should already exist
+        begin
+          next if last_bad_image_path == fields[0]
+          last_bad_image_path = nil
+          last_bad_fileset = nil
+          image_path = ImagePath.find_by_path fields[0] # should already exist
+        rescue
+          last_bad_image_path = fields[0]
+          puts "Image path #{fields[0]} requested at line #{$stdin.lineno} not found."
+          next
+        end
       end
       
       # We actually have the lpp name.  So...
@@ -50,14 +61,22 @@ begin
         
         # Scan filesets connected with this image_path to find the one
         # whose lpp name matches the fileset name.
+        next if last_bad_fileset == fields[1]
+        last_bad_fileset = nil
         filesets = image_path.filesets.find_all { |fileset|
           fileset.lpp.name == fields[1]
         }
+
         if filesets.length > 1
-          raise "More than one filesets #{filesets.inspect} found for #{image_path.path}"
+          puts "More than one filesets #{filesets.inspect} found for #{image_path.path}"
+          last_bad_fileset = fields[1]
+          next
         end
+
         if filesets.empty?
-          raise "Fileset #{fields[1]} not found for #{image_path.path}"
+          puts "Fileset #{fields[1]} not found for #{image_path.path} requested at line #{$stdin.lineno}"
+          last_bad_fileset = fields[1]
+          next
         end
         
         fileset = filesets[0]

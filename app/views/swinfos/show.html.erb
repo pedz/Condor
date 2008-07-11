@@ -1,0 +1,30 @@
+<table>
+  <thead>
+    <tr>
+      <th>Defect</th>
+      <th>APAR</th>
+      <th>PTF</th>
+      <th>Abstract</th>
+      <th>LPP</th>
+      <th>VRMF</th>
+      <th>Release</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @items.each do |item| -%>
+    <tr>
+      <td><%= link_to item.defect, changes_path(item.defect) %></td>
+      <td><%= h item.apar %></td>
+      <td><%= h item.ptf %></td>
+      <td><%= h item.abstract %></td>
+      <td><%= h item.lpp %></td>
+      <td><%= h item.vrmf %></td>
+      <td><%= h item.release %></td>
+    </tr>
+    <%- end -%>
+  </tbody>
+</table>
+<ul>
+  <li>Click on defect to see changes made in the defect</li>
+  <li>More instructions</li>
+</ul>
