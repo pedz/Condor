@@ -1,10 +1,10 @@
 class Fileset < ActiveRecord::Base
   belongs_to :lpp
-  has_many :fileset_ptf_maps
-  has_many :service_pack_fileset_map
-  has_many :package_fileset_maps
-  has_many :fileset_aix_file_maps
-  has_many :image_path_fileset_maps
+  has_many   :fileset_ptf_maps
+  has_many   :service_pack_fileset_map
+  has_many   :package_fileset_maps
+  has_many   :fileset_aix_file_maps
+  has_many   :image_path_fileset_maps
 
   # Secondary Relationships
   has_many :ptfs,          :through => :fileset_ptf_maps

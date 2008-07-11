@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080626210411) do
+ActiveRecord::Schema.define(:version => 20080711133205) do
 
   create_table "aix_files", :force => true do |t|
     t.string   "path"
@@ -19,26 +19,19 @@ ActiveRecord::Schema.define(:version => 20080626210411) do
 
   add_index "aix_files", ["path"], :name => "unique_aix_files_path", :unique => true
 
-  create_table "apar_defect_release_maps", :force => true do |t|
-    t.integer  "apar_id",    :null => false
-    t.integer  "defect_id",  :null => false
-    t.integer  "release_id", :null => false
+  create_table "apar_defect_ptf_release_maps", :force => true do |t|
+    t.integer  "apar_id"
+    t.integer  "defect_id"
+    t.integer  "ptf_id"
+    t.integer  "release_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "apar_defect_release_maps", ["defect_id"], :name => "apar_defect_release_maps_defect_idx"
-  add_index "apar_defect_release_maps", ["apar_id", "defect_id", "release_id"], :name => "unique_apar_defect_release_map_apar_defect_release", :unique => true
-
-  create_table "apar_ptf_maps", :force => true do |t|
-    t.integer  "apar_id",    :null => false
-    t.integer  "ptf_id",     :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "apar_ptf_maps", ["ptf_id"], :name => "apar_ptf_maps_ptf_idx"
-  add_index "apar_ptf_maps", ["apar_id", "ptf_id"], :name => "unique_apar_ptf_map_apar_ptf", :unique => true
+  add_index "apar_defect_ptf_release_maps", ["defect_id"], :name => "apar_defect_ptf_release_maps_defect_idx"
+  add_index "apar_defect_ptf_release_maps", ["ptf_id"], :name => "apar_defect_ptf_release_maps_ptf_idx"
+  add_index "apar_defect_ptf_release_maps", ["release_id"], :name => "apar_defect_ptf_release_maps_release_idx"
+  add_index "apar_defect_ptf_release_maps", ["apar_id", "defect_id", "release_id"], :name => "unique_apar_defect_ptf_release_map_apar_defect_ptf_release", :unique => true
 
   create_table "apars", :force => true do |t|
     t.string   "name"
