@@ -1,4 +1,4 @@
-class AparDefectPtfReleaseMaps < ActiveRecord::Base
+class AparDefectPtfReleaseMap < ActiveRecord::Base
   belongs_to :apar
   belongs_to :defect
   belongs_to :ptf
