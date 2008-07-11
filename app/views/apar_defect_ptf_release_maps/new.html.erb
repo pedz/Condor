@@ -1,0 +1,27 @@
+<h1>New apar_defect_ptf_release_maps</h1>
+
+<% form_for(@apar_defect_ptf_release_maps) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :apar_id %><br />
+    <%= f.text_field :apar_id %>
+  </p>
+  <p>
+    <%= f.label :defect_id %><br />
+    <%= f.text_field :defect_id %>
+  </p>
+  <p>
+    <%= f.label :ptf_id %><br />
+    <%= f.text_field :ptf_id %>
+  </p>
+  <p>
+    <%= f.label :release_id %><br />
+    <%= f.text_field :release_id %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', apar_defect_ptf_release_maps_path %>

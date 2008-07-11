@@ -27,9 +27,8 @@ ActionController::Routing::Routes.draw do |map|
             :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/ )
 
   # Normal resource paths created by rake for basic database forms.
-  map.resources :aix_files
-  map.resources :apar_defect_release_maps
-  map.resources :apar_ptf_maps
+  map.resources :aix_files  
+  map.resources :apar_defect_ptf_release_maps
   map.resources :apars
   map.resources :defects
   map.resources :families

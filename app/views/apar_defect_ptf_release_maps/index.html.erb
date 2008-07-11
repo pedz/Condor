@@ -1,0 +1,26 @@
+<h1>Listing apar_defect_ptf_release_maps</h1>
+
+<table>
+  <tr>
+    <th>Apar</th>
+    <th>Defect</th>
+    <th>Ptf</th>
+    <th>Release</th>
+  </tr>
+
+<% for apar_defect_ptf_release_maps in @apar_defect_ptf_release_maps %>
+  <tr>
+    <td><%=h apar_defect_ptf_release_maps.apar_id %></td>
+    <td><%=h apar_defect_ptf_release_maps.defect_id %></td>
+    <td><%=h apar_defect_ptf_release_maps.ptf_id %></td>
+    <td><%=h apar_defect_ptf_release_maps.release_id %></td>
+    <td><%= link_to 'Show', apar_defect_ptf_release_maps %></td>
+    <td><%= link_to 'Edit', edit_apar_defect_ptf_release_maps_path(apar_defect_ptf_release_maps) %></td>
+    <td><%= link_to 'Destroy', apar_defect_ptf_release_maps, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New apar_defect_ptf_release_maps', new_apar_defect_ptf_release_maps_path %>
