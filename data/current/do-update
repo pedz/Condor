@@ -1,5 +1,6 @@
 #!/bin/ksh -x
 
+cd $( dirname $0 )
 touch now
 all=$( find . -type l -print )
 if [[ -r last-update ]] ; then

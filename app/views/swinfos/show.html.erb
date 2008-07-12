@@ -13,18 +13,21 @@
   <tbody>
     <%- @items.each do |item| -%>
     <tr>
-      <td><%= link_to item.defect, changes_path(item.defect) %></td>
-      <td><%= h item.apar %></td>
-      <td><%= h item.ptf %></td>
+      <td><%= link_to item.defect, defect_path(item.defect) %></td>
+      <td><%= link_to item.apar, swinfos_path(item.apar) %></td>
+      <td><%= link_to item.ptf, swinfos_path(item.ptf) %></td>
       <td><%= h item.abstract %></td>
-      <td><%= h item.lpp %></td>
-      <td><%= h item.vrmf %></td>
+      <td><%= link_to item.lpp, swinfos_path(item.lpp) %></td>
+      <td><%= link_to item.vrmf, swinfos_path("#{item.lpp} #{item.vrmf}") %></td>
       <td><%= h item.release %></td>
     </tr>
     <%- end -%>
   </tbody>
 </table>
 <ul>
-  <li>Click on defect to see changes made in the defect</li>
-  <li>More instructions</li>
+  <li>Click on defect to see the defect</li>
+  <li>Click on apar to see swinfo for the apar</li>
+  <li>Click on ptf to see swinfo for the ptf</li>
+  <li>Click on lpp to see swinfo for the lpp</li>
+  <li>Click on vrmf to see swinfo for the lpp vrmf pair</li>
 </ul>

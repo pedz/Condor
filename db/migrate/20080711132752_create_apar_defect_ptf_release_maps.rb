@@ -9,7 +9,7 @@ class CreateAparDefectPtfReleaseMaps < ActiveRecord::Migration
     end
     execute "ALTER TABLE apar_defect_ptf_release_maps
              ADD CONSTRAINT unique_apar_defect_ptf_release_map_apar_defect_ptf_release
-             UNIQUE (apar_id, defect_id, release_id)"
+             UNIQUE (apar_id, defect_id, ptf_id, release_id)"
     execute "CREATE INDEX apar_defect_ptf_release_maps_defect_idx
              ON apar_defect_ptf_release_maps(defect_id)"
     execute "CREATE INDEX apar_defect_ptf_release_maps_ptf_idx

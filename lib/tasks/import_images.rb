@@ -22,7 +22,7 @@ begin
   last_bad_fileset = nil
   
   $stdin.each_line do |line|
-    puts $stdin.lineno
+    # puts $stdin.lineno
     line.chomp!
     fields = line.split           # split on spaces
     case fields.length

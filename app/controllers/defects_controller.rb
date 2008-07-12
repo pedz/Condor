@@ -13,7 +13,9 @@ class DefectsController < ApplicationController
   # GET /defects/1
   # GET /defects/1.xml
   def show
-    @defect = Defect.find(params[:id])
+    defect_name = params[:id]
+    @defect = Defect.find_by_name(defect_name)
+    @items = Ptfapardef.find_all_by_defect(defect_name)
 
     respond_to do |format|
       format.html # show.html.erb

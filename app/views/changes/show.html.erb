@@ -4,7 +4,7 @@
 <%  until change.nil? %>
 <%    defect = change.defect %>
       <ul class="defect">
-	Defect <%= h defect %>: <%= change.abstract %>
+	Defect <%= link_to defect, defect_path(defect) %>: <%= change.abstract %>
 <%    until change.nil? || change.defect != defect %>
 <%      release = change.release %>
         <ul class="release">
@@ -32,3 +32,9 @@
 <%    end %>
       </ul>
 <%  end %>
+Instructions:
+<ul>
+  <li>Click on SCCS ID strings to view that version of the file</li>
+  <li>Click on the -> between SCCS ID strings to view a diff
+    between the two versions</li>
+</ul>

@@ -2,7 +2,8 @@ ActionController::Routing::Routes.draw do |map|
   # Path for swinfos
   map.swinfos('swinfos/:item',
               :controller => 'swinfos',
-              :action => 'show')
+              :action => 'show',
+              :item => /.*/)
   
   # Path for which_filesets
   map.which_filesets('which_filesets/*path',

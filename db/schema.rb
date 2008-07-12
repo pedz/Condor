@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20080711133205) do
   add_index "apar_defect_ptf_release_maps", ["defect_id"], :name => "apar_defect_ptf_release_maps_defect_idx"
   add_index "apar_defect_ptf_release_maps", ["ptf_id"], :name => "apar_defect_ptf_release_maps_ptf_idx"
   add_index "apar_defect_ptf_release_maps", ["release_id"], :name => "apar_defect_ptf_release_maps_release_idx"
-  add_index "apar_defect_ptf_release_maps", ["apar_id", "defect_id", "release_id"], :name => "unique_apar_defect_ptf_release_map_apar_defect_ptf_release", :unique => true
+  add_index "apar_defect_ptf_release_maps", ["apar_id", "defect_id", "ptf_id", "release_id"], :name => "unique_apar_defect_ptf_release_map_apar_defect_ptf_release", :unique => true
 
   create_table "apars", :force => true do |t|
     t.string   "name"
