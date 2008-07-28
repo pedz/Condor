@@ -12,4 +12,12 @@ class Fileset < ActiveRecord::Base
   has_many :packages,      :through => :package_fileset_maps
   has_many :aix_files,     :through => :fileset_aix_file_maps
   has_many :image_paths,   :through => :image_path_fileset_maps
+
+  def <=>(other)
+    if (temp = this.lpp <=> other.lpp) == 0
+      this.vrmf <=> other.vrmf
+    else
+      temp
+    end
+  end
 end

@@ -20,4 +20,8 @@ class Defect < ActiveRecord::Base
     end
     lines
   end
+
+  def <=>(other)
+    this.name <=> other.name
+  end
 end

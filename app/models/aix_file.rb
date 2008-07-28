@@ -3,4 +3,8 @@ class AixFile < ActiveRecord::Base
 
   # Secondary Relationships
   has_many :filesets, :through => :fileset_aix_file_maps
+
+  def <=>(other)
+    path <=> other.path
+  end
 end

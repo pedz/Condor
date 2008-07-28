@@ -7,4 +7,8 @@ class Ptf < ActiveRecord::Base
   has_many :ptfs,     :through => :apar_defect_ptf_release_maps
   has_many :releases, :through => :apar_defect_ptf_release_maps
   has_many :filesets, :through => :fileset_ptf_maps
+
+  def <=>(other)
+    this.name <=> other.name
+  end
 end

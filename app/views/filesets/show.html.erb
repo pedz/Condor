@@ -1,13 +1,15 @@
 <p>
-  <b>Lpp:</b>
-  <%=h @fileset.lpp_id %>
+  Fileset <%= link_to "#{@fileset.lpp.name} #{@fileset.vrmf}", swinfos_path("#{@fileset.lpp.name} #{@fileset.vrmf}") %><br>
+  Shipped in these images:
+  <ul>
+    <%- @fileset.image_paths.sort.each do |image_path| -%>
+    <li><%= h image_path.path %></li>
+    <%- end -%>
+  </ul>
+  Shipped these files:
+  <ul>
+    <%- @fileset.aix_files.sort.each do |aix_file| -%>
+    <li><%= h aix_file.path %></li>
+    <%- end -%>
+  </ul>
 </p>
-
-<p>
-  <b>Vrmf:</b>
-  <%=h @fileset.vrmf %>
-</p>
-
-
-<%= link_to 'Edit', edit_fileset_path(@fileset) %> |
-<%= link_to 'Back', filesets_path %>

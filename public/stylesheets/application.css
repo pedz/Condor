@@ -1,0 +1,27 @@
+.command-list {
+    position: absolute;
+    z-index: 1;
+    border: 4px outset Blue;
+    background-color: LightBlue;
+    list-style-type: none;
+    margin: 2px;
+    padding: 0px;
+}
+
+.command-list a {
+    color: black;
+}
+
+.command-list a:hover {
+    color: white;
+    background-color: black;
+}
+
+.command-list-span {
+    cursor: pointer;
+}
+
+.command-list-span:hover {
+    color: white;
+    background-color: black;
+}
