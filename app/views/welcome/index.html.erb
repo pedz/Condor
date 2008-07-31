@@ -1,23 +1,28 @@
 <h1>Welcome to Condor</h1>
 <p>
   Condor is the CMVC / RP2 half of my web based tools to help with
-  support work.  There are three big areas to Condor.
+  support work.  There are three areas to Condor.
   <ol>
-    <li>"swinfo" data.  This is the ptfapardef.constant information
-    produced by the build group.  Currently, there is no ties to RP2.
-    If that occurs it will be a batch update to populate the local
-    database because RP2 is too slow.</li>
-    <li>Packaging data.  The install images on truth stored in
-    /530images, 520images, ... have been ransacked.  Each image path
-    has been opened to get each install package.  Each fileset has
-    been pulled out of each install package.  And each AIX file path
-    associated with each fileset has been pulled out.  In effect, this
-    is a which_fileset database but it knows what actually shipped and
-    where -- not what was suppose to ship.</li>
-    <li>The third piece is a few ties to CMVC to pull over Defects,
-    source files, and features such as changes done for a defect,
-    diffs between source files, and things like that.  Over time, I
-    plan to move my CMVC bash / perl scripts into this tool.</li>
+    <li><span style='font-weight: bold'>"swinfo" data:</span> This is
+    the ptfapardef.constant information produced by the build group.
+    Currently, there are no ties to RP2.  The ptfapardef.constant data
+    contains some of what is in RP2 but also contains other
+    information not in RP2.  The ptfapardef data is created at build
+    time.  Thus, information about defects not yet built are not in
+    Condor.</li>
+    <li><span style='font-weight: bold'>Packaging data.</span>  The
+    install images on truth stored in /530images, 520images, ... have
+    been ransacked.  For a particular path on truth which goes to an
+    install image, the list of packages, lpps, and filesets have been
+    pulled out.  The list of files that each file set would apply can
+    be listed.  The VRMF of the fileset has also been stored.  In
+    effect, this is a which_fileset database but it knows what
+    actually shipped and where -- not what was suppose to ship.</li>
+    <li><span style='font-weight: bold'>CMVC.</span>The third piece is
+    a few ties to CMVC to pull over Defects, source files, changes a
+    defect made, diffs between the source files, and things like that.
+    Over time, I plan to move my CMVC bash / perl scripts into this
+    tool.</li>
   </ol>
 </p>
 <h3>swinfo</h3>
