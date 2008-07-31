@@ -5,6 +5,7 @@ class SrcFile
                 -extract #{options[:path]} \
                 -release #{options[:release]} \
                 -version #{options[:version]} \
+                -become pedzan \
                 -stdout"
     puts(string)
     IO.popen(string) do |io|

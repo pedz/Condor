@@ -10,10 +10,14 @@ class Defect < ActiveRecord::Base
     lines = []
     string = "/usr/contrib/bin/Defect \
                 -view #{name} \
-                -long 2> /dev/null || \
+                -become pedzan \
+                -long \
+                2> /dev/null || \
               /usr/contrib/bin/Feature \
                 -view #{name} \
-                -long 2> /dev/null"
+                -become pedzan \
+                -long \
+                2> /dev/null"
     puts(string)
     IO.popen(string) do |io|
       lines = io.readlines
