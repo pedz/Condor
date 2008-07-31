@@ -9,6 +9,17 @@ var Condor = {
 		ele.hide();
 	});
 	target.toggle();
+    },
+
+    gotoConcat : function(event) {
+	event.stop();
+	var form = this.up("form");
+	var text = form.childElements().find( function(c) {
+	    return c.readAttribute("type") == "text";
+	});
+	var value = text.getValue();
+	var path = form.readAttribute("action");
+	window.location = path + "/" + value;
     }
 };
 
@@ -16,7 +27,13 @@ document.observe('dom:loaded', function() {
     $$('.command-list').each(function (ele) {
 	ele.hide();
     });
+
     $$('.command-list-span').each(function (ele) {
 	ele.observe('click', Condor.listClicked.bindAsEventListener(ele));
+    });
+
+    // For the welcome page
+    $$('.concat-fields').each( function (ele) {
+	ele.observe('click', Condor.gotoConcat.bindAsEventListener(ele));
     });
 });

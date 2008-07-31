@@ -1,0 +1,59 @@
+<h1>Welcome to Condor</h1>
+<p>
+  Condor is the CMVC / RP2 half of my web based tools to help with
+  support work.  There are three big areas to Condor.
+  <ol>
+    <li>"swinfo" data.  This is the ptfapardef.constant information
+    produced by the build group.  Currently, there is no ties to RP2.
+    If that occurs it will be a batch update to populate the local
+    database because RP2 is too slow.</li>
+    <li>Packaging data.  The install images on truth stored in
+    /530images, 520images, ... have been ransacked.  Each image path
+    has been opened to get each install package.  Each fileset has
+    been pulled out of each install package.  And each AIX file path
+    associated with each fileset has been pulled out.  In effect, this
+    is a which_fileset database but it knows what actually shipped and
+    where -- not what was suppose to ship.</li>
+    <li>The third piece is a few ties to CMVC to pull over Defects,
+    source files, and features such as changes done for a defect,
+    diffs between source files, and things like that.  Over time, I
+    plan to move my CMVC bash / perl scripts into this tool.</li>
+  </ol>
+</p>
+<h3>swinfo</h3>
+<p>
+  Enter a defect, APAR, PTF, Lpp name (e.g. bos.rte) or Fileset
+  (e.g. bos.rte 5.3.0.30 -- with the space.  The VRMF can be
+  incomplete)
+  <% form_tag "/swinfos", :method => "get" do -%>
+      <%= text_field_tag "item" %>
+      <%= submit_tag nil, :class => "concat-fields" %>
+  <% end -%>
+</p>
+<h3>Which Fileset</h3>
+<p>
+  Type in a file name or path
+  <% form_tag "/which_filesets", :method => "get" do -%>
+      <%= text_field_tag "path" %>
+      <%= submit_tag nil, :class => "concat-fields" %>
+  <% end %>
+</p>
+<h3>CMVC Activities</h3>
+<p>
+  <ul>
+    <li>
+      <% form_tag "/defects", :method => "get" do -%>
+        Retrieve CMVC Defect:
+        <%= text_field_tag "path" %>
+        <%= submit_tag nil, :class => "concat-fields" %>
+      <% end %>
+    </li>
+    <li>
+      <% form_tag "/changes", :method => "get" do -%>
+        View changes for CMVC Defect:
+        <%= text_field_tag "path" %>
+        <%= submit_tag nil, :class => "concat-fields" %>
+      <% end %>
+    </li>
+  </ul>
+</p>

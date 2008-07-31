@@ -1,4 +1,8 @@
 class WhichFilesetsController < ApplicationController
+  def index
+    render :text => "hi"
+  end
+
   def show
     path = params[:path].join('/')
     @files = AixFile.find(:all,
@@ -6,5 +10,10 @@ class WhichFilesetsController < ApplicationController
                                           "path LIKE '%#{path}'"),
                           :order => "path",
                           :include => [ { :filesets => :lpp }])
+
+    respond_to do |format|
+      format.html { render :action => "show" }
+      format.xml  { render :xml => @items }
+    end
   end
 end

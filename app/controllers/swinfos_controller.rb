@@ -1,4 +1,8 @@
 class SwinfosController < ApplicationController
+  def index
+    show
+  end
+
   def show
     item = params[:item]
     item_upcase = item.upcase
@@ -26,6 +30,11 @@ class SwinfosController < ApplicationController
     else
       @items = Ptfapardef.find_all_by_lpp(item)
 
+    end
+
+    respond_to do |format|
+      format.html { render :action => "show" }
+      format.xml  { render :xml => @items }
     end
   end
 end
