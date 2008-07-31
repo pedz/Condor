@@ -16,6 +16,7 @@ class Change
   def self.find(defect)
     changes = []
     IO.popen("/usr/contrib/bin/Report \
+       -family aix \
        -become pedzan \
        -general \"Changes c, \
 		 Defects d, \

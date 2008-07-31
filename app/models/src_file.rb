@@ -5,6 +5,7 @@ class SrcFile
                 -extract #{options[:path]} \
                 -release #{options[:release]} \
                 -version #{options[:version]} \
+                -family aix \
                 -become pedzan \
                 -stdout"
     puts(string)

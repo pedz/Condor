@@ -10,11 +10,13 @@ class Defect < ActiveRecord::Base
     lines = []
     string = "/usr/contrib/bin/Defect \
                 -view #{name} \
+                -family aix \
                 -become pedzan \
                 -long \
                 2> /dev/null || \
               /usr/contrib/bin/Feature \
                 -view #{name} \
+                -family aix \
                 -become pedzan \
                 -long \
                 2> /dev/null"
