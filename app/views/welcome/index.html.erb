@@ -30,7 +30,7 @@
   Enter a defect, APAR, PTF, Lpp name (e.g. bos.rte) or Fileset
   (e.g. bos.rte 5.3.0.30 -- with the space.  The VRMF can be
   incomplete)
-  <% form_tag "/swinfos", :method => "get" do -%>
+  <% form_tag :controller => "swinfos" do -%>
       <%= text_field_tag "item" %>
       <%= submit_tag nil, :class => "concat-fields" %>
   <% end -%>
@@ -38,7 +38,7 @@
 <h3>Which Fileset</h3>
 <p>
   Type in a file name or path
-  <% form_tag "/which_filesets", :method => "get" do -%>
+  <% form_tag :controller => "which_filesets" do -%>
       <%= text_field_tag "path" %>
       <%= submit_tag nil, :class => "concat-fields" %>
   <% end %>
@@ -47,14 +47,14 @@
 <p>
   <ul>
     <li>
-      <% form_tag "/defects", :method => "get" do -%>
+      <% form_tag :controller => "defects" do -%>
         Retrieve CMVC Defect:
         <%= text_field_tag "path" %>
         <%= submit_tag nil, :class => "concat-fields" %>
       <% end %>
     </li>
     <li>
-      <% form_tag "/changes", :method => "get" do -%>
+      <% form_tag :controller => "changes" do -%>
         View changes for CMVC Defect:
         <%= text_field_tag "path" %>
         <%= submit_tag nil, :class => "concat-fields" %>
