@@ -7,8 +7,8 @@ ActionController::Routing::Routes.draw do |map|
   
   # Path for which_filesets
   map.which_filesets('which_filesets/*path',
-                    :controller => 'which_filesets',
-                    :action => 'show')
+                     :controller => 'which_filesets',
+                     :action => 'show')
 
   # Special path for CMVC changes
   map.changes('changes/:id',

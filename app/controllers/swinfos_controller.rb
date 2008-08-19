@@ -4,6 +4,7 @@ class SwinfosController < ApplicationController
   end
 
   def show
+    logger.debug("Accepts = #{request.accepts.inspect}")
     item = params[:item]
     item_upcase = item.upcase
     logger.debug("ITEM is '#{item}'")
@@ -34,7 +35,7 @@ class SwinfosController < ApplicationController
 
     respond_to do |format|
       format.html { render :action => "show" }
-      format.xml  { render :xml => @items }
+      format.xml  { render :xml => @items.to_xml }
     end
   end
 end
