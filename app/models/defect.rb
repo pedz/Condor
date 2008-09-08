@@ -7,7 +7,8 @@ class Defect < ActiveRecord::Base
   has_many :releases, :through => :apar_defect_ptf_release_maps
 
   def text
-    lines = []
+    return @lines unless @lines.nil? || @lines.empty?
+    @lines = []
     string = "/usr/contrib/bin/Defect \
                 -view #{name} \
                 -family aix \
@@ -22,9 +23,9 @@ class Defect < ActiveRecord::Base
                 2> /dev/null"
     puts(string)
     IO.popen(string) do |io|
-      lines = io.readlines
+      @lines = io.readlines
     end
-    lines
+    @lines
   end
 
   def <=>(other)
