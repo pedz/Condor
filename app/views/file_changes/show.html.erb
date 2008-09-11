@@ -11,19 +11,24 @@
 	  Product <%= h release %> [<%= h file_change.level %>]
 <%      until file_change.nil? || file_change.release != release %>
           <ul class="file_change">
-	    <%= link_to file_change.prev_sccsid,
-		    src_files_path(file_change.release,
-		                   file_change.path.split(/\//),
-		                   file_change.prev_sccsid) %>
-	    <%= link_to "->",
-		    diffs_path(file_change.release,
-		               file_change.path.split(/\//),
-		               file_change.sccsid) %>
+<%          if file_change.prev_sccsid.nil? %>
+              Initial Drop
+<%          else %>
+	      <%= link_to file_change.prev_sccsid,
+		      src_files_path(file_change.release,
+		                     file_change.path.split(/\//),
+		                     file_change.prev_sccsid) %>
+	      <%= link_to "->",
+		      diffs_path(file_change.release,
+		                 file_change.path.split(/\//),
+		                 file_change.sccsid) %>
+<%          end %>
 	    <%= link_to file_change.sccsid,
 		    src_files_path(file_change.release,
 		                   file_change.path.split(/\//),
 		                   file_change.sccsid) %>
 	    <%= h file_change.type %>
+	    <%= link_to file_change.defect, defect_path(file_change.defect) %>:
 	    <%= h file_change.abstract %>
 <%        file_change = @file_changes.shift %>
           </ul>

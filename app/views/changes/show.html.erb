@@ -11,14 +11,18 @@
 	  Product <%= h release %> [<%= h change.level %>]
 <%      until change.nil? || change.release != release %>
           <ul class="change">
-	    <%= link_to change.prev_sccsid,
-		    src_files_path(change.release,
-		                   change.path.split(/\//),
-		                   change.prev_sccsid) %>
-	    <%= link_to "->",
-		    diffs_path(change.release,
-		               change.path.split(/\//),
-		               change.sccsid) %>
+<%          if change.prev_sccsid.nil? %>
+              Initial Drop
+<%          else %>
+              <%= link_to change.prev_sccsid,
+		      src_files_path(change.release,
+				     change.path.split(/\//),
+				     change.prev_sccsid) %>
+	      <%= link_to "->",
+		      diffs_path(change.release,
+				 change.path.split(/\//),
+				 change.sccsid) %>
+<%          end %>
 	    <%= link_to change.sccsid,
 		    src_files_path(change.release,
 		                   change.path.split(/\//),

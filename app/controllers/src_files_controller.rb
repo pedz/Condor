@@ -6,6 +6,7 @@ class SrcFilesController < ApplicationController
       :path => params[:path].join('/')
     }
     @src_file = SrcFile.find(@params)
+    @basename = params[:path].last
 
     respond_to do |format|
       format.html # show.html.erb

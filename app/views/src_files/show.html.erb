@@ -1,5 +1,4 @@
-<%= @params.inspect %><br/>
-<%= @src_file.length %><br/>
+<%= link_to "Change History", file_changes_path(@basename) %>
 <pre>
 <% @src_file.each do |line| -%>
 <%=  line -%>
