@@ -15,6 +15,12 @@ ActionController::Routing::Routes.draw do |map|
               :controller => 'changes',
               :action => 'show')
 
+  # Special path for file changes
+  map.file_changes('file_changes/:file',
+                   :file => /.*/,
+                   :controller => 'file_changes',
+                   :action => 'show')
+
   # Special path for CMVC source files
   map.src_files('src_files/:release/*path/:version',
                 :controller => 'src_files',

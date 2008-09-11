@@ -1,0 +1,40 @@
+<% @title = "Changes for #{params[:file]}" %>
+<h2><%= h @title %></h2>
+<%  file_change = @file_changes.shift %>
+<%  until file_change.nil? %>
+<%    path = file_change.path %>
+      <ul class="path">
+	File <%= path %>
+<%    until file_change.nil? || file_change.path != path %>
+<%      release = file_change.release %>
+        <ul class="release">
+	  Product <%= h release %> [<%= h file_change.level %>]
+<%      until file_change.nil? || file_change.release != release %>
+          <ul class="file_change">
+	    <%= link_to file_change.prev_sccsid,
+		    src_files_path(file_change.release,
+		                   file_change.path.split(/\//),
+		                   file_change.prev_sccsid) %>
+	    <%= link_to "->",
+		    diffs_path(file_change.release,
+		               file_change.path.split(/\//),
+		               file_change.sccsid) %>
+	    <%= link_to file_change.sccsid,
+		    src_files_path(file_change.release,
+		                   file_change.path.split(/\//),
+		                   file_change.sccsid) %>
+	    <%= h file_change.type %>
+	    <%= h file_change.abstract %>
+<%        file_change = @file_changes.shift %>
+          </ul>
+<%      end %>
+        </ul>
+<%    end %>
+      </ul>
+<%  end %>
+Instructions:
+<ul>
+  <li>Click on SCCS ID strings to view that version of the file</li>
+  <li>Click on the -> between SCCS ID strings to view a diff
+    between the two versions</li>
+</ul>

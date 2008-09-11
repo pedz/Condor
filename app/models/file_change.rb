@@ -1,4 +1,4 @@
-class Change
+class FileChange
   attr_reader :release, :defect, :level, :sccsid, :path, :type, :reference
   attr_reader :abstract, :prev_sccsid
 
@@ -15,12 +15,9 @@ class Change
     @prev_sccsid = prev_sccsid
   end
 
-  def self.find(defect)
+  def self.find(file)
     changes = []
-    IO.popen("/usr/contrib/bin/Report \
-       -family aix \
-       -become pedzan \
-       -general \"Changes c, \
+    IO.popen("Report -general \"Changes c, \
 		 Defects d, \
 		 Files f, \
 		 Path p, \
@@ -28,17 +25,17 @@ class Change
 		 Levels l, \
 		 Releases r, \
 		 Versions v, \
-		 Versions prev \
+                 Versions prev \
 		 \" \
        -where \" \
-		 d.name = '#{defect}' and \
-		 d.id = t.defectid and \
-		 c.trackid = t.id and \
+                 f.basename = '#{file}' and \
 		 f.id = c.fileid and \
+		 c.trackid = t.id and \
+		 d.id = t.defectid and \
 		 f.pathid = p.id and \
 		 t.releaseid = r.id and \
 		 v.id = c.versionid and \
-		 prev.id = v.previousId and \
+                 prev.id = v.previousId and \
                  l.id in ( \
 		          select l.id \
                           from   Levels l, \
@@ -49,11 +46,11 @@ class Change
                                  ( l.type = 'production' and \
                                    not exists ( \
                                        select * \
-                                       from   Levels l, \
-                                              LevelMembers lm \
-                                       where  l.id = lm.levelid and \
-                                              l.type = 'published' and \
-                                              t.id = lm.trackid ) \
+                                       from Levels l, \
+                                            LevelMembers lm \
+                                       where l.id = lm.levelid and \
+                                             l.type = 'published' and \
+                                             t.id = lm.trackid ) \
                                  ) \
                                ) \
                         union \
@@ -70,19 +67,19 @@ class Change
                                                        'published' ) and \
                                            t.id = lm.trackid ) \
                         ) \
-    order by defect, release, path, sccsid \
+                 order by path, rname, c.versionId \
 	       \" \
        -select \"\
-	        r.name as release, \
-	        d.name as defect, \
-		l.name as level, \
+	        r.name as rname, \
+	        d.name, \
+		l.name, \
 		v.SID as sccsid, \
 		p.name as path, \
 		c.type, \
 		d.reference, \
 		d.abstract, \
-		prev.SID as prev_sccsid \
-                ") do |io|
+                prev.SID as prev_sccsid \
+                \"") do |io|
       io.each_line do |line|
         line.chomp!
         RAILS_DEFAULT_LOGGER.debug("line is #{line}")

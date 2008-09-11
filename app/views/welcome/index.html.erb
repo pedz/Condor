@@ -60,5 +60,12 @@
         <%= submit_tag nil, :class => "concat-fields" %>
       <% end %>
     </li>
+    <li>
+      <% form_tag :controller => "file_changes" do -%>
+        View history of changes for a file: (give basename only. e.g. jas.c)
+        <%= text_field_tag "path" %>
+        <%= submit_tag nil, :class => "concat-fields" %>
+      <% end %>
+    </li>
   </ul>
 </p>
