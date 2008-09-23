@@ -8,6 +8,6 @@ class Release < ActiveRecord::Base
   has_many :ptfs,    :through => :apar_defect_ptf_release_maps
 
   def <=>(other)
-    this.name <=> other.name
+    self.name <=> other.name
   end
 end

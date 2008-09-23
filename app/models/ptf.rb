@@ -9,6 +9,6 @@ class Ptf < ActiveRecord::Base
   has_many :filesets, :through => :fileset_ptf_maps
 
   def <=>(other)
-    this.name <=> other.name
+    self.name <=> other.name
   end
 end

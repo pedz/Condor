@@ -3,6 +3,6 @@ class Lpp < ActiveRecord::Base
   has_many :filesets
 
   def <=>(other)
-    this.name <=> other.name
+    self.name <=> other.name
   end
 end

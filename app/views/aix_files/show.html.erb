@@ -1,8 +1,18 @@
-<p>
-  <b>Path:</b>
-  <%=h @aix_file.path %>
-</p>
-
-
-<%= link_to 'Edit', edit_aix_file_path(@aix_file) %> |
-<%= link_to 'Back', aix_files_path %>
+<h2> AIX File: <%= h @aix_file.path %></h2>
+<h3>Shipped in these filesets</h3>
+<table>
+  <thead>
+    <tr>
+      <th>LPP</th>
+      <th>VRMF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @aix_file.filesets.sort.each do |fileset| -%>
+    <tr>
+      <td><%= link_to fileset.lpp.name, fileset.lpp %></td>
+      <td><%= link_to fileset.vrmf, fileset %></td>
+    </tr>
+    <%- end -%>
+  </tbody>
+</table>

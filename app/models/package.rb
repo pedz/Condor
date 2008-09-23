@@ -3,6 +3,6 @@ class Package < ActiveRecord::Base
   has_many :package_fileset_maps
 
   def <=>(other)
-    this.name <=> other.name
+    self.name <=> other.name
   end
 end

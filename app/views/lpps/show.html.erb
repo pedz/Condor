@@ -1,13 +1,18 @@
-<p>
-  <b>Name:</b>
-  <%=h @lpp.name %>
-</p>
-
-<p>
-  <b>LppBase:</b>
-  <%=h @lpp.lpp_base_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_lpp_path(@lpp) %> |
-<%= link_to 'Back', lpps_path %>
+<h2> Lpp: <%= h @lpp.name %></h2>
+<h3>Has shipped these filesets</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Lpp</th>
+      <th>VRMF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @lpp.filesets.sort.each do |fileset| -%>
+    <tr>
+      <td><%= link_to fileset.lpp.name, fileset.lpp %></td>
+      <td><%= link_to fileset.vrmf, fileset %></td>
+    </tr>
+    <%- end -%>
+  </tbody>
+</table>

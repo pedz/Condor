@@ -7,6 +7,6 @@ class Apar < ActiveRecord::Base
   has_many :releases, :through => :apar_defect_ptf_release_maps
 
   def <=>(other)
-    this.name <=> other.name
+    self.name <=> other.name
   end
 end

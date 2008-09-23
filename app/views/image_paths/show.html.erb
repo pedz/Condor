@@ -1,8 +1,27 @@
-<p>
-  <b>Path:</b>
-  <%=h @image_path.path %>
-</p>
+<%- unless @image_paths.empty? -%>
+  <table>
+    <tr>
+      <th>Directories below <%= h @prefix %></th>
+    </tr>
 
-
-<%= link_to 'Edit', edit_image_path_path(@image_path) %> |
-<%= link_to 'Back', image_paths_path %>
+    <%- for image_path in @image_paths -%>
+    <tr>
+      <td><%= link_to image_path.base_path, image_paths_path(image_path.base_path) %></td>
+    </tr>
+    <%- end -%>
+  </table>
+<%- end -%>
+<%- unless @filesets.empty? -%>
+  <table>
+    <tr>
+      <th>LPP Name</th>
+      <th>VRMF</th>
+    </tr>
+    <%-  @filesets.sort.each do |fileset| -%>
+    <tr>
+      <td><%= h fileset.lpp.name %></td>
+      <td><%= link_to fileset.vrmf, fileset %></td>
+    </tr>
+    <%- end -%>
+  </table>
+<%- end -%>

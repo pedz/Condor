@@ -2,6 +2,6 @@ class Family < ActiveRecord::Base
   has_many :releases
 
   def <=>(other)
-    this.name <=> other.name
+    self.name <=> other.name
   end
 end

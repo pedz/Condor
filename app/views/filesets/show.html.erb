@@ -1,15 +1,46 @@
-<p>
-  Fileset <%= link_to "#{@fileset.lpp.name} #{@fileset.vrmf}", swinfos_path("#{@fileset.lpp.name} #{@fileset.vrmf}") %><br>
-  Shipped in these images:
-  <ul>
-    <%- @fileset.image_paths.sort.each do |image_path| -%>
-    <li><%= h image_path.path %></li>
+<h2> Fileset <%= link_to "#{@fileset.lpp.name} #{@fileset.vrmf}", swinfos_path("#{@fileset.lpp.name} #{@fileset.vrmf}") %></h2>
+<h3> Contains these changes: </h3>
+<table>
+  <thead>
+    <tr>
+      <th>Defect</th>
+      <th>APAR</th>
+      <th>PTF</th>
+      <th>Abstract</th>
+      <th>LPP</th>
+      <th>VRMF</th>
+      <th>Release</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <%- @fileset.ptfapardefs.each do |item| -%>
+    <tr>
+      <td><%= link_to item.defect, swinfos_path(item.defect) %></td>
+      <td><%= link_to item.apar, swinfos_path(item.apar) %></td>
+      <td><%= link_to item.ptf, swinfos_path(item.ptf) %></td>
+      <td><%= h item.abstract %></td>
+      <td><%= link_to item.lpp, swinfos_path(item.lpp) %></td>
+      <td><%= link_to item.vrmf, swinfos_path("#{item.lpp} #{item.vrmf}") %></td>
+      <td><%= h item.release %></td>
+    </tr>
     <%- end -%>
-  </ul>
-  Shipped these files:
-  <ul>
-    <%- @fileset.aix_files.sort.each do |aix_file| -%>
-    <li><%= h aix_file.path %></li>
-    <%- end -%>
-  </ul>
-</p>
+  </tbody>
+</table>
+
+<h3> Shipped in these images:</h3>
+<ul>
+  <%- @fileset.image_paths.sort.each do |image_path| -%>
+  <li><%= link_to image_path.path, image_paths_path(image_path.path) %></li>
+  <%- end -%>
+</ul>
+<h3>Shipped these files:</h3>
+<ul>
+  <%- @fileset.aix_files.sort.each do |aix_file| -%>
+  <li><%= link_to aix_file.path, aix_file %></li>
+  <%- end -%>
+</ul>

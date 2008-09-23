@@ -29,6 +29,6 @@ class Defect < ActiveRecord::Base
   end
 
   def <=>(other)
-    this.name <=> other.name
+    self.name <=> other.name
   end
 end

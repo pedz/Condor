@@ -33,6 +33,11 @@ ActionController::Routing::Routes.draw do |map|
             :action => 'show',
             :version => /[1-9][0-9]*(\.[1-9][0-9]*)+/ )
 
+  # Special path for image paths
+  map.image_paths('image_paths/*path',
+                  :controller => 'image_paths',
+                  :action => 'show')
+
   # Normal resource paths created by rake for basic database forms.
   map.resources :aix_files  
   map.resources :apar_defect_ptf_release_maps
@@ -44,7 +49,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :filesets
   map.resources :image_path_fileset_maps
   map.resources :image_path_package_maps
-  map.resources :image_paths
+  # map.resources :image_paths
   map.resources :lpp_bases
   map.resources :lpps
   map.resources :package_fileset_maps

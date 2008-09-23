@@ -5,6 +5,7 @@ class Fileset < ActiveRecord::Base
   has_many   :package_fileset_maps
   has_many   :fileset_aix_file_maps
   has_many   :image_path_fileset_maps
+  has_many   :ptfapardefs
 
   # Secondary Relationships
   has_many :ptfs,          :through => :fileset_ptf_maps
@@ -14,8 +15,8 @@ class Fileset < ActiveRecord::Base
   has_many :image_paths,   :through => :image_path_fileset_maps
 
   def <=>(other)
-    if (temp = this.lpp <=> other.lpp) == 0
-      this.vrmf <=> other.vrmf
+    if (temp = self.lpp <=> other.lpp) == 0
+      self.vrmf <=> other.vrmf
     else
       temp
     end

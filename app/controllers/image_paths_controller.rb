@@ -2,7 +2,11 @@ class ImagePathsController < ApplicationController
   # GET /image_paths
   # GET /image_paths.xml
   def index
-    @image_paths = ImagePath.find(:all)
+    @image_paths = ImagePath.find_by_sql <<-SQL
+      select substring(path, '^[^/]*/') as base_path
+      from image_paths
+      group by base_path;
+    SQL
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,11 +17,24 @@ class ImagePathsController < ApplicationController
   # GET /image_paths/1
   # GET /image_paths/1.xml
   def show
-    @image_path = ImagePath.find(params[:id])
+    @prefix = params[:path].join('/')
+    if (image = ImagePath.find_by_path(@prefix))
+      @filesets = image.filesets
+    else
+      @filesets = []
+    end
+    pattern = '[^/]*/' * params[:path].length
+    sql = "SELECT substring(path, '^#{pattern}[^/]*/?') AS base_path FROM image_paths "
+    sql << "WHERE path like '#{@prefix}%' GROUP BY base_path"
+    sql << " ORDER BY base_path"
+    @image_paths = ImagePath.find_by_sql sql
+    if @image_paths.length == 1 && @image_paths[0].base_path == nil
+      @image_paths = []
+    end
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @image_path }
+      format.xml  { render :xml => @image_paths }
     end
   end
 
