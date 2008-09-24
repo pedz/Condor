@@ -25,11 +25,11 @@
     tool.</li>
   </ol>
 </p>
-<h3>swinfo</h3>
+<h3>Swinfo</h3>
 <p>
   Enter a defect, APAR, PTF, Lpp name (e.g. bos.rte) or Fileset
   (e.g. bos.rte 5.3.0.30 -- with the space.  The VRMF can be
-  incomplete)
+  incomplete such as 5.3.8)
   <% form_tag :controller => "swinfos" do -%>
       <%= text_field_tag "item" %>
       <%= submit_tag nil, :class => "concat-fields" %>
@@ -44,28 +44,41 @@
   <% end %>
 </p>
 <h3>CMVC Activities</h3>
-<p>
-  <ul>
-    <li>
+<table>
+  <tr>
+    <th>Retrive CMVC Defect</th>
+    <td>
       <% form_tag :controller => "defects" do -%>
-        Retrieve CMVC Defect:
-        <%= text_field_tag "path" %>
-        <%= submit_tag nil, :class => "concat-fields" %>
+      <%= text_field_tag "path" %>
+      <%= submit_tag nil, :class => "concat-fields" %>
       <% end %>
-    </li>
-    <li>
+    </td>
+    <td>
+      Enter a Defect Number
+    </td>
+  </tr>
+  <tr>
+    <th>View Changes for a CMVC Defect</th>
+    <td>
       <% form_tag :controller => "changes" do -%>
-        View changes for CMVC Defect:
-        <%= text_field_tag "path" %>
-        <%= submit_tag nil, :class => "concat-fields" %>
+      <%= text_field_tag "path" %>
+      <%= submit_tag nil, :class => "concat-fields" %>
       <% end %>
-    </li>
-    <li>
+    </td>
+    <td>
+      Enter a Defect Number
+    </td>
+  </tr>
+  <tr>
+    <th>View Change History for a file</th>
+    <td>
       <% form_tag :controller => "file_changes" do -%>
-        View history of changes for a file: (give basename only. e.g. jas.c)
-        <%= text_field_tag "path" %>
-        <%= submit_tag nil, :class => "concat-fields" %>
+      <%= text_field_tag "path" %>
+      <%= submit_tag nil, :class => "concat-fields" %>
       <% end %>
-    </li>
-  </ul>
-</p>
+    </td>
+    <td>
+      Enter a basename of a file e.g. jas.c
+    </td>
+  </tr>
+</table>
