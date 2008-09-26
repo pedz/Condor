@@ -1,27 +1,39 @@
+<%- unless @dir_paths.empty? -%>
+<h2>Directories below <%= h @prefix %></h2>
+<ul>
+  <%- for dir_path in @dir_paths -%>
+  <li>
+    <%= link_to dir_path.base_path, image_paths_path(dir_path.base_path) %>
+  </li>
+  <%- end -%>
+</ul>
+<%- end -%>
 <%- unless @image_paths.empty? -%>
-  <table>
-    <tr>
-      <th>Directories below <%= h @prefix %></th>
-    </tr>
-
-    <%- for image_path in @image_paths -%>
-    <tr>
-      <td><%= link_to image_path.base_path, image_paths_path(image_path.base_path) %></td>
-    </tr>
-    <%- end -%>
-  </table>
+<h2>Images below <%= h @prefix %></h2>
+<ul>
+  <%- for image_path in @image_paths -%>
+  <li>
+    <%= link_to image_path.path, image_paths_path(image_path.path) %>
+    <ul>
+      <%- image_path.filesets.each do |fileset| -%>
+      <li><%= link_to "#{fileset.lpp.name} #{fileset.vrmf}", fileset %></li>
+      <%- end -%>
+    </ul>
+  </li>
+  <%- end -%>
+</ul>
 <%- end -%>
 <%- unless @filesets.empty? -%>
-  <table>
-    <tr>
-      <th>LPP Name</th>
-      <th>VRMF</th>
-    </tr>
-    <%-  @filesets.sort.each do |fileset| -%>
-    <tr>
-      <td><%= h fileset.lpp.name %></td>
-      <td><%= link_to fileset.vrmf, fileset %></td>
-    </tr>
-    <%- end -%>
-  </table>
+<table>
+  <tr>
+    <th>LPP Name</th>
+    <th>VRMF</th>
+  </tr>
+  <%-  @filesets.sort.each do |fileset| -%>
+  <tr>
+    <td><%= h fileset.lpp.name %></td>
+    <td><%= link_to fileset.vrmf, fileset %></td>
+  </tr>
+  <%- end -%>
+</table>
 <%- end -%>

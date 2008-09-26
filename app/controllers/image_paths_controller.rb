@@ -23,14 +23,24 @@ class ImagePathsController < ApplicationController
     else
       @filesets = []
     end
+
     pattern = '[^/]*/' * params[:path].length
-    sql = "SELECT substring(path, '^#{pattern}[^/]*/?') AS base_path FROM image_paths "
-    sql << "WHERE path like '#{@prefix}%' GROUP BY base_path"
-    sql << " ORDER BY base_path"
-    @image_paths = ImagePath.find_by_sql sql
-    if @image_paths.length == 1 && @image_paths[0].base_path == nil
-      @image_paths = []
+    if @prefix.empty?
+      dirname = ""
+    else
+      dirname = @prefix + "/"
     end
+    sql = "SELECT substring(path, '^#{pattern}[^/]*/') AS base_path FROM image_paths "
+    sql << "WHERE path like '#{dirname}%' GROUP BY base_path"
+    sql << " ORDER BY base_path"
+    @dir_paths = ImagePath.find_by_sql sql
+    if @dir_paths.length == 1 && @dir_paths[0].base_path == nil
+      @dir_paths = []
+    end
+
+    @image_paths = ImagePath.find(:all,
+                                  :conditions => [ "path SIMILAR TO ?", "#{@prefix}/[^/]*"],
+                                  :include => :filesets)
 
     respond_to do |format|
       format.html # show.html.erb
