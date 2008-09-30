@@ -3,7 +3,7 @@
 <ul>
   <%- for dir_path in @dir_paths -%>
   <li>
-    <%= link_to dir_path.base_path, image_paths_path(dir_path.base_path) %>
+    <%= link_to_dir(dir_path) %>
   </li>
   <%- end -%>
 </ul>
@@ -13,7 +13,7 @@
 <ul>
   <%- for image_path in @image_paths -%>
   <li>
-    <%= link_to image_path.path, image_paths_path(image_path.path) %>
+    <%= link_to_image(image_path) %>
     <ul>
       <%- image_path.filesets.each do |fileset| -%>
       <li><%= link_to "#{fileset.lpp.name} #{fileset.vrmf}", fileset %></li>

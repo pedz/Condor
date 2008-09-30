@@ -1,4 +1,5 @@
 class ImagePathsController < ApplicationController
+  caches_page :index, :show
   # GET /image_paths
   # GET /image_paths.xml
   def index
@@ -18,6 +19,7 @@ class ImagePathsController < ApplicationController
   # GET /image_paths/1.xml
   def show
     @prefix = params[:path].join('/')
+    @prefix.sub!(/\.html$/, "")
     if (image = ImagePath.find_by_path(@prefix))
       @filesets = image.filesets
     else
@@ -39,7 +41,8 @@ class ImagePathsController < ApplicationController
     end
 
     @image_paths = ImagePath.find(:all,
-                                  :conditions => [ "path SIMILAR TO ?", "#{@prefix}/[^/]*"],
+                                  :conditions => [ "path SIMILAR TO ?",
+                                                   "#{@prefix}/[^/]*"],
                                   :include => :filesets)
 
     respond_to do |format|
