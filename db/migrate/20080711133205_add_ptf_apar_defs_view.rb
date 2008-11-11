@@ -4,7 +4,7 @@ class AddPtfAparDefsView < ActiveRecord::Migration
                ptf, apar, defect, lpp_base, lpp, release, family, abstract, vrmf,
                apar_id,
                defect_id,
-               familie_id,
+               family_id,
                fileset_id,
                lpp_base_id,
                lpp_id,

@@ -1,5 +1,8 @@
 #!/usr/bin/env script/runner
 
+nby_ptf = Ptf.find(:first, :conditions => { :name => "Not Built Yet" })
+nby_release = Release.find(:first, :conditions => { :name => "Not Built Yet" })
+
 File.open(ARGV[0]) do |file|
   Apar.transaction do 
     file.each_line do |line|
@@ -28,10 +31,29 @@ File.open(ARGV[0]) do |file|
       fileset = lpp.filesets.find_or_create_by_vrmf fields[8]
       
       releases.each do |release|
-        AparDefectPtfReleaseMap.find_or_create_by_apar_id_and_defect_id_and_ptf_id_and_release_id(apar.id,
-                                                                                                  defect.id,
-                                                                                                  ptf.id,
-                                                                                                  release.id)
+        hash = {
+          :defect_id => defect.id,
+          :apar_id => apar.id,
+          :ptf_id => nby_ptf.id,
+          :release_id => nby_release.id
+        }
+        if (a = AparDefectPtfReleaseMap.find(:first, :conditions => hash))
+          a.update_attributes(:ptf_id => ptf.id, :release_id => release.id)
+          next
+        end
+
+        hash.ptf_id = ptf.id
+        if (a = AparDefectPtfReleaseMap.find(:first, :conditions => hash))
+          a.update_attributes(:release_id => release.id)
+          next
+        end
+        
+        hash.release_id = release.id
+        if (a = AparDefectPtfReleaseMap.find(:first, :conditions => hash))
+          next
+        end
+
+        AparDefectPtfReleaseMap.create(:conditions => hash)
       end
       FilesetPtfMap.find_or_create_by_fileset_id_and_ptf_id(fileset.id, ptf.id)
     end
