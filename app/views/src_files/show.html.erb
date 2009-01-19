@@ -1,6 +1,6 @@
 <%= link_to "Change History", file_changes_path(@basename) %>
 <pre>
 <% @src_file.each do |line| -%>
-<%=  line -%>
+<%= h line -%>
 <% end -%>
 </pre>
