@@ -26,6 +26,7 @@ class DiffsController < ApplicationController
     IO.popen("
 /usr/local/cmvc/bin/Report \
        -family aix \
+       -become pedzan \
        -general \" \
          Versions v, \
          Versions prev_v, \

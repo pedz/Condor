@@ -17,7 +17,10 @@ class FileChange
 
   def self.find(file)
     changes = []
-    IO.popen("/usr/local/cmvc/bin/Report -family aix -general \"Changes c, \
+    IO.popen("/usr/local/cmvc/bin/Report \
+               -family aix \
+               -become pedzan \
+               -general \"Changes c, \
 		 Defects d, \
 		 Files f, \
 		 Path p, \
