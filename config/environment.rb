@@ -48,4 +48,13 @@ Rails::Initializer.run do |config|
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
+
+  # Your secret key for verifying cookie session data integrity.
+  # If you change this key, all old sessions will become invalid!
+  # Make sure the secret is at least 30 characters and all random, 
+  # no regular words or you'll be exposed to dictionary attacks.
+  config.action_controller.session = {
+    :key => '_condor_session',
+    :secret      => '063040a4c017a1ce10d9ed1551df6c5e93fafd72ed61e715e40be1b3fab346f4d6d127b5ffaeffe289eddb5417a6f83ce7277c08a1f6c2bf230375abdb3e5aa8'
+  }
 end
