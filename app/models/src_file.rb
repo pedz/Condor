@@ -1,7 +1,7 @@
 class SrcFile
   def self.find(options)
     lines = []
-    string = "/usr/contrib/bin/File \
+    string = "/usr/local/cmvc/bin/File \
                 -extract #{options[:path]} \
                 -release #{options[:release]} \
                 -version #{options[:version]} \

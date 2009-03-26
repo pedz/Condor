@@ -9,13 +9,13 @@ class Defect < ActiveRecord::Base
   def text
     return @lines unless @lines.nil? || @lines.empty?
     @lines = []
-    string = "/usr/contrib/bin/Defect \
+    string = "/usr/local/cmvc/bin/Defect \
                 -view #{name} \
                 -family aix \
                 -become pedzan \
                 -long \
                 2> /dev/null || \
-              /usr/contrib/bin/Feature \
+              /usr/local/cmvc/bin/Feature \
                 -view #{name} \
                 -family aix \
                 -become pedzan \
