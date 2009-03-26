@@ -24,7 +24,9 @@ class DiffsController < ApplicationController
   def find_prev_version(params)
     p = { }
     IO.popen("
-Report -general \" \
+/usr/local/cmvc/bin/Report \
+       -family aix \
+       -general \" \
          Versions v, \
          Versions prev_v, \
          Path p, \
