@@ -5,3 +5,12 @@ How to make a remote repository:
   scp -r condor.git apache@tcp237.austin.ibm.com:repositories
   cd condor
   git remote add lab apache@tcp237.austin.ibm.com:repositories/condor.git
+
+To Deploy to p51 (staging)
+
+  rake stage
+
+To Deploy to tcp237 (production)
+
+  rake deploy
+
