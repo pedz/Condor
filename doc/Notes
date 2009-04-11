@@ -1,0 +1,5 @@
+How to make a remote repository:
+
+  git clone --bare condor/.git condor.git
+  scp -r condor.git apache@tcp237.austin.ibm.com:repositories
+  git remote add lab apache@tcp237.austin.ibm.com:repositories/condor.git

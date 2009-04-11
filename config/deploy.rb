@@ -1,10 +1,24 @@
 
+unless ENV.has_key?('DEPLOY')
+  STDERR.puts "Please set DEPLOY"
+  exit 1
+end
+exit 0
+
+if ENV['DEPLOY'] == 'PRODUCTION'
+  set :domain,      "apache@tcp237.austin.ibm.com"
+elsif ENV['DEPLOY'] == 'STAGING'
+  set :domain,      "apache@p51.austin.ibm.com"
+else
+  STDERR.puts "DEPLOY must be PRODUCTION or STAGING"
+  exit 1
+end
+
 set :application, "condor"
-set :repository,  "apache@tcp237:repositories/condor.git"
-set :domain, "apache@tcp237.austin.ibm.com"
-set :scm, :git
-set :deploy_via, :remote_cache
-set :branch, "master"
+set :repository,  "#{domain}:repositories/condor.git"
+set :scm,         :git
+set :deploy_via,  :remote_cache
+set :branch,      "master"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
