@@ -1,16 +1,15 @@
 
-unless ENV.has_key?('DEPLOY')
-  STDERR.puts "Please set DEPLOY"
+unless respond_to?(:env)
+  STDERR.puts "Please use --set-before env=<env>"
   exit 1
 end
-exit 0
 
-if ENV['DEPLOY'] == 'PRODUCTION'
+if env == 'production'
   set :domain,      "apache@tcp237.austin.ibm.com"
-elsif ENV['DEPLOY'] == 'STAGING'
+elsif env == 'staging'
   set :domain,      "apache@p51.austin.ibm.com"
 else
-  STDERR.puts "DEPLOY must be PRODUCTION or STAGING"
+  STDERR.puts "env must be 'production' or 'staging'"
   exit 1
 end
 

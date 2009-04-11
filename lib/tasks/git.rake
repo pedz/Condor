@@ -1,7 +1,7 @@
 
 # Returns the current hit head
 def git_head
-  system("git symbolic-ref HEAD").sub(/.*\//, '')
+  Kernel.open("| git symbolic-ref HEAD").readlines[0].chomp.sub(/.*\//, '')
 end
 
 task :sync_production do
@@ -9,7 +9,7 @@ task :sync_production do
 end
 
 task :deploy => [ :sync_production ]do
-  sh "DEPLOY=PRODUCTION cap --set branch=#{git_head} deploy"
+  sh "cap --set-before env=production --set branch=#{git_head} deploy"
 end
 
 task :sync_staging do
@@ -17,5 +17,5 @@ task :sync_staging do
 end
 
 task :stage => [ :sync_staging ]do
-  sh "DEPLOY=STAGING cap --set branch=#{git_head} deploy"
+  sh "cap --set-before env=staging --set branch=#{git_head} deploy"
 end
