@@ -1,4 +1,6 @@
-#!/usr/bin/env script/runner
+#!/usr/bin/env ruby
+
+require File.dirname(__FILE__) + '/../../script/runner'
 
 GOOD_FAMILY = Regexp.new("aix")
 GOOD_PRODUCT = Regexp.new("^(5[234].|6..)$")

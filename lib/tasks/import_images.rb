@@ -1,4 +1,6 @@
-#!/usr/bin/env script/runner
+#!/usr/bin/env ruby
+
+require File.dirname(__FILE__) + '/../../script/runner'
 
 # This script expects standard input to be a list of lines of two
 # forms.  One form has four fields separated by spaces.  These fields

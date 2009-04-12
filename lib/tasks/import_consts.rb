@@ -1,4 +1,6 @@
-#!/usr/bin/env script/runner
+#!/usr/bin/env ruby
+
+require File.dirname(__FILE__) + '/../../script/runner'
 
 nby_ptf = Ptf.find(:first, :conditions => { :name => "Not Built Yet" })
 nby_release = Release.find(:first, :conditions => { :name => "Not Built Yet" })
@@ -6,7 +8,8 @@ nby_release = Release.find(:first, :conditions => { :name => "Not Built Yet" })
 File.open(ARGV[0]) do |file|
   Apar.transaction do 
     file.each_line do |line|
-      puts file.lineno if (d, m = file.lineno.divmod(1000)) && m == 0
+      d, m = file.lineno.divmod(1000)
+      puts file.lineno if m == 0
 
       line.chomp!
       fields = line.split(/\|/)
