@@ -1,5 +1,6 @@
 class Release < ActiveRecord::Base
   belongs_to :family
+  belongs_to :version
   has_many   :apar_defect_ptf_release_maps
   
   # Secondary relations

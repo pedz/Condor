@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080917174151) do
+ActiveRecord::Schema.define(:version => 32) do
 
   create_table "aix_files", :force => true do |t|
     t.string   "path"
@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(:version => 20080917174151) do
     t.datetime "updated_at"
   end
 
+  add_index "apar_defect_ptf_release_maps", ["apar_id", "defect_id", "ptf_id", "release_id"], :name => "unique_apar_defect_ptf_release_map_apar_defect_ptf_release", :unique => true
   add_index "apar_defect_ptf_release_maps", ["defect_id"], :name => "apar_defect_ptf_release_maps_defect_idx"
   add_index "apar_defect_ptf_release_maps", ["ptf_id"], :name => "apar_defect_ptf_release_maps_ptf_idx"
   add_index "apar_defect_ptf_release_maps", ["release_id"], :name => "apar_defect_ptf_release_maps_release_idx"
-  add_index "apar_defect_ptf_release_maps", ["apar_id", "defect_id", "ptf_id", "release_id"], :name => "unique_apar_defect_ptf_release_map_apar_defect_ptf_release", :unique => true
 
   create_table "apars", :force => true do |t|
     t.string   "name"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20080917174151) do
     t.datetime "updated_at"
   end
 
-  add_index "families", ["name"], :name => "unique_familie_name", :unique => true
+  add_index "families", ["name"], :name => "unique_family_name", :unique => true
 
   create_table "fileset_aix_file_maps", :force => true do |t|
     t.integer  "fileset_id"
@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(:version => 20080917174151) do
     t.datetime "updated_at"
   end
 
-  add_index "fileset_ptf_maps", ["ptf_id"], :name => "fileset_ptf_maps_ptf_idx"
   add_index "fileset_ptf_maps", ["fileset_id", "ptf_id"], :name => "unique_fileset_ptf_map_fileset_ptf", :unique => true
+  add_index "fileset_ptf_maps", ["ptf_id"], :name => "fileset_ptf_maps_ptf_idx"
 
   create_table "filesets", :force => true do |t|
     t.integer  "lpp_id",     :null => false
@@ -157,11 +157,12 @@ ActiveRecord::Schema.define(:version => 20080917174151) do
   create_table "releases", :force => true do |t|
     t.string   "name"
     t.integer  "family_id",  :null => false
+    t.integer  "version_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "releases", ["family_id", "name"], :name => "unique_release_name", :unique => true
+  add_index "releases", ["family_id", "name"], :name => "unique_release_name_family_id", :unique => true
 
   create_table "service_pack_fileset_maps", :force => true do |t|
     t.integer  "service_pack_id", :null => false
@@ -170,8 +171,8 @@ ActiveRecord::Schema.define(:version => 20080917174151) do
     t.datetime "updated_at"
   end
 
-  add_index "service_pack_fileset_maps", ["fileset_id"], :name => "service_pack_fileset_maps_fileset_idx"
   add_index "service_pack_fileset_maps", ["fileset_id", "service_pack_id"], :name => "unique_service_pack_fileset_map_service_pack_fileset", :unique => true
+  add_index "service_pack_fileset_maps", ["fileset_id"], :name => "service_pack_fileset_maps_fileset_idx"
 
   create_table "service_packs", :force => true do |t|
     t.string   "name"
@@ -180,5 +181,13 @@ ActiveRecord::Schema.define(:version => 20080917174151) do
   end
 
   add_index "service_packs", ["name"], :name => "unique_service_pack_name", :unique => true
+
+  create_table "versions", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "versions", ["name"], :name => "unique_version_name", :unique => true
 
 end

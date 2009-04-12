@@ -5,7 +5,7 @@ class CreateFamilies < ActiveRecord::Migration
       t.timestamps
     end
     execute "ALTER TABLE families
-             ADD CONSTRAINT unique_familie_name
+             ADD CONSTRAINT unique_family_name
              UNIQUE (name)" 
   end
 
