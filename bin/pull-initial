@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+# This is a script that pulls over all of the pc_view entries in
+# groups of 1000 using the id of the pc.  The script does not depend
+# upon anything else in the Rails application.  It will consume about
+# 10Meg of file space with the temp files.  The temp files are loaded
+# via import_pc_views.rb.  See comments there for details.
+
+# At the time, I found that the ids for pc_view stopped before 160000
+# Pull pc_view entries in groups of 1000
+( 0..160 ).each do |p|
+  puts p
+  system "rpReport -view pc_view -where \"id >= #{p*1000} and id < #{(p+1)*1000}\" > start-#{ "%04d" % p }"
+end
