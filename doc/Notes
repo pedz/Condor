@@ -14,3 +14,148 @@ To Deploy to tcp237 (production)
 
   rake deploy
 
+Condor pulls from various data sources.  I'll try to describe each of
+them here:
+
+First is rp2 and in particular, the pc_view of rp2.  The command:
+  rpReport -general pc_view -select LIST
+claims that it has these fields:
+
+pc_view:
+  id
+  defect_id
+  defect_name
+  owner_id
+  owner
+  owner_fullname
+  product_id
+  product_name
+  version_id
+  version_name
+  state_id
+  state
+  req_status_id
+  req_status
+  apar_id
+  apar_name
+  apar_state_id
+  apar_state
+  add_date
+  last_update
+
+The truth is that the rpReport output using pc_view includes the ptf
+name but it appears as if you can not select using the ptf.
+
+The second source of information are the ptfapardef.const files.  A
+few sample lines from one:
+
+U807555|IZ01549|217546|bos|bos.adt.base|bos61B|aix|Support for future TL/SP|6.1.1.0
+
+The fields are:
+  ptf
+  apar
+  defect
+  lpp_base
+  lpp
+  release
+  family
+  abstract
+  vrmf
+
+The "release" is a cmvc release and it can be a list separated with
+spaces.
+
+One issue is that the "version" from rp2 is something like 53H whereas
+the release from cmvc is something like bos53H.  Often, the state the
+pc_view is "needs apar" or other incomplete (not fully built and
+shipped) state.  But this single pc_view entry will eventually map to
+a set of ptfapardef entries.  For example, one pc_view entry of
+version 53H can map to a sequence of PTFs for bos53H and rspc53H.
+
+The third and final set of data comes from the shipped images.
+Currently I ransack the NFS exported file systems of 'truth' (the
+host) unpacking each image and finding out what is inside.  This can
+be represented like a tree.
+
+A directory of update images represents a particular SP, for example
+5.3 TL08 SP03.  I call each of the paths to these update images
+image_paths.  Each image_path is for a single package (an AIX install
+term).  A single package has a set of filesets (one or more).  Each
+fileset has (as the name implies) a set of files.  The files are paths
+that would be installed on a system.  I call these files aix_files.
+
+There is nothing special about the image_path.  The same update image
+could be place anywhere on any file system but the image path is saved
+because it is usually simple to visually determine which SP the image
+path is for.  Eventually I hope to make the tie to the official name
+of the SP.  Likewise the package name itself is not unique either.  It
+tends to be stem of all the contained filesets.
+
+What is unique is the fileset name when connected to the vrmf.  But,
+curiously I believe this can be in either an update image or in an
+install image.  And the contents of either will be different from the
+other.  But in concept, when either is applied to a system along with
+all the requisites, the set of files on the system should be the same.
+
+New to this version of Condor I plan to keep the sha1 for each of the
+files as well as the output of "what".  I also plan to keep the
+requisite information as a blob of uninterpreted text.
+
+The hooks between these three sets of data is as follows:
+
+The fileset and vrmf is unique and is found in the images as well as
+the ptfapardef.const files.  That links a particular update image to a
+set of entries in ptfapardef.const.
+
+The entries in ptfapardef.const and rp2 can be mapped back and forth.
+I pull data from both because rp2 understands the mappings between
+defects and apars before ptfapardef.const does.
+
+Once we get to a defect, we can then query cmvc for the list of files
+that changed.  Thus we can go from a particular SP, to the list of
+update images, to the list of defects, to the list of changes.
+Likewise, we can go from a change in a file to a defect to a list of
+APARs and PTFs and a list of SPs.
+
+Many to Many mappings and how they happen:  (this will likely grow
+over time)
+
+A single PTF can have multiple APARs.  The obvious place this happens
+is in the cum APARs at the start of each release.  An eample is
+U476294.  I believe this can also happen when a fileset has multiple
+changes in the same release cycle and development or support has
+pushed to get APARs created before they are built and shipped.
+
+A single APAR can (I'll use the term) 'point back' to multiple PTFs.
+This happens when a defect hits multiple components that ship in
+multiple filesets.  Each fileset will have a PTF but the same APAR.
+There will also be a packaging PTF with the same APAR and the family
+and component will be IPP.  The defect of the PTF/APAR combination
+will be 170935.  That is a special defect allocated for these PTFs.
+This is why it use to be important to order and install APARs and not
+PTFs because rarely did each PTF have the dependencies to pull in the
+others.
+
+A single APAR can also point to multiple defects.  This easiest
+example of this is when a defect tests bad before shipping.  The
+defect(s) that fixes the break will have the same APAR and abstract.
+
+A single defect can (and almost always does) produce multiple APARs --
+one for each AIX release (5.2, 5.3, 6.1, ...) in the old service
+strategy and now one for each service pack in the new service
+strategy.  Note that this brings up a caution.  "release" has two
+terms that I can think of right now.  One is the more official term of
+the different versions of AIX: 5.2, 5.3, etc.  The other is the cmvc
+concept such as bos53H, rspc52S, etc.
+
+In rare conditions the same PTF is used to ship two different
+filesets.  ("fileset" in this case is the fileset name along with the
+vrmf).  Most of the cases is when diag and the rte with the same name
+ship at the same time.  An example of this is U815281.  U811487 is a
+freak.  I can't explain it except for some reason they changed the
+vrmf.  But the point is that a PTF does not always map to a fileset.
+
+There are a few instances where the same fileset can produce multiple
+ptfs.  One instance is the packaging ptfs whose fileset has the lpp
+name of IPP and a vrmf of 0.0.0.0.  But there are about 5 other
+instances that I can't find a pattern to.
