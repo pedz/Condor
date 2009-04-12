@@ -1,10 +1,10 @@
 class Defect < ActiveRecord::Base
-  has_many :apar_defect_ptf_release_maps
+  has_many :apar_defect_version_maps
   
   # Secondary relations
-  has_many :apars,  :through => :apar_defect_ptf_release_maps
-  has_many :ptfs,     :through => :apar_defect_ptf_release_maps
-  has_many :releases, :through => :apar_defect_ptf_release_maps
+  has_many :apars,   :through => :apar_defect_version_maps
+  has_many :ptfs,    :through => :apar_defect_version_maps
+  has_many :version, :through => :apar_defect_version_maps
 
   def text
     return @lines unless @lines.nil? || @lines.empty?

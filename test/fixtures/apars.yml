@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  name: IX12345
-  abstract: APAR IX12345 Abstract
-
-two:
-  name: IZ98765
-  abstract: Abstract for IZ98765

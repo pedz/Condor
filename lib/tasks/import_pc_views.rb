@@ -6,13 +6,13 @@ GOOD_FAMILY = Regexp.new("aix")
 GOOD_PRODUCT = Regexp.new("^(5[234].|6..)$")
 
 nby_ptf = Ptf.find(:first, :conditions => { :name => "Not Built Yet" })
-nby_release = Release.find(:first, :conditions => { :name => "Not Built Yet" })
+nby_version = Version.find(:first, :conditions => { :name => "Not Built Yet" })
 
 def create_map(maps, hash, ptf)
   unless maps.detect { |m| m.ptf && m.ptf.id == ptf.id }
     hash[:ptf_id] = ptf.id
-    hash[:release_id] = nby_release.id
-    AparDefectPtfReleaseMap.create(hash)
+    hash[:version_id] = nby_version.id
+    AparDefectPtfVersionMap.create(hash)
   end
 end
 
@@ -31,7 +31,7 @@ File.open(ARGV[0]) do |file|
         :defect_id => defect.id
       }
 
-      maps = AparDefectPtfReleaseMap.find(:all, :conditions => hash)
+      maps = AparDefectPtfVersionMap.find(:all, :conditions => hash)
 
       if ptfs.nil?
         create_map(maps, hash, nby_ptf)

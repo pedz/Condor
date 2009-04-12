@@ -1,3 +1,6 @@
+# It may be that a fileset ships in only one service pack but I rather
+# doubt it.  And clearly a service pack ships many filesets.  So the
+# mapping must be many to many.  This map provides that.
 class CreateServicePackFilesetMaps < ActiveRecord::Migration
   def self.up
     create_table :service_pack_fileset_maps do |t|

@@ -1,3 +1,5 @@
+# As described in Notes, the ptf to fileset mapping must be many to
+# many.  This map does that.
 class CreateFilesetPtfMaps < ActiveRecord::Migration
   def self.up
     create_table :fileset_ptf_maps do |t|

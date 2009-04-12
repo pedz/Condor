@@ -1,9 +1,8 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: devices.pci.hopscotch
-  lpp_base_id: 1
+tty:
+  name: bos.rte.tty
+  lpp_base: bos
 
-two:
-  name: bos.tty.rte
-  lpp_base_id: 2
+adapter:
+  name: devices.pci.foo.rte
+  lpp_base: devices

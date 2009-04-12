@@ -1,8 +1,8 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class LppBaseTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_fixtures_loaded
+    assert(LppBase.find(lpp_bases(:bos).id),     "bos lpp_base not found")
+    assert(LppBase.find(lpp_bases(:devices).id), "devices lpp_base not found")
   end
 end

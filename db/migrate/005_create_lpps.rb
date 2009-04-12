@@ -1,7 +1,8 @@
+# Table of lpp names.  See notes in 004_create_lpp_bases.rb about lpp_base_id
 class CreateLpps < ActiveRecord::Migration
   def self.up
     create_table :lpps do |t|
-      t.string :name
+      t.string :name, :null => false
       t.integer :lpp_base_id, :null => false
       t.timestamps
     end

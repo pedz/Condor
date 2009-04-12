@@ -21,7 +21,8 @@ class AddPtfAparDefsView < ActiveRecord::Migration
                p.id,
                r.id
              FROM
-               apar_defect_ptf_release_maps adpr,
+               apar_defect_version_maps adv,
+               adv_ptf_release_maps apr,
                apars a,
                defects d,
                families f,
@@ -32,10 +33,11 @@ class AddPtfAparDefsView < ActiveRecord::Migration
                ptfs p,
                releases r
              WHERE
-               a.id = adpr.apar_id and
-               d.id = adpr.defect_id and
-               r.id = adpr.release_id and
-               p.id = adpr.ptf_id and
+               a.id = adv.apar_id and
+               d.id = adv.defect_id and
+               adv.id = apr.apar_defect_version_map_id and
+               r.id = apr.release_id and
+               p.id = apr.ptf_id and
                fs.id = f2p.fileset_id and
                p.id = f2p.ptf_id and
                fs.lpp_id = l.id and

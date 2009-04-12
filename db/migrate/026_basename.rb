@@ -1,3 +1,6 @@
+# Stored procedure to return the basename when given a string.  In
+# this case, the basename is sans any directory as well as any
+# extension.
 class Basename < ActiveRecord::Migration
   def self.up
     execute <<EOF

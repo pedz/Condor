@@ -1,8 +1,12 @@
+# A fileset ships many files.  But if only one file changes, the next
+# fileset will ship many of the same files.  Thus there is a many to
+# many mapping between AIX files and filesets.  This map provides that
+# mapping.
 class CreateFilesetAixFileMaps < ActiveRecord::Migration
   def self.up
     create_table :fileset_aix_file_maps do |t|
-      t.integer :fileset_id
-      t.integer :aix_file_id
+      t.integer :fileset_id,  :null => false
+      t.integer :aix_file_id, :null => false
       t.timestamps
     end
     execute "ALTER TABLE fileset_aix_file_maps

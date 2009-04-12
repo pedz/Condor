@@ -134,7 +134,10 @@ and component will be IPP.  The defect of the PTF/APAR combination
 will be 170935.  That is a special defect allocated for these PTFs.
 This is why it use to be important to order and install APARs and not
 PTFs because rarely did each PTF have the dependencies to pull in the
-others.
+others.  It appears as if these packaging PTFs are not in rp2 -- which
+is sad.  Also, (drifting off the topic a bit), nothing about the gold
+release of a new AIX release (e.g. AIX Version 6.1 Gold) is in the rp2
+database because no requisites can be generated.
 
 A single APAR can also point to multiple defects.  This easiest
 example of this is when a defect tests bad before shipping.  The

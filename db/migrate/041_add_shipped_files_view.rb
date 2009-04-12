@@ -15,21 +15,16 @@ class AddShippedFilesView < ActiveRecord::Migration
            FROM
              image_paths ip,
              packages p,
-             image_path_package_maps ippm,
              lpps lpp,
              filesets fs,
              package_fileset_maps pfm,
-             image_path_fileset_maps ipfm,
              aix_files af,
              fileset_aix_file_maps fafm
            WHERE
-             ip.id = ippm.image_path_id AND
-             p.id = ippm.package_id AND
+             ip.package_id = p.id AND
              fs.lpp_id = lpp.id AND
              pfm.package_id = p.id AND
              pfm.fileset_id = fs.id AND
-             ipfm.image_path_id = ip.id AND
-             ipfm.fileset_id = fs.id AND
              fafm.fileset_id = fs.id AND
              fafm.aix_file_id = af.id;"
   end
