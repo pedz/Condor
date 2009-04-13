@@ -1,0 +1,8 @@
+
+img1:
+  name: this/dir/and/the/other/dir/whacka
+  package: tty_package
+
+img2:
+  name: this/dir/and/the/other/dir/doodad
+  package: frog_package
