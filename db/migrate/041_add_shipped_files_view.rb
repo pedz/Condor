@@ -1,3 +1,4 @@
+# Tentative view for exploring shipped files.
 class AddShippedFilesView < ActiveRecord::Migration
   def self.up
     execute "CREATE OR REPLACE VIEW shipped_files (

@@ -1,0 +1,15 @@
+
+one:
+  apar_defect_version_map: one
+  ptf: one
+  release: one
+
+two:
+  apar_defect_version_map: two
+  ptf: two
+  release: two
+
+three:
+  apar_defect_version_map: three
+  ptf: three
+  release: three

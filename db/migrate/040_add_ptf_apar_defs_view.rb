@@ -1,3 +1,4 @@
+# This view essentially replicates the ptfapardef records.
 class AddPtfAparDefsView < ActiveRecord::Migration
   def self.up
     execute "CREATE OR REPLACE VIEW ptfapardefs (

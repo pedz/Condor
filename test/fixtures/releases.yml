@@ -1,0 +1,15 @@
+
+one:
+  name: bos53H
+  version: v53H
+  family: aix
+
+two:
+  name: rspc52S
+  version: v52S
+  family: aix
+
+three:
+  name: tcpip61D
+  version: v61D
+  family: aix
