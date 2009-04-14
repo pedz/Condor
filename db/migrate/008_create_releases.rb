@@ -21,11 +21,11 @@ class CreateReleases < ActiveRecord::Migration
     execute "ALTER TABLE releases
              ADD CONSTRAINT fk_releases_family_id
              FOREIGN KEY (family_id) REFERENCES families(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "ALTER TABLE releases
              ADD CONSTRAINT fk_releases_version_id
              FOREIGN KEY (version_id) REFERENCES versions(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

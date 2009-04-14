@@ -1,0 +1,8 @@
+
+one:
+  fileset: tty_5_3_3_0
+  aix_file: motd
+
+two:
+  fileset: adapter_6_1_2_3
+  aix_file: unix

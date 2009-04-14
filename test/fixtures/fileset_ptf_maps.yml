@@ -1,0 +1,12 @@
+
+one:
+  ptf: one
+  fileset: tty_5_3_3_0
+
+two:
+  ptf: two
+  fileset: tty_5_3_3_0
+
+three:
+  ptf: three
+  fileset: adapter_6_1_2_3

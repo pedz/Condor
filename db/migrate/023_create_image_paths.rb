@@ -13,7 +13,7 @@ class CreateImagePaths < ActiveRecord::Migration
     execute "ALTER TABLE image_paths
              ADD CONSTRAINT fk_image_paths_package_id
              FOREIGN KEY (package_id) REFERENCES packages(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

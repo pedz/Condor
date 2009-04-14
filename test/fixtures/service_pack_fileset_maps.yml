@@ -1,0 +1,8 @@
+
+one:
+  service_pack: sp530603
+  fileset: tty_5_3_3_0
+
+two:
+  service_pack: sp610000
+  fileset: adapter_6_1_2_3

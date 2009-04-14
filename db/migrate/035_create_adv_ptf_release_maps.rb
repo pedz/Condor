@@ -24,15 +24,15 @@ class CreateAdvPtfReleaseMaps < ActiveRecord::Migration
     execute "ALTER TABLE adv_ptf_release_maps
              ADD CONSTRAINT fk_adv_ptf_release_maps_apar_defect_version_map_id
              FOREIGN KEY (apar_defect_version_map_id) REFERENCES apar_defect_version_maps(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "ALTER TABLE adv_ptf_release_maps
              ADD CONSTRAINT fk_adv_ptf_release_maps_ptf_id
              FOREIGN KEY (ptf_id) REFERENCES ptfs(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "ALTER TABLE adv_ptf_release_maps
              ADD CONSTRAINT fk_adv_ptf_release_maps_release_id
              FOREIGN KEY (release_id) REFERENCES releases(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "CREATE INDEX adv_ptf_release_maps_apar_defect_version_map_idx
              ON adv_ptf_release_maps(apar_defect_version_map_id)"
     execute "CREATE INDEX adv_ptf_release_maps_ptf_idx

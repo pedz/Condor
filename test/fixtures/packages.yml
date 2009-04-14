@@ -1,0 +1,8 @@
+
+tty_package:
+  name: tty_package
+  sha1: 82
+
+frog_package:
+  name: frog_package
+  sha1: 42

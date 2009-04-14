@@ -15,11 +15,11 @@ class CreatePackageFilesetMaps < ActiveRecord::Migration
     execute "ALTER TABLE package_fileset_maps
              ADD CONSTRAINT fk_package_fileset_maps_package_id
              FOREIGN KEY (package_id) REFERENCES packages(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "ALTER TABLE package_fileset_maps
              ADD CONSTRAINT fk_package_fileset_maps_fileset_id
              FOREIGN KEY (fileset_id) REFERENCES filesets(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

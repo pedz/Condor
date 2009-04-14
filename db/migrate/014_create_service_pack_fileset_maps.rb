@@ -16,11 +16,11 @@ class CreateServicePackFilesetMaps < ActiveRecord::Migration
     execute "ALTER TABLE service_pack_fileset_maps
              ADD CONSTRAINT fk_service_pack_fileset_maps_service_pack_id
              FOREIGN KEY (service_pack_id) REFERENCES service_packs(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "ALTER TABLE service_pack_fileset_maps
              ADD CONSTRAINT fk_service_pack_fileset_maps_fileset_id
              FOREIGN KEY (fileset_id) REFERENCES filesets(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

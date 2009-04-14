@@ -1,0 +1,8 @@
+
+motd:
+  path: /etc/motd
+  sha1: 5
+
+unix:
+  path: /unix
+  sha1: 18

@@ -12,7 +12,7 @@ class CreateLpps < ActiveRecord::Migration
     execute "ALTER TABLE lpps
              ADD CONSTRAINT fk_lpps_lpp_base_id
              FOREIGN KEY (lpp_base_id) REFERENCES lpp_bases(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

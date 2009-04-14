@@ -15,11 +15,11 @@ class CreateFilesetPtfMaps < ActiveRecord::Migration
     execute "ALTER TABLE fileset_ptf_maps
              ADD CONSTRAINT fk_fileset_ptf_maps_fileset_id
              FOREIGN KEY (fileset_id) REFERENCES filesets(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "ALTER TABLE fileset_ptf_maps
              ADD CONSTRAINT fk_fileset_ptf_maps_ptf_id
              FOREIGN KEY (ptf_id) REFERENCES ptfs(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

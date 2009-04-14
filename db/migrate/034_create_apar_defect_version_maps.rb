@@ -23,15 +23,15 @@ class CreateAparDefectVersionMaps < ActiveRecord::Migration
     execute "ALTER TABLE apar_defect_version_maps
              ADD CONSTRAINT fk_apar_defect_version_maps_apar_id
              FOREIGN KEY (apar_id) REFERENCES apars(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "ALTER TABLE apar_defect_version_maps
              ADD CONSTRAINT fk_apar_defect_version_maps_defect_id
              FOREIGN KEY (defect_id) REFERENCES defects(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "ALTER TABLE apar_defect_version_maps
              ADD CONSTRAINT fk_apar_defect_version_maps_version_id
              FOREIGN KEY (version_id) REFERENCES versions(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "CREATE INDEX apar_defect_version_maps_defect_idx
              ON apar_defect_version_maps(defect_id)"
     execute "CREATE INDEX apar_defect_version_maps_version_idx

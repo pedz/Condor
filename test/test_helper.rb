@@ -32,7 +32,25 @@ class ActiveSupport::TestCase
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  fixtures :all
+  fixtures :aix_files,
+  :apars,
+  :defects,
+  :families,
+  :ptfs,
+  :lpp_bases,
+  :lpps,
+  :filesets,
+  :versions,
+  :releases,
+  :packages,
+  :image_paths,
+  :fileset_aix_file_maps,
+  :fileset_ptf_maps,
+  :package_fileset_maps,
+  :service_packs,
+  :service_pack_fileset_maps,
+  :apar_defect_version_maps,
+  :adv_ptf_release_maps
 
   # Add more helper methods to be used by all tests here...
 end

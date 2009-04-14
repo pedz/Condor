@@ -14,7 +14,7 @@ class CreateFilesets < ActiveRecord::Migration
     execute "ALTER TABLE filesets
              ADD CONSTRAINT fk_filesets_lpp_id
              FOREIGN KEY (lpp_id) REFERENCES lpps(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

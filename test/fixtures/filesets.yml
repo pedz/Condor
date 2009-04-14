@@ -1,0 +1,8 @@
+
+tty_5_3_3_0:
+  lpp: tty
+  vrmf: 5.3.3.0
+
+adapter_6_1_2_3:
+  lpp: adapter
+  vrmf: 6.1.2.3

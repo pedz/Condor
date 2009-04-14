@@ -15,11 +15,11 @@ class CreateFilesetAixFileMaps < ActiveRecord::Migration
     execute "ALTER TABLE fileset_aix_file_maps
              ADD CONSTRAINT fk_fileset_aix_file_maps_fileset_id
              FOREIGN KEY (fileset_id) REFERENCES filesets(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
     execute "ALTER TABLE fileset_aix_file_maps
              ADD CONSTRAINT fk_fileset_aix_file_maps_aix_file_id
              FOREIGN KEY (aix_file_id) REFERENCES aix_files(id)
-             ON DELETE CASCADE"
+             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down
