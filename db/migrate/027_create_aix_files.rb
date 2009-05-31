@@ -8,15 +8,14 @@ class CreateAixFiles < ActiveRecord::Migration
       t.string :path, :null => false
       t.string :sha1, :null => false
       t.timestamps
+      t.unique [ :path, :sha1 ]
     end
-    execute "ALTER TABLE aix_files
-             ADD CONSTRAINT unique_aix_files_path
-             UNIQUE (path, sha1)"
+    # add_index :aix_files, "basename(path)"
     execute "CREATE INDEX base_file_name_idx ON aix_files(basename(path));"
   end
 
   def self.down
-    execute "DROP INDEX base_file_name_idx;"
+    # execute "DROP INDEX base_file_name_idx;"
     drop_table :aix_files
   end
 end

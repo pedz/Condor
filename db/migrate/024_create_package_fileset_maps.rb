@@ -5,21 +5,11 @@
 class CreatePackageFilesetMaps < ActiveRecord::Migration
   def self.up
     create_table :package_fileset_maps do |t|
-      t.integer :package_id, :null => false
-      t.integer :fileset_id, :null => false
+      t.fk :package_id
+      t.fk :fileset_id
       t.timestamps
+      t.unique [ :package_id, :fileset_id ]
     end
-    execute "ALTER TABLE package_fileset_maps
-             ADD CONSTRAINT unique_package_fileset_map_package_fileset
-             UNIQUE (package_id, fileset_id)"
-    execute "ALTER TABLE package_fileset_maps
-             ADD CONSTRAINT fk_package_fileset_maps_package_id
-             FOREIGN KEY (package_id) REFERENCES packages(id)
-             ON DELETE CASCADE DEFERRABLE"
-    execute "ALTER TABLE package_fileset_maps
-             ADD CONSTRAINT fk_package_fileset_maps_fileset_id
-             FOREIGN KEY (fileset_id) REFERENCES filesets(id)
-             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

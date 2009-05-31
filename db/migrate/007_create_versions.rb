@@ -8,12 +8,9 @@
 class CreateVersions < ActiveRecord::Migration
   def self.up
     create_table :versions do |t|
-      t.string :name, :null => false
+      t.string :name, :null => false, :unique => true
       t.timestamps
     end
-    execute "ALTER TABLE versions
-             ADD CONSTRAINT unique_version_name
-             UNIQUE (name)"
   end
 
   def self.down

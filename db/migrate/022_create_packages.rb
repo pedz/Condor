@@ -6,10 +6,8 @@ class CreatePackages < ActiveRecord::Migration
       t.string :name, :null => false
       t.string :sha1, :null => false
       t.timestamps
+      t.unique [ :name, :sha1 ]
     end
-    execute "ALTER TABLE packages
-             ADD CONSTRAINT unique_package_name
-             UNIQUE (name, sha1)"
   end
 
   def self.down

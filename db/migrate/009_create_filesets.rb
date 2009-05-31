@@ -4,17 +4,11 @@
 class CreateFilesets < ActiveRecord::Migration
   def self.up
     create_table :filesets do |t|
-      t.integer :lpp_id, :null => false
+      t.fk :lpp_id
       t.string :vrmf, :null => false
       t.timestamps
+      t.unique [ :lpp_id, :vrmf ]
     end
-    execute "ALTER TABLE filesets
-             ADD CONSTRAINT unique_fileset_lpp_id_vrmf
-             UNIQUE (lpp_id, vrmf)"
-    execute "ALTER TABLE filesets
-             ADD CONSTRAINT fk_filesets_lpp_id
-             FOREIGN KEY (lpp_id) REFERENCES lpps(id)
-             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

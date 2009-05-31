@@ -3,12 +3,9 @@
 class CreateFamilies < ActiveRecord::Migration
   def self.up
     create_table :families do |t|
-      t.string :name, :null => false
+      t.string :name, :null => false, :unique => true
       t.timestamps
     end
-    execute "ALTER TABLE families
-             ADD CONSTRAINT unique_family_name
-             UNIQUE (name)" 
   end
 
   def self.down

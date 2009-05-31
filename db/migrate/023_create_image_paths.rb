@@ -3,17 +3,10 @@
 class CreateImagePaths < ActiveRecord::Migration
   def self.up
     create_table :image_paths do |t|
-      t.string :path, :null => false
-      t.integer :package_id, :null => false
+      t.string :path, :null => false, :unique => true
+      t.fk :package_id
       t.timestamps
     end
-    execute "ALTER TABLE image_paths
-             ADD CONSTRAINT unique_image_path_path
-             UNIQUE (path)"
-    execute "ALTER TABLE image_paths
-             ADD CONSTRAINT fk_image_paths_package_id
-             FOREIGN KEY (package_id) REFERENCES packages(id)
-             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down

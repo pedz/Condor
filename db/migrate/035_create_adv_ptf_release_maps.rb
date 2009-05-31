@@ -13,38 +13,18 @@
 class CreateAdvPtfReleaseMaps < ActiveRecord::Migration
   def self.up
     create_table :adv_ptf_release_maps do |t|
-      t.integer :apar_defect_version_map_id, :null => false
-      t.integer :ptf_id,                     :null => false
-      t.integer :release_id,                 :null => false
+      t.fk :apar_defect_version_map_id
+      t.fk :ptf_id
+      t.fk :release_id
       t.timestamps
+      t.unique [ :apar_defect_version_map_id, :ptf_id, :release_id ]
     end
-    execute "ALTER TABLE adv_ptf_release_maps
-             ADD CONSTRAINT unique_adv_ptf_release_map_adv_ptf_release
-             UNIQUE (apar_defect_version_map_id, ptf_id, release_id)"
-    execute "ALTER TABLE adv_ptf_release_maps
-             ADD CONSTRAINT fk_adv_ptf_release_maps_apar_defect_version_map_id
-             FOREIGN KEY (apar_defect_version_map_id) REFERENCES apar_defect_version_maps(id)
-             ON DELETE CASCADE DEFERRABLE"
-    execute "ALTER TABLE adv_ptf_release_maps
-             ADD CONSTRAINT fk_adv_ptf_release_maps_ptf_id
-             FOREIGN KEY (ptf_id) REFERENCES ptfs(id)
-             ON DELETE CASCADE DEFERRABLE"
-    execute "ALTER TABLE adv_ptf_release_maps
-             ADD CONSTRAINT fk_adv_ptf_release_maps_release_id
-             FOREIGN KEY (release_id) REFERENCES releases(id)
-             ON DELETE CASCADE DEFERRABLE"
-    execute "CREATE INDEX adv_ptf_release_maps_apar_defect_version_map_idx
-             ON adv_ptf_release_maps(apar_defect_version_map_id)"
-    execute "CREATE INDEX adv_ptf_release_maps_ptf_idx
-             ON adv_ptf_release_maps(ptf_id)"
-    execute "CREATE INDEX adv_ptf_release_maps_release_idx
-             ON adv_ptf_release_maps(release_id)"
+    add_index :adv_ptf_release_maps, :apar_defect_version_map_id
+    add_index :adv_ptf_release_maps, :ptf_id
+    add_index :adv_ptf_release_maps, :release_id
   end
 
   def self.down
-    execute "DROP INDEX adv_ptf_release_maps_apar_defect_version_map_idx"
-    execute "DROP INDEX adv_ptf_release_maps_ptf_idx"
-    execute "DROP INDEX adv_ptf_release_maps_release_idx"
     drop_table :adv_ptf_release_maps
   end
 end

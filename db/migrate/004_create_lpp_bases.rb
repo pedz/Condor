@@ -4,12 +4,9 @@
 class CreateLppBases < ActiveRecord::Migration
   def self.up
     create_table :lpp_bases do |t|
-      t.string :name, :null => false
+      t.string :name, :null => false, :unique => true
       t.timestamps
     end
-    execute "ALTER TABLE lpp_bases
-             ADD CONSTRAINT unique_lpp_base_name
-             UNIQUE (name)" 
   end
 
   def self.down

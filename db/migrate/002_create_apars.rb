@@ -5,13 +5,10 @@
 class CreateApars < ActiveRecord::Migration
   def self.up
     create_table :apars do |t|
-      t.string :name, :null => false
+      t.string :name, :null => false, :unique => true
       t.string :abstract
       t.timestamps
     end
-    execute "ALTER TABLE apars
-             ADD CONSTRAINT unique_apar_name
-             UNIQUE (name)" 
   end
 
   def self.down

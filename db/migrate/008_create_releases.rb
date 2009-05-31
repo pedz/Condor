@@ -11,21 +11,11 @@ class CreateReleases < ActiveRecord::Migration
   def self.up
     create_table :releases do |t|
       t.string :name, :null => false
-      t.integer :family_id, :null => false
-      t.integer :version_id, :null => false
+      t.fk :family_id
+      t.fk :version_id
       t.timestamps
+      t.unique [ :name, :family_id ]
     end
-    execute "ALTER TABLE releases
-             ADD CONSTRAINT unique_release_name_family_id
-             UNIQUE (name, family_id)"
-    execute "ALTER TABLE releases
-             ADD CONSTRAINT fk_releases_family_id
-             FOREIGN KEY (family_id) REFERENCES families(id)
-             ON DELETE CASCADE DEFERRABLE"
-    execute "ALTER TABLE releases
-             ADD CONSTRAINT fk_releases_version_id
-             FOREIGN KEY (version_id) REFERENCES versions(id)
-             ON DELETE CASCADE DEFERRABLE"
   end
 
   def self.down
