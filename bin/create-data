@@ -1,0 +1,9 @@
+#!/bin/ksh
+
+# This script creates the data directory or updates it by finding all
+# of the ptfapardef.const files in either gsa or dfs.  It needs to
+# have valid gsa and dfs tickets to run properly.
+
+# First find the common directory
+cd $( dirname $0 )/../log/..
+/bin/pwd
