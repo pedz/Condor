@@ -3,7 +3,50 @@
 # This script creates the data directory or updates it by finding all
 # of the ptfapardef.const files in either gsa or dfs.  It needs to
 # have valid gsa and dfs tickets to run properly.
+DFS_AIXBASE=/.../austin.ibm.com/fs/projects/aix
+GSA_AIXBASE=/gsa/ausgsa/projects/a/aix
 
-# First find the common directory
-cd $( dirname $0 )/../log/..
-/bin/pwd
+# Find the "home" directory
+cd $( dirname $0 )/..
+RAILS_HOME=$( /bin/pwd )
+cd "${RAILS_HOME}"
+
+# Find "shared" directory if different
+cd log
+cd $( /bin/pwd )/..
+SHARED=$( /bin/pwd )
+
+# echo "RAILS_HOME=${RAILS_HOME}  SHARED=${SHARED}"
+
+# Make the data and data/current directory in SHARED directory if
+# not present
+mkdir -p "${SHARED}/data/current"
+cd "${SHARED}/data/current"
+
+# Put new copy of do-update in data/current
+cp "${RAILS_HOME}/bin/do-update" .
+
+find $DFS_AIXBASE/*/ptf.images/prod* $GSA_AIXBASE/*/ptf.images/prod* \
+    -name ptfapardef.constant -type f -print 2> /dev/null | \
+    sort -u -o all
+
+cat known ignored 2> /dev/null | sort -u -o /tmp/create-data-$$
+comm -23 all /tmp/create-data-$$ > new
+rm /tmp/create-data-$$
+
+if [[ ! -s new ]] ; then
+  echo No new ptfapardef.constant files found
+fi
+
+# Find unique files
+oldmd5=""
+cat new | while read f1 ; do
+  md5=$( /usr/local/ssl/bin/openssl dgst -md5 < $f )
+  echo $md5 $f1
+done | sort | while read md5 f2 ; do
+  if [[ "$md5" != "$oldmd5" ]] ; then
+    echo $f2
+    oldmd5=$md5
+  fi
+done | sort -o new_known
+comm -23 new new_known > new_ignored

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require File.dirname(__FILE__) + '/../../script/runner'
+load File.dirname(__FILE__) + '/../../script/runner'
 
 nby_ptf = Ptf.find(:first, :conditions => { :name => "Not Built Yet" })
 nby_release = Release.find(:first, :conditions => { :name => "Not Built Yet" })

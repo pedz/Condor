@@ -20,7 +20,8 @@ for i in $newer ; do
   else
     cp here new-lines
   fi
-  if ( cd ../.. ; lib/tasks/import_consts.rb data/current/new-lines ) ; then
+  if ( cd ../../../current ; \
+       lib/tasks/import_consts.rb data/current/new-lines ) ; then
     mkdir -p $( dirname ../completed/$i )
     mv here ../completed/$i
   else
