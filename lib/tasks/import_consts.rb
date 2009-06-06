@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 
-load File.dirname(__FILE__) + '/../../script/runner'
+# This script is used to import ptfapardef.constant files.
 
-nby_ptf = Ptf.find(:first, :conditions => { :name => "Not Built Yet" })
-nby_release = Release.find(:first, :conditions => { :name => "Not Built Yet" })
+# load File.dirname(__FILE__) + '/../../script/runner'
+
+# nby_ptf = Ptf.find(:first, :conditions => { :name => "Not Built Yet" })
+# nby_release = Release.find(:first, :conditions => { :name => "Not Built Yet" })
 
 File.open(ARGV[0]) do |file|
   Apar.transaction do 
@@ -22,8 +24,37 @@ File.open(ARGV[0]) do |file|
       lpp = lpp_base.lpps.find_or_create_by_name fields[4]
       
       family = Family.find_or_create_by_name fields[6]
-      releases = fields[5].split(/ /).map do |release|
-        family.releases.find_or_create_by_name release
+      releases = fields[5].split(/ /).map do |release_name|
+        version = Version.find_or_create_by_name release_name[-3,3]
+
+        release_hash = {
+          name => release_name,
+          version_id => version_id
+        }
+        release = family.releases.find(:first, :conditions => hash)
+        unless release
+          release = family.releases.create(hash)
+        end
+
+        adv_hash = {
+          apar_id => apar.id,
+          defect_id => defect.id,
+          version_id => version.id
+        }
+        adv = AparDefectVersionMap.find(:first, :conditions => adv_hash)
+        unless adv
+          adv = AparDefectVersionMap.create(adv_hash)
+        end
+
+        apr_hash = {
+          apar_defect_version_map_id => adv.id,
+          ptf_id => ptf.id,
+          release_id => release.id
+        }
+        apr = AdvPtfReleaseMap.find(:first, :conditions => apr_hash)
+        unless apr
+          apr = AdvPtfReleaseMap.create(hash)
+        end
       end
       
       if apar.abstract.nil?
@@ -33,31 +64,6 @@ File.open(ARGV[0]) do |file|
       
       fileset = lpp.filesets.find_or_create_by_vrmf fields[8]
       
-      releases.each do |release|
-        hash = {
-          :defect_id => defect.id,
-          :apar_id => apar.id,
-          :ptf_id => nby_ptf.id,
-          :release_id => nby_release.id
-        }
-        if (a = AparDefectPtfReleaseMap.find(:first, :conditions => hash))
-          a.update_attributes(:ptf_id => ptf.id, :release_id => release.id)
-          next
-        end
-
-        hash.ptf_id = ptf.id
-        if (a = AparDefectPtfReleaseMap.find(:first, :conditions => hash))
-          a.update_attributes(:release_id => release.id)
-          next
-        end
-        
-        hash.release_id = release.id
-        if (a = AparDefectPtfReleaseMap.find(:first, :conditions => hash))
-          next
-        end
-
-        AparDefectPtfReleaseMap.create(:conditions => hash)
-      end
       FilesetPtfMap.find_or_create_by_fileset_id_and_ptf_id(fileset.id, ptf.id)
     end
   end
