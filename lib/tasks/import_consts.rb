@@ -8,6 +8,8 @@
 # nby_release = Release.find(:first, :conditions => { :name => "Not Built Yet" })
 
 begin
+  Rails.logger.level = ActiveSupport::BufferedLogger::WARN
+  
   File.open(ARGV[0]) do |file|
     Apar.transaction do 
       file.each_line do |line|
