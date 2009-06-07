@@ -13,6 +13,8 @@ GOOD_FAMILY = Regexp.new("aix")
 GOOD_VERSION = Regexp.new("^(5[234].|6..)$")
 
 begin
+  Rails.logger.level = ActiveSupport::BufferedLogger::WARN
+  
   File.open(ARGV[0]) do |file|
     Apar.transaction do
       file.each_line do |line|
