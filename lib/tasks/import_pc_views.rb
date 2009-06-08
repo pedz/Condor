@@ -1,13 +1,16 @@
 #!/usr/bin/env ruby
 
+# task file to import pc view output.
+
+# I gave up trying to use runner magically.  To run these scripts just
+# type out the whole command like:
+# script/runner lib/tasks/import_pc_views.rb file1 file2 ...
+
 # Sample input:
 #
 # 315731|rayc|aix|42G|APPROVED|NO_REQS_NEEDED|NO_NEEDED|
 # 302632|frankzhu|aix|42G|APPROVED|NO_REQS_NEEDED|NEEDS_ONE|
 # 220324|frankzhu|aix|42G|OPEN|UNKNOWN|NOT_SPECIFIED|
-
-
-require File.dirname(__FILE__) + '/../../script/runner'
 
 GOOD_FAMILY = Regexp.new("aix")
 GOOD_VERSION = Regexp.new("^(5[234].|6..)$")

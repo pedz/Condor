@@ -2,10 +2,9 @@
 
 # This script is used to import ptfapardef.constant files.
 
-# load File.dirname(__FILE__) + '/../../script/runner'
-
-# nby_ptf = Ptf.find(:first, :conditions => { :name => "Not Built Yet" })
-# nby_release = Release.find(:first, :conditions => { :name => "Not Built Yet" })
+# I gave up trying to use runner magically.  To run these scripts just
+# type out the whole command like:
+# script/runner lib/tasks/import_consts.rb file1 file2 ...
 
 begin
   Rails.logger.level = ActiveSupport::BufferedLogger::WARN

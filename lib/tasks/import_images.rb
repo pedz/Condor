@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
-require File.dirname(__FILE__) + '/../../script/runner'
+# I gave up trying to use runner magically.  To run these scripts just
+# type out the whole command like:
+# script/runner lib/tasks/import_images.rb file1 file2 ...
 
 # This script expects standard input to be a list of lines of two
 # forms.  One form has four fields separated by spaces.  These fields
