@@ -50,131 +50,226 @@ end
 
 # Process file first sees if this image_path is already in image_paths.  If
 # it is, it assumes that things have not changed and it is skipped.
-# Next it reads the first four bytes to see if it is a  backup file (
-# a possible install / update image.  If it is not a backup file, then
-# a new image_paths is created with the package id set to the
-# 'not-a-package' package and then returns.
-# If all these tests pass, process_package is called.
-BACKUP_MAGIC = "\x09\x00\x6b\xea".freeze
+# It then creates an ImageFile and passes the processing off to it.
 def process_file(image_path)
   relative_path = image_path.relative_path_from(MOUNT_POINT)
   return if ImagePath.find_by_path(relative_path)
-  image_path.open do |file|
-    magic = file.read(4)
-    unless magic == BACKUP_MAGIC
-      # Flat file that is not a backup image
-      package = Package.find_or_create_by_name_and_sha1("not-a-package", "0")
-      ImagePath.create(:path => relative_path, :package_id => package.id)
-      return
-    end
-  end
-
-  # calcualte the SHA1
-  hexdigest = Digest::SHA1.file(image_path)
-
-  base = image_path.basename
-  found_one = false
-  Package.find_all_by_sha1(hexdigest).each do |package|
-    # If we find at least one package, then we will not process the
-    # file again.
-    found_one = true
-
-    # If it has the same basename, then we just create a new image
-    # image_path to point to it and we're done
-    if package.name == base
-      ImagePath.create(:path => relative_path, :package_id => package.id)
-      return
-    end
-  end
-
-  # If we did not find any packages with the same SHA1, we call
-  # process package to dig into the package and get all of the goodies
-  # out of it.
-  unless found_one
-    unless process_package(image_path)
-      package = Package.find_or_create_by_name_and_sha1("error-package", "0")
-      ImagePath.create(:path => relative_path, :package_id => package.id)
-      return
-    end
-  end
-  
-
-  # We create a new package with the new basename and create an image
-  # image_path to point to it.
-  package = Package.new(:name => base, :sha1 => hexdigest)
-  ImagePath.create(:path => relative_path, :package_id => package.id)
+  image_file = ImageFile.new(ImagePath.new(:path => relative_path), image_path)
+  image_file.process
 end
 
-# At this point, we know that image_path is a backup file and we will
-# restore its contents in a temp directory and then try to understand
-# it.  This should return true if no errors happened and false if we
-# hit an error that is so bad we need to re-process the file somehow.
-def process_package(image_path)
-  begin
-    restore_package(image_path)
-    # The old "populate" script would change the permissions on all the
-    # directories in the exploided package be 777.  It would then add
-    # write permissions to everything.  I can't recall why that was done
-    # but as I recall, there was a reason for it.  Perhaps it was so we
-    # could delete it when we were done.  I'm not going to do that yet.
-    
-    # We now need to understand the lpp_name file if one exists.  If one
-    # does not, then we just exit.
-    lpp_name = TEMP_DIR + "lpp_name"
-    unless lpp_name.file?
-      return
-    end
-    packages = nil
-    lpp_name.open do |file|
-      packages = Toc::Parser.parse(file)
-    end
-    # We should have only one package in the list of packages since
-    # this is an lpp_name and not a .toc.
-    packages.each do |package|
-      package.filesets.each do |fileset|
-        puts "#{package.name} #{fileset.name} #{fileset.vrmf}"
+# ImageFile is a class to contain the work of processing an image
+# file.
+class ImageFile
+  def initialize(image, full_path)
+    @image, @full_path = image, full_path
+  end
+  
+  BACKUP_MAGIC = "\x09\x00\x6b\xea".freeze
+  
+  # reads the first four bytes to see if it is a backup file ( a
+  # possible install / update image.  If it is not a backup file, then
+  # a new image_paths is created with the package id set to the
+  # 'not-a-backup' package and then returns.  If all these tests pass,
+  # process_package is called.
+  def process
+    @full_path.open do |file|
+      magic = file.read(4)
+      unless magic == BACKUP_MAGIC
+        # Flat file that is not a backup image
+        @image.package = not_a_backup
+        @image.save
+        return
       end
     end
-    exit(0)
-  rescue => e
-    puts e.message
-    puts e.backtrace
-    exit(1)
-  ensure
-    # remove_temp_dir
-  end
-end
+    
+    # calcualte the SHA1
+    @sha1 = Digest::SHA1.file(@full_path).hexdigest
+    
+    # We assume that two files with the same SHA1 are the same file
+    # in a different location.
+    if package = Package.find_by_sha1(@sha1)
+      @image.package = package
+      @image.save
+      return
+    end
 
-def remove_temp_dir
-  TEMP_DIR.rmtree if TEMP_DIR.directory?
-end
-
-def restore_package(image_path)
-  remove_temp_dir
-  TEMP_DIR.mkpath
-  pid = Kernel.fork
-  
-  # Child
-  if pid.nil?
-    $stdin.reopen(image_path)
-    $stdout.close
-    Dir.chdir(TEMP_DIR.to_s)
-    Kernel.exec("/usr/sbin/restore", "-xqf", "-")
+    process_package
   end
   
-  # Parent
-  Process.wait(pid)
-  status = $?
-  if status != 0
-    STDERR.puts "restore exited with status of #{status}"
-    exit(1)
+  private
+  
+  # At this point, we know that @full_path is a backup file and we will
+  # restore its contents in a temp directory and then try to understand
+  # it.  This should return true if no errors happened and false if we
+  # hit an error that is so bad we need to re-process the file somehow.
+  INVENTORY_REGEXP = /^(.*)\.inventory$/.freeze
+  COLON_REGEXP = /^(.*):.*$/.freeze
+  
+  def process_package
+    begin
+      restore_package
+
+      # The old "populate" script would change the permissions on all the
+      # directories in the exploided package be 777.  It would then add
+      # write permissions to everything.  I can't recall why that was done
+      # but as I recall, there was a reason for it.  Perhaps it was so we
+      # could delete it when we were done.  I'm not going to do that yet.
+      
+      # We now need to understand the lpp_name file if one exists.  If one
+      # does not, then we just exit.
+      lpp_name = TEMP_DIR + "lpp_name"
+      return unless lpp_name.file?
+
+      lpp_name.open do |file|
+        # We assume each image path has only one package.  This may
+        # not be dictated anywhere so we are going to check and make
+        # sure it is true.
+        first_time = true
+        Toc::Parser.parse(file).each do |parsed_package|
+          unless first_time
+            STDERR.puts "#{@full_path} has more than one package in its lpp_name"
+            exit(1)
+          end
+          @package = new_package(parsed_package.name)
+          @image.package = @package
+          fileset_hash = { }
+          parsed_package.filesets.each do |parsed_fileset|
+            fs = fileset(parsed_fileset)
+            if fileset_hash.has_key?(fs.lpp.name)
+              STDERR.puts "Image at #{@full_path} has two filesets with the " +
+                "same lpp name of #{fs.lpp.ame}"
+              exit(1)
+            end
+            fileset_hash[fs.lpp.name] = fs
+            @package.filesets << fs
+          end
+
+          # We find all of the liblpp.a files, create a directory
+          # called liblpp in the same directory and then expand the
+          # libllpp.a file into it.  We pull out the .inventory files
+          TEMP_DIR.find do |path|
+            next unless path.basename.to_s == "liblpp.a"
+            expand_liblpp(path) do |child|
+              next unless (match1 = INVENTORY_REGEXP.match(child.basename.to_s))
+              if (fs = fileset_hash[match1[1]]).nil?
+                STDERR.puts "Image at #{@full_path} has inventory file " +
+                  "for '#{match[1]}' but was not entered in the lpp_name." +
+                  " - skipping..."
+                next
+              end
+
+              # child is now an inventory file that we dug out of one
+              # of the liblpp.a files.  We find the lines with a colon
+              # which are the full path names of the installed files.
+              child.readlines.each do |line|
+                next unless (match2 = COLON_REGEXP.match(line))
+                fs.aix_files << aix_file(match2[1])
+              end
+            end
+          end
+        end
+      end
+      @image.save
+    rescue => e
+      STDERR.puts e.message
+      STDERR.puts e.backtrace
+      exit(1)
+    ensure
+      # remove_temp_dir
+    end
   end
+  
+  def aix_file(installed_path)
+    local_path = TEMP_DIR + installed_path[1..-1]
+    if local_path.file?
+      sha1 = Digest::SHA1.file(local_path).hexdigest
+    else
+      sha1 = "0"
+    end
+    AixFile.find_or_create_by_path_and_sha1(installed_path, sha1)
+  end
+                
+  def remove_temp_dir
+    TEMP_DIR.rmtree if TEMP_DIR.directory?
+  end
+  
+  def expand_liblpp(path)
+    dir = path.dirname + "liblpp"
+    dir.mkdir
+    pid = Kernel.fork
+    if pid.nil?
+      Dir.chdir(dir)
+      Kernel.exec("/usr/bin/ar", "x", "../liblpp.a")
+    end
+
+    Process.wait(pid)
+    status = $?
+    if status != 0
+      STDERR.puts "ar x of #{path} failed"
+      exit(1)
+    end
+
+    dir.children.each do |c|
+      yield c
+    end
+  end
+
+  def restore_package
+    remove_temp_dir
+    TEMP_DIR.mkpath
+    pid = Kernel.fork
+    
+    # Child
+    if pid.nil?
+      $stdin.reopen(@full_path)
+      $stdout.close
+      Dir.chdir(TEMP_DIR.to_s)
+      Kernel.exec("/usr/sbin/restore", "-xqf", "-")
+    end
+    
+    # Parent
+    Process.wait(pid)
+    status = $?
+    if status != 0
+      STDERR.puts "restore exited with status of #{status}"
+      exit(1)
+    end
+  end
+  
+  # We know that sha1 is not in the database so we know that the tuple
+  # [name, sha1] will not be in the database as well.
+  def new_package(package_name)
+    Package.new(:name => package_name, :sha1 => @sha1)
+  end
+  
+  def error_package
+    Package.find_or_create_by_name_and_sha1("error-package", "0")
+  end
+  
+  def not_a_backup
+    Package.find_or_create_by_name_and_sha1("not-a-backup", "0")
+  end
+
+  def lpp_base(lpp_name)
+    LppBase.find_or_create_by_name lpp_name.sub(/\..*/, '')
+  end
+
+  def lpp(lpp_name)
+    lpp_base(lpp_name).lpps.find_or_create_by_name(lpp_name)
+  end
+
+  def fileset(parsed_fileset)
+    lpp(parsed_fileset.name).filesets.find_or_create_by_vrmf(parsed_fileset.vrmf)
+  end
+
 end
 
 
 begin
   main_loop
 rescue => e
-  puts e.message
-  puts e.backtrace
+  STDERR.puts e.message
+  STDERR.puts e.backtrace
+  exit(1)
 end
