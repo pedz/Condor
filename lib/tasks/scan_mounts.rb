@@ -26,6 +26,7 @@ ROOT = Pathname.new(File.dirname(__FILE__) + "/../..").realpath
 DATA = (ROOT + "data").realpath
 MOUNT_POINT = DATA + "mounts"
 TEMP_DIR = DATA + "temp"
+LOG_PATH = Pathname.new("log/scan_mounts.log")
 
 # main_loop of the scan_mounts script runs thru the MOUNT_LIST.  For
 # each item in the list, it creates a mount point if one does not
@@ -53,8 +54,8 @@ end
 # It then creates an ImageFile and passes the processing off to it.
 def process_file(image_path)
   relative_path = image_path.relative_path_from(MOUNT_POINT)
-  return if ImagePath.find_by_path(relative_path)
-  image_file = ImageFile.new(ImagePath.new(:path => relative_path), image_path)
+  return if ImagePath.find_by_path(relative_path.to_s)
+  image_file = ImageFile.new(ImagePath.new(:path => relative_path.to_s), image_path)
   image_file.process
 end
 
@@ -73,15 +74,25 @@ class ImageFile
   # 'not-a-backup' package and then returns.  If all these tests pass,
   # process_package is called.
   def process
-    @full_path.open do |file|
-      magic = file.read(4)
-      unless magic == BACKUP_MAGIC
-        # Flat file that is not a backup image
-        @image.package = not_a_backup
-        @image.save
-        return
+    begin
+      # We can get a permission denied here so we catch the error, log
+      # it and move on.
+      @full_path.open do |file|
+        magic = file.read(4)
+        unless magic == BACKUP_MAGIC
+          # Flat file that is not a backup image
+          @image.package = not_a_backup
+          @image.save
+          return
+        end
       end
+    rescue => e
+      STDERR.puts e.message
+      @image.package = error_package
+      @image.save
+      return
     end
+    
     
     # calcualte the SHA1
     @sha1 = Digest::SHA1.file(@full_path).hexdigest
@@ -93,7 +104,7 @@ class ImageFile
       @image.save
       return
     end
-
+    
     process_package
   end
   
@@ -108,7 +119,7 @@ class ImageFile
   
   def process_package
     begin
-      restore_package
+      return unless restore_package
 
       # The old "populate" script would change the permissions on all the
       # directories in the exploided package be 777.  It would then add
@@ -150,11 +161,11 @@ class ImageFile
           # libllpp.a file into it.  We pull out the .inventory files
           TEMP_DIR.find do |path|
             next unless path.basename.to_s == "liblpp.a"
-            expand_liblpp(path) do |child|
+            result = expand_liblpp(path) do |child|
               next unless (match1 = INVENTORY_REGEXP.match(child.basename.to_s))
               if (fs = fileset_hash[match1[1]]).nil?
                 STDERR.puts "Image at #{@full_path} has inventory file " +
-                  "for '#{match[1]}' but was not entered in the lpp_name." +
+                  "for '#{match1[1]}' but was not entered in the lpp_name." +
                   " - skipping..."
                 next
               end
@@ -164,9 +175,15 @@ class ImageFile
               # which are the full path names of the installed files.
               child.readlines.each do |line|
                 next unless (match2 = COLON_REGEXP.match(line))
-                fs.aix_files << aix_file(match2[1])
+                af = aix_file(match2[1])
+                if !af.new_record? &&
+                    !fs.new_record? &&
+                    !fs.aix_files.exists?(:id => af.id)
+                  fs.aix_files << af
+                end
               end
             end
+            return if result == false
           end
         end
       end
@@ -187,7 +204,7 @@ class ImageFile
     else
       sha1 = "0"
     end
-    AixFile.find_or_create_by_path_and_sha1(installed_path, sha1)
+    AixFile.find_or_create_by_path_and_sha1(installed_path.to_s, sha1)
   end
                 
   def remove_temp_dir
@@ -206,13 +223,14 @@ class ImageFile
     Process.wait(pid)
     status = $?
     if status != 0
-      STDERR.puts "ar x of #{path} failed"
-      exit(1)
+      STDERR.puts "ar x of #{path} failed from #{@full_path}"
+      return false
     end
 
     dir.children.each do |c|
       yield c
     end
+    return true
   end
 
   def restore_package
@@ -222,19 +240,21 @@ class ImageFile
     
     # Child
     if pid.nil?
-      $stdin.reopen(@full_path)
-      $stdout.close
+      STDERR.puts "#{@full_path.to_s}"
+      STDERR.flush
       Dir.chdir(TEMP_DIR.to_s)
-      Kernel.exec("/usr/sbin/restore", "-xqf", "-")
+      $stdout.reopen("/dev/null")
+      Kernel.exec("/usr/sbin/restore", "-xqf", "#{@full_path.to_s}")
     end
     
     # Parent
     Process.wait(pid)
     status = $?
     if status != 0
-      STDERR.puts "restore exited with status of #{status}"
-      exit(1)
+      STDERR.puts "restore exited with status of #{status} from #{@full_path}"
+      return false
     end
+    return true
   end
   
   # We know that sha1 is not in the database so we know that the tuple
@@ -267,6 +287,7 @@ end
 
 
 begin
+  $stderr.reopen(LOG_PATH.to_s, "w")
   main_loop
 rescue => e
   STDERR.puts e.message

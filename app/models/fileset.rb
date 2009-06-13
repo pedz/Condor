@@ -4,6 +4,7 @@ class Fileset < ActiveRecord::Base
   has_many   :service_pack_fileset_map
   has_many   :package_fileset_maps
   has_many   :fileset_aix_file_maps
+  has_many   :ptfapardefs
 
   # Secondary Relationships
   has_many :ptfs,          :through => :fileset_ptf_maps
@@ -17,5 +18,9 @@ class Fileset < ActiveRecord::Base
     else
       temp
     end
+  end
+
+  def image_paths
+    self.packages.map { |m| m.image_paths }.flatten
   end
 end
