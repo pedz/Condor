@@ -38,59 +38,29 @@ ActionController::Routing::Routes.draw do |map|
                   :controller => 'image_paths',
                   :action => 'show')
 
+  map.resources :ptf_apar_defs, :only => [ :show ]
+
   # Normal resource paths created by rake for basic database forms.
-  map.resources :aix_files  
-  map.resources :apar_defect_ptf_release_maps
-  map.resources :apars
-  map.resources :defects
-  map.resources :families
-  map.resources :fileset_aix_file_maps
-  map.resources :fileset_ptf_maps
-  map.resources :filesets
-  map.resources :image_path_fileset_maps
-  map.resources :image_path_package_maps
+  map.resources :aix_files, :only => [ :index, :show ]
+  map.resources :apar_defect_ptf_release_maps, :only => [ :index, :show ]
+  map.resources :apars, :only => [ :index, :show ]
+  map.resources :defects, :only => [ :index, :show ]
+  map.resources :families, :only => [ :index, :show ]
+  map.resources :fileset_aix_file_maps, :only => [ :index, :show ]
+  map.resources :fileset_ptf_maps, :only => [ :index, :show ]
+  map.resources :filesets, :only => [ :index, :show ]
+  map.resources :image_path_fileset_maps, :only => [ :index, :show ]
+  map.resources :image_path_package_maps, :only => [ :index, :show ]
   # map.resources :image_paths
-  map.resources :lpp_bases
-  map.resources :lpps
-  map.resources :package_fileset_maps
-  map.resources :packages
-  map.resources :ptf_apar_defs
-  map.resources :ptfs
-  map.resources :releases
-  map.resources :service_pack_fileset_maps
-  map.resources :service_packs
-
-  # The priority is based upon order of creation: first created -> highest priority.
-
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
-
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
-
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-
-  # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
-  #   end
+  map.resources :lpp_bases, :only => [ :index, :show ]
+  map.resources :lpps, :only => [ :index, :show ]
+  map.resources :package_fileset_maps, :only => [ :index, :show ]
+  map.resources :packages, :only => [ :index, :show ]
+  map.resources :ptfs, :only => [ :index, :show ]
+  map.resources :releases, :only => [ :index, :show ]
+  map.resources :service_pack_fileset_maps, :only => [ :index, :show ]
+  map.resources :service_packs, :only => [ :index, :show ]
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "welcome"
-
-  # See how all your routes lay out with "rake routes"
-
-  # Install the default routes as the lowest priority.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
 end

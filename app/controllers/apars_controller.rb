@@ -23,63 +23,63 @@ class AparsController < ApplicationController
 
   # GET /apars/new
   # GET /apars/new.xml
-  def new
-    @apar = Apar.new
+#   def new
+#     @apar = Apar.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @apar }
-    end
-  end
+#     respond_to do |format|
+#       format.html # new.html.erb
+#       format.xml  { render :xml => @apar }
+#     end
+#   end
 
   # GET /apars/1/edit
-  def edit
-    @apar = Apar.find(params[:id])
-  end
+#   def edit
+#     @apar = Apar.find(params[:id])
+#   end
 
   # POST /apars
   # POST /apars.xml
-  def create
-    @apar = Apar.new(params[:apar])
+#   def create
+#     @apar = Apar.new(params[:apar])
 
-    respond_to do |format|
-      if @apar.save
-        flash[:notice] = 'Apar was successfully created.'
-        format.html { redirect_to(@apar) }
-        format.xml  { render :xml => @apar, :status => :created, :location => @apar }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @apar.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+#     respond_to do |format|
+#       if @apar.save
+#         flash[:notice] = 'Apar was successfully created.'
+#         format.html { redirect_to(@apar) }
+#         format.xml  { render :xml => @apar, :status => :created, :location => @apar }
+#       else
+#         format.html { render :action => "new" }
+#         format.xml  { render :xml => @apar.errors, :status => :unprocessable_entity }
+#       end
+#     end
+#   end
 
   # PUT /apars/1
   # PUT /apars/1.xml
-  def update
-    @apar = Apar.find(params[:id])
+#   def update
+#     @apar = Apar.find(params[:id])
 
-    respond_to do |format|
-      if @apar.update_attributes(params[:apar])
-        flash[:notice] = 'Apar was successfully updated.'
-        format.html { redirect_to(@apar) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @apar.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+#     respond_to do |format|
+#       if @apar.update_attributes(params[:apar])
+#         flash[:notice] = 'Apar was successfully updated.'
+#         format.html { redirect_to(@apar) }
+#         format.xml  { head :ok }
+#       else
+#         format.html { render :action => "edit" }
+#         format.xml  { render :xml => @apar.errors, :status => :unprocessable_entity }
+#       end
+#     end
+#   end
 
   # DELETE /apars/1
   # DELETE /apars/1.xml
-  def destroy
-    @apar = Apar.find(params[:id])
-    @apar.destroy
+#   def destroy
+#     @apar = Apar.find(params[:id])
+#     @apar.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(apars_url) }
-      format.xml  { head :ok }
-    end
-  end
+#     respond_to do |format|
+#       format.html { redirect_to(apars_url) }
+#       format.xml  { head :ok }
+#     end
+#   end
 end

@@ -21,7 +21,7 @@ class ImagePathsController < ApplicationController
     @prefix = params[:path].join('/')
     @prefix.sub!(/\.html$/, "")
     if (image = ImagePath.find_by_path(@prefix))
-      @filesets = image.filesets
+      @filesets = image.package.filesets
     else
       @filesets = []
     end
@@ -42,8 +42,7 @@ class ImagePathsController < ApplicationController
 
     @image_paths = ImagePath.find(:all,
                                   :conditions => [ "path SIMILAR TO ?",
-                                                   "#{@prefix}/[^/]*"],
-                                  :include => :filesets)
+                                                   "#{@prefix}/[^/]*"])
 
     respond_to do |format|
       format.html # show.html.erb

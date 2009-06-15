@@ -35,63 +35,63 @@ class DefectsController < ApplicationController
 
   # GET /defects/new
   # GET /defects/new.xml
-  def new
-    @defect = Defect.new
+#   def new
+#     @defect = Defect.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @defect }
-    end
-  end
+#     respond_to do |format|
+#       format.html # new.html.erb
+#       format.xml  { render :xml => @defect }
+#     end
+#   end
 
   # GET /defects/1/edit
-  def edit
-    @defect = Defect.find(params[:id])
-  end
+#   def edit
+#     @defect = Defect.find(params[:id])
+#   end
 
   # POST /defects
   # POST /defects.xml
-  def create
-    @defect = Defect.new(params[:defect])
+#   def create
+#     @defect = Defect.new(params[:defect])
 
-    respond_to do |format|
-      if @defect.save
-        flash[:notice] = 'Defect was successfully created.'
-        format.html { redirect_to(@defect) }
-        format.xml  { render :xml => @defect, :status => :created, :location => @defect }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @defect.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+#     respond_to do |format|
+#       if @defect.save
+#         flash[:notice] = 'Defect was successfully created.'
+#         format.html { redirect_to(@defect) }
+#         format.xml  { render :xml => @defect, :status => :created, :location => @defect }
+#       else
+#         format.html { render :action => "new" }
+#         format.xml  { render :xml => @defect.errors, :status => :unprocessable_entity }
+#       end
+#     end
+#   end
 
   # PUT /defects/1
   # PUT /defects/1.xml
-  def update
-    @defect = Defect.find(params[:id])
+#   def update
+#     @defect = Defect.find(params[:id])
 
-    respond_to do |format|
-      if @defect.update_attributes(params[:defect])
-        flash[:notice] = 'Defect was successfully updated.'
-        format.html { redirect_to(@defect) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @defect.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+#     respond_to do |format|
+#       if @defect.update_attributes(params[:defect])
+#         flash[:notice] = 'Defect was successfully updated.'
+#         format.html { redirect_to(@defect) }
+#         format.xml  { head :ok }
+#       else
+#         format.html { render :action => "edit" }
+#         format.xml  { render :xml => @defect.errors, :status => :unprocessable_entity }
+#       end
+#     end
+#   end
 
   # DELETE /defects/1
   # DELETE /defects/1.xml
-  def destroy
-    @defect = Defect.find(params[:id])
-    @defect.destroy
+#   def destroy
+#     @defect = Defect.find(params[:id])
+#     @defect.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(defects_url) }
-      format.xml  { head :ok }
-    end
-  end
+#     respond_to do |format|
+#       format.html { redirect_to(defects_url) }
+#       format.xml  { head :ok }
+#     end
+#   end
 end

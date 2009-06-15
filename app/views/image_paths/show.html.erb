@@ -13,9 +13,12 @@
 <ul>
   <%- for image_path in @image_paths -%>
   <li>
-    <%= link_to_image(image_path) %>
+    <%= link_to_image(image_path) %><br />
     <ul>
-      <%- image_path.filesets.each do |fileset| -%>
+    <%- package = image_path.package -%>
+    Package: <%= link_to package.name, package_path(package) %>
+    SHA1: <%= package.sha1 %>
+      <%- package.filesets.each do |fileset| -%>
       <li><%= link_to "#{fileset.lpp.name} #{fileset.vrmf}", fileset %></li>
       <%- end -%>
     </ul>
