@@ -1,25 +1,37 @@
 ActionController::Routing::Routes.draw do |map|
   # Path for swinfos
   map.swinfos('swinfos/:item',
-              :controller => 'swinfos',
-              :action => 'show',
-              :item => /.*/)
+             :controller => 'swinfos',
+             :action => 'show',
+             :item => /.*/)
+  map.swinfos_form('swinfos',
+                   :controller => 'swinfos',
+                   :action => 'show')
   
   # Path for which_filesets
   map.which_filesets('which_filesets/*path',
                      :controller => 'which_filesets',
                      :action => 'show')
+  map.which_filesets_form('which_filesets',
+                          :controller => 'which_filesets',
+                          :action => 'show')
 
   # Special path for CMVC changes
   map.changes('changes/:id',
               :controller => 'changes',
               :action => 'show')
+  map.changes_form('changes',
+                   :controller => 'changes',
+                   :action => 'show')
 
   # Special path for file changes
   map.file_changes('file_changes/:file',
                    :file => /.*/,
                    :controller => 'file_changes',
                    :action => 'show')
+  map.file_changes_form('file_changes',
+                        :controller => 'file_changes',
+                        :action => 'show')
 
   # Special path for CMVC source files
   map.src_files('src_files/:release/*path/:version',
