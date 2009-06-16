@@ -1,8 +1,5 @@
+<%- @title = "Service Pack #{@service_pack.name}" -%>
 <p>
   <b>Name:</b>
   <%=h @service_pack.name %>
 </p>
-
-
-<%= link_to 'Edit', edit_service_pack_path(@service_pack) %> |
-<%= link_to 'Back', service_packs_path %>

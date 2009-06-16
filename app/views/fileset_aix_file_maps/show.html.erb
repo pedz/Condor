@@ -1,3 +1,4 @@
+<%- @title = "Fileset AIX File Map #{@fileset_aix_file_map.id}" -%>
 <p>
   <b>Fileset:</b>
   <%=h @fileset_aix_file_map.fileset_id %>
@@ -7,7 +8,3 @@
   <b>Aix file:</b>
   <%=h @fileset_aix_file_map.aix_file_id %>
 </p>
-
-
-<%= link_to 'Edit', edit_fileset_aix_file_map_path(@fileset_aix_file_map) %> |
-<%= link_to 'Back', fileset_aix_file_maps_path %>

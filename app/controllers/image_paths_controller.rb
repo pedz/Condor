@@ -2,18 +2,18 @@ class ImagePathsController < ApplicationController
   caches_page :index, :show
   # GET /image_paths
   # GET /image_paths.xml
-  def index
-    @image_paths = ImagePath.find_by_sql <<-SQL
-      select substring(path, '^[^/]*/') as base_path
-      from image_paths
-      group by base_path;
-    SQL
+#   def index
+#     @image_paths = ImagePath.find_by_sql <<-SQL
+#       select substring(path, '^[^/]*/') as base_path
+#       from image_paths
+#       group by base_path;
+#     SQL
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @image_paths }
-    end
-  end
+#     respond_to do |format|
+#       format.html # index.html.erb
+#       format.xml  { render :xml => @image_paths }
+#     end
+#   end
 
   # GET /image_paths/1
   # GET /image_paths/1.xml

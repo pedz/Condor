@@ -1,3 +1,4 @@
+<%- @title = "Fileset PTF Map #{@fileset_ptf_map.id}" -%>
 <p>
   <b>Fileset:</b>
   <%=h @fileset_ptf_map.fileset_id %>
@@ -7,7 +8,3 @@
   <b>Ptf:</b>
   <%=h @fileset_ptf_map.ptf_id %>
 </p>
-
-
-<%= link_to 'Edit', edit_fileset_ptf_map_path(@fileset_ptf_map) %> |
-<%= link_to 'Back', fileset_ptf_maps_path %>

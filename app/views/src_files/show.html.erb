@@ -1,3 +1,4 @@
+<%- @title = "Source File for #{@params[:path]}" -%>
 <%= link_to "Change History", file_changes_path(@basename) %>
 <pre>
 <% @src_file.each do |line| -%>

@@ -1,3 +1,4 @@
+<%- @title = "Package Fileset Map #{@package_fileset_map.id}" -%>
 <p>
   <b>Package:</b>
   <%=h @package_fileset_map.package_id %>
@@ -7,7 +8,3 @@
   <b>Fileset:</b>
   <%=h @package_fileset_map.fileset_id %>
 </p>
-
-
-<%= link_to 'Edit', edit_package_fileset_map_path(@package_fileset_map) %> |
-<%= link_to 'Back', package_fileset_maps_path %>

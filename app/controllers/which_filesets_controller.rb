@@ -4,16 +4,16 @@ class WhichFilesetsController < ApplicationController
   end
 
   def show
-    path = params[:path].join('/')
+    @path = params[:path].join('/')
     logger.debug("Accepts = #{request.accepts.inspect}")
-    @files = do_find(path)
+    @files = do_find(@path)
     if @files.empty?
-      if (md = /(.*)(_?64$|_?32$)/.match(path))
-        path = md[1]
-        @files = do_find(path)
-      elsif (md = /^(.*)(32|64)(\..*)$/.match(path))
-        path = md[1] + md[3]
-        @files = do_find(path)
+      if (md = /(.*)(_?64$|_?32$)/.match(@path))
+        @path = md[1]
+        @files = do_find(@path)
+      elsif (md = /^(.*)(32|64)(\..*)$/.match(@path))
+        @path = md[1] + md[3]
+        @files = do_find(@path)
       end
     end
 
