@@ -1,0 +1,13 @@
+<%= link_to defect, swinfos_path(defect) %>
+<ul>
+  <li>
+    <%= link_to "View Defect", defect_path(defect) %>
+  </li>
+  <li>
+    <%= link_to "Defect Changes", changes_path(defect) %>
+  </li>
+  <li class='clipboard'>
+    Copy '<%= defect %>' to clipboard
+    <%- need_clipboard_assets -%>
+  </li>
+</ul>

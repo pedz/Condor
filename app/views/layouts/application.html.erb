@@ -2,18 +2,17 @@
        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- app/views/layouts/application.html.erb -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= @title %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
-  <link rel="Shortcut Icon" href="<%= compute_public_path("/condor.ico", "") %>"/>
-</head>
-<body>
-
-<p style="color: green"><%= flash[:notice] %></p>
-<p style="color: red"><%= flash[:fatal] %></p>
-
-<%= yield  %>
-
-</body>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title><%= @title %></title>
+    <%= add_stylesheet_link_tag %>
+    <%= add_javascript_include_tag %>
+    <%= add_clipboard_assets %>
+    <link rel="Shortcut Icon" href="<%= compute_public_path("/condor.ico", "") %>"/>
+  </head>
+  <body>
+    <p style="color: green"><%= flash[:notice] %></p>
+    <p style="color: red"><%= flash[:fatal] %></p>
+    <%= yield  %>
+  </body>
 </html>

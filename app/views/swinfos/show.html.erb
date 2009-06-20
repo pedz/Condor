@@ -1,8 +1,12 @@
 <!-- app/views/swinfos/show.html.erb -->
+<%
+   @title = "swinfo for #{@param}"
+   add_stylesheets 'swinfos'
+   add_javascripts 'prototype', 'swinfos'
+%>
 <table>
   <thead>
     <tr>
-      <th>Cmds</th>
       <th>Defect</th>
       <th>APAR</th>
       <th>PTF</th>
@@ -12,32 +16,47 @@
       <th>Release</th>
     </tr>
   </thead>
+  <tfoot>
+    <tr>
+      <td></td>
+    </tr>
+  </tfoot>
   <tbody>
     <%- @items.each do |item| -%>
     <tr>
-      <td class='command-list-td'>
-	<span class='command-list-span'>
-	  List
-	</span>
-	<ul class='command-list'>
-	  <li>
-	    <%= link_to "View Defect", defect_path(item.defect) %>
-	  </li>
-	  <li>
-	    <%= link_to "Defect Changes", changes_path(item.defect) %>
-	  </li>
-	  <li>
-	    <%= link_to "Fileset info", fileset_path(item.fileset_id) %>
-	  </li>
-	</ul>
+      <td>
+	<%= render :partial => "defect", :object => item.defect %>
       </td>
-      <td><%= link_to item.defect, swinfos_path(item.defect) %></td>
       <td><%= link_to item.apar, swinfos_path(item.apar) %></td>
-      <td><%= link_to item.ptf, swinfos_path(item.ptf) %></td>
+      <td>
+	<%- if item.ptf != nil -%>
+	<%= link_to item.ptf, swinfos_path(item.ptf) %>
+	<%- else -%>
+	Not Built Yet
+	<%- end -%>
+      </td>
       <td><%= h item.abstract %></td>
-      <td><%= link_to item.lpp, swinfos_path(item.lpp) %></td>
-      <td><%= link_to item.vrmf, swinfos_path("#{item.lpp} #{item.vrmf}") %></td>
-      <td><%= h item.release %></td>
+      <td>
+	<%- if item.lpp != nil -%>
+	<%= link_to item.lpp, swinfos_path(item.lpp) %>
+	<%- else -%>
+	Not Built Yet
+	<%- end -%>
+      </td>
+      <td>
+	<%- if item.vrmf != nil -%>
+	<%= link_to item.vrmf, swinfos_path("#{item.lpp} #{item.vrmf}") %>
+	<%- else -%>
+	Not Built Yet
+	<%- end -%>
+      </td>
+      <td>
+	<%- if item.release -%>
+	<%= h item.release %>
+	<%- else -%>
+	<%= h item.version %>
+	<%- end -%>
+      </td>
     </tr>
     <%- end -%>
   </tbody>

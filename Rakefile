@@ -29,3 +29,10 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+desc "Create a TAGS file"
+task :create_tags do
+  system("rm -f TAGS; " +
+         "find . \\( -name '*.rb' -o -name '*.js' \\) -print | " +
+         "egrep -v '/\.git/' | xargs /usr/local/bin/ctags -ea")
+end

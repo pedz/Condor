@@ -5,7 +5,8 @@ class SwinfosController < ApplicationController
 
   def show
     logger.debug("Accepts = #{request.accepts.inspect}")
-    item = params[:item]
+    @param = params[:item]
+    item = @param
     item_upcase = item.upcase
     logger.debug("ITEM is '#{item}'")
     case item_upcase
@@ -36,6 +37,10 @@ class SwinfosController < ApplicationController
     respond_to do |format|
       format.html { render :action => "show" }
       format.xml  { render :xml => @items.to_xml }
+      format.json {
+        logger.debug("json: #{@items.inspect}")
+        render :json => @items.to_json
+      }
     end
   end
 end

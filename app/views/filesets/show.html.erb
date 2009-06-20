@@ -1,5 +1,9 @@
 <!-- app/views/filesets/show.html.erb -->
-<%- @title "Fileset for #{@fileset.lpp.name} #{@fileset.vrmf}" -%>
+<%-
+   @title = "Fileset for #{@fileset.lpp.name} #{@fileset.vrmf}"
+   add_stylesheets 'swinfos'
+   add_javascripts 'prototype', 'swinfos'
+   -%>
 <h2> Fileset <%= link_to "#{@fileset.lpp.name} #{@fileset.vrmf}", swinfos_path("#{@fileset.lpp.name} #{@fileset.vrmf}") %></h2>
 <h3> Contains these changes: </h3>
 <table>
@@ -22,7 +26,9 @@
   <tbody>
     <%- @fileset.ptfapardefs.each do |item| -%>
     <tr>
-      <td><%= link_to item.defect, swinfos_path(item.defect) %></td>
+      <td>
+	<%= render :partial => "swinfos/defect", :object => item.defect %>
+      </td>
       <td><%= link_to item.apar, swinfos_path(item.apar) %></td>
       <td><%= link_to item.ptf, swinfos_path(item.ptf) %></td>
       <td><%= h item.abstract %></td>

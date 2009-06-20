@@ -1,0 +1,17 @@
+body {
+    background-color: lightblue;
+}
+
+/* We want the info to line up at the top */
+td {
+    vertical-align: top;
+}
+
+/* The list of commands for the defect */
+td:first-child ul {
+    border: 4px outset grey;
+    background-color: lightblue;
+    list-style-type: none;
+    margin: 2px;
+    padding-left: 5px;
+}
