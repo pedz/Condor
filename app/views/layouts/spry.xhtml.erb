@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+  [
+     <!ENTITY % SPRY SYSTEM "http://www.adobe.com/dtd/spry.dtd">
+     %SPRY;
+  ]>
+<!-- app/views/layouts/spry.html.erb -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:spry="http://ns.adobe.com/spry"
+      xml:lang="en"
+      lang="en">
+    <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml;charset=UTF-8" />
+    <title><%= @title %></title>
+    <%= add_stylesheet_link_tag %>
+    <%= add_javascript_include_tag %>
+    <%= add_clipboard_assets %>
+    <link rel="Shortcut Icon" href="<%= compute_public_path("/condor.ico", "") %>"/>
+  </head>
+  <body>
+    <p style="color: green"><%= flash[:notice] %></p>
+    <p style="color: red"><%= flash[:fatal] %></p>
+    <%= yield  %>
+  </body>
+</html>

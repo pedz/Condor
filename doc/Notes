@@ -162,3 +162,17 @@ There are a few instances where the same fileset can produce multiple
 ptfs.  One instance is the packaging ptfs whose fileset has the lpp
 name of IPP and a vrmf of 0.0.0.0.  But there are about 5 other
 instances that I can't find a pattern to.
+
+================================================================
+The following notes were made when I tried to move to spry...
+
+The first problem is getting the app to send out a content type of
+application/xhtml+xml.  As described in my aix-consulting readme, this
+is needed so that the pages will validate.
+
+It appears as if that is just adding a mime type in initializes.  We
+might need to come back to that.
+
+Next, the controllers that user spry will use the spry layout rather
+than application.  I think this will make things port easier.
+
