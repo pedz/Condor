@@ -15,3 +15,55 @@ td:first-child ul {
     margin: 2px;
     padding-left: 5px;
 }
+
+caption {
+    caption-side: bottom;
+    text-align: left;
+}
+body {
+    background-color: lightblue;
+}
+
+/* We want the info to line up at the top */
+td {
+    vertical-align: top;
+}
+
+/* The list of commands for the defect */
+td:first-child ul {
+    border: 4px outset grey;
+    background-color: lightblue;
+    list-style-type: none;
+    margin: 2px;
+    padding-left: 5px;
+}
+
+caption {
+    caption-side: bottom;
+    text-align: left;
+}
+
+caption p {
+    margin: 8px 0 0 0;
+}
+
+caption ul {
+    margin: 0;
+}
+
+table {
+    border: 1px solid black;
+}
+
+tfoot {
+    display: none;
+}
+
+tbody td {
+    padding: 1px 3px;
+}
+
+tr.nth-1 { background-color: rgb(200, 200, 200); }
+tr.nth-2 { background-color: rgb(225, 225, 225); }
+tr.nth-3 { background-color: rgb(200, 200, 200); }
+tr.nth-4 { background-color: rgb(225, 225, 225); }

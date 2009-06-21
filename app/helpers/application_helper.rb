@@ -1,7 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def add_stylesheets(*args)
-    @stylesheets = (@stylesheets ||= []) + args
+    @stylesheets = ((@stylesheets ||= []) + args).uniq
   end
 
   def add_stylesheet_link_tag
@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def add_javascripts(*args)
-    @javascripts = (@javascripts ||= []) + args
+    @javascripts = ((@javascripts ||= []) + args).uniq
   end
 
   def add_javascript_include_tag
@@ -33,6 +33,34 @@ module ApplicationHelper
       @need_clipboard_assets = false
       javascript_tag do
         "ZeroClipboard.setMoviePath('#{compute_public_path('ZeroClipboard.swf', 'assets')}');"
+      end
+    end
+  end
+
+  def spry_json_dataset(name, url, options = { })
+    add_javascripts("spry/SpryData",
+                    "spry/SpryDOMUtils",
+                    "spry/SpryJSONDataSet")
+    if options.has_key?('headers')
+      headers = options('headers')
+      unless headers.has_key?('Content-type')
+        headers['Accept'] = 'application/json'
+      end
+    else
+      options['headers'] = { 'Accept' => 'application/json' }
+    end
+    s = "var #{name} = new Spry.Data.JSONDataSet(#{url.to_json}, #{options.to_json});"
+    spry_datasets << s
+  end
+
+  def spry_datasets
+    @spry_datasets ||= []
+  end
+
+  def add_spry_datasets
+    unless spry_datasets.empty?
+      javascript_tag do
+        spry_datasets.join("\n")
       end
     end
   end

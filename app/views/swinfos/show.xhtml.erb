@@ -1,1 +1,60 @@
-How about some swinfo stuff!!
+<!-- app/views/swinfos/show.xhtml.erb -->
+<%-
+   @title = "swinfo for #{@param}"
+   add_javascripts("prototype", "swinfos")
+   add_stylesheets("swinfos");
+   spry_json_dataset("ds1", url_for(), "path" => "ptfapardef")
+   -%>
+<h2><%= @title %></h2>
+<div id="ptfapardef_table" spry:region="ds1">
+  <table rules='rows'>
+    <caption>
+      <p>
+	Instructions:
+      </p>
+      <ul>
+	<li>Click on defect, apar, ptf, lpp, or vrmf to surf around within
+	  "swinfo" data</li>
+	<li>Click column headers to sort by that column</li>
+	<li>Click on List to see a list of other links
+	  <ul>
+	    <li>View Defect takes you to a page with the defect, etc</li>
+	    <li>Defect Changes takes you to a page with the change for the
+	      defect</li>
+	    <li>Fileset info provides where this fileset shipped and what it
+	      shipped</li>
+	  </ul>
+	</li>
+      </ul>
+    </caption>
+    <thead>
+      <tr>
+	<th></th>
+	<th spry:sort="defect">Defect</th>
+	<th spry:sort="apar">APAR</th>
+	<th spry:sort="ptf">PTF</th>
+	<th>Abstract</th>
+	<th spry:sort="lpp">LPP</th>
+	<th spry:sort="vrmf">VRMF</th>
+	<th spry:sort="release">Release</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+	<td></td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr spry:repeat="ds1" class="{function::Condor.swinfos.row_class}">
+	<td>{ds_RowNumberPlus1}</td>
+	<td>{function::Condor.swinfos.defect_text}</td>
+	<td>{function::Condor.swinfos.apar_text}</td>
+	<td>{function::Condor.swinfos.ptf_text}</td>
+	<td>{function::Condor.swinfos.abstract_text}</td>
+	<td>{function::Condor.swinfos.lpp_text}</td>
+	<td>{function::Condor.swinfos.vrmf_text}</td>
+	<td>{function::Condor.swinfos.release_text}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
