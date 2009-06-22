@@ -11,19 +11,19 @@ class Ptfapardef < ActiveRecord::Base
     @controller.__send__(:changes_path, defect)
   end
 
-  def swinfo_defect_path
+  def swinfos_defect_path
     swinfors_path(defect)
   end
 
-  def swinfo_apar_path
+  def swinfos_apar_path
     swinfors_path(apar)
   end
 
-  def swinfo_ptf_path
+  def swinfos_ptf_path
     swinfors_path(ptf)
   end
 
-  def swinfo_lpp_path
+  def swinfos_lpp_path
     swinfors_path(lpp)
   end
 
@@ -35,7 +35,7 @@ class Ptfapardef < ActiveRecord::Base
     end
   end
 
-  def swinfo_fileset_path
+  def swinfos_fileset_path
     swinfors_path("#{lpp} #{vrmf}")
   end
 

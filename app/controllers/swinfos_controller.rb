@@ -3,7 +3,7 @@ class SwinfosController < ApplicationController
     logger.debug("Accepts = #{request.accepts.inspect}")
     @param = params[:item]
     respond_to do |format|
-      format.xhtml { render :action => "show", :layout => "spry" }
+      format.html { render :action => "show", :layout => "spry" }
       format.json {
         item = @param
         item_upcase = item.upcase

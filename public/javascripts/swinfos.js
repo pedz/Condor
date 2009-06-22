@@ -86,12 +86,21 @@ Condor.swinfos.makeClip = function (ele) {
     var li = ele.down('.copy-to-clipboard');
     if (!li)
 	return null;
-    var clip_text = li.innerHTML;
-    var new_text = "Copy '" + clip_text + "' to clipboard";
-    li.innerHTML = new_text;
-    var clip = new ZeroClipboard.Client();
-    clip.setText(clip_text);
-    clip.glue(li);
+
+    // First time we modify the text.
+    // We also bind the onComplete function to the element
+    if (!li.original_text) {
+	li.original_text = li.innerHTML.replace(/^\s+|\s+$/g, "");
+	li.innerHTML = "Copy '" + li.original_text + "' to clipboard";
+    }
+
+    var clip = new ZeroClipboard.Client(li);
+    clip.ele = ele;
+    clip.setText(li.original_text);
+    clip.addEventListener('onComplete', function (c) {
+	ele.hide();
+	c.destroy();
+    });
     return clip;
 };
 
