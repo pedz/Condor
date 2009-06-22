@@ -4,28 +4,44 @@ class Ptfapardef < ActiveRecord::Base
   end
 
   def defect_path
-    url_for(defect)
+    @controller.__send__(:defect_path, defect)
   end
 
-  def apar_path
-    url_for(apar)
+  def changes_path
+    @controller.__send__(:changes_path, defect)
   end
 
-  def ptf_path
-    url_for(ptf)
+  def swinfo_defect_path
+    swinfors_path(defect)
   end
 
-  def lpp_path
-    url_for(lpp)
+  def swinfo_apar_path
+    swinfors_path(apar)
+  end
+
+  def swinfo_ptf_path
+    swinfors_path(ptf)
+  end
+
+  def swinfo_lpp_path
+    swinfors_path(lpp)
   end
 
   def fileset_path
-    url_for("#{lpp} #{vrmf}")
+    if !fileset_id.nil?
+      @controller.__send__(:fileset_path, fileset_id)
+    else
+      ""
+    end
+  end
+
+  def swinfo_fileset_path
+    swinfors_path("#{lpp} #{vrmf}")
   end
 
   private
 
-  def url_for(id)
+  def swinfors_path(id)
     if !id.nil?
       @controller.__send__(:swinfos_path, id)
     else

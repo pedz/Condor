@@ -30,9 +30,14 @@ class SwinfosController < ApplicationController
         render :json => @items.to_json(:only => [:defect, :apar, :ptf, :abstract,
                                                  :lpp, :vrmf, :release,
                                                  :version ],
-                                       :methods => [ :defect_path, :apar_path,
-                                                     :ptf_path, :lpp_path,
-                                                     :fileset_path ])
+                                       :methods => [ :swinfos_defect_path,
+                                                     :defect_path,
+                                                     :changes_path,
+                                                     :swinfos_apar_path,
+                                                     :swinfos_ptf_path,
+                                                     :swinfos_lpp_path,
+                                                     :swinfos_fileset_path,
+                                                     :fileset_path])
       }
     end
   end

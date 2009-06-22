@@ -4,26 +4,26 @@ if (!Condor.swinfos) Condor.swinfos = {};
 
 Condor.swinfos.defect_text = function (region, lookup) {
     var defect = lookup('defect');
-    var defect_path = lookup('defect_path');
-    return Condor.swinfos.make_link(defect_path, defect);
+    var swinfos_defect_path = lookup('swinfos_defect_path');
+    return Condor.swinfos.make_link(swinfos_defect_path, defect);
 };
 
 Condor.swinfos.apar_text = function (region, lookup) {
     var apar = lookup('apar');
-    var apar_path = lookup('apar_path');
+    var swinfos_apar_path = lookup('swinfos_apar_path');
 
     if (apar == "NEEDS_APAR")
 	return "None";
-    return Condor.swinfos.make_link(apar_path, apar);
+    return Condor.swinfos.make_link(swinfos_apar_path, apar);
 };
 
 Condor.swinfos.ptf_text = function (region, lookup) {
     var ptf = lookup('ptf');
-    var ptf_path = lookup('ptf_path');
+    var swinfos_ptf_path = lookup('swinfos_ptf_path');
 
     if (ptf == null)
 	return "Not Built";
-    return Condor.swinfos.make_link(ptf_path, ptf);
+    return Condor.swinfos.make_link(swinfos_ptf_path, ptf);
 };
 
 Condor.swinfos.abstract_text = function (region, lookup) {
@@ -35,18 +35,18 @@ Condor.swinfos.abstract_text = function (region, lookup) {
 
 Condor.swinfos.lpp_text = function (region, lookup) {
     var lpp = lookup('lpp');
-    var lpp_path = lookup('lpp_path');
+    var swinfos_lpp_path = lookup('swinfos_lpp_path');
     if (lpp == null)
 	return "";
-    return Condor.swinfos.make_link(lpp_path, lpp);
+    return Condor.swinfos.make_link(swinfos_lpp_path, lpp);
 };
 
 Condor.swinfos.vrmf_text = function (region, lookup) {
     var vrmf = lookup('vrmf');
-    var fileset_path = lookup('fileset_path');
+    var swinfos_fileset_path = lookup('swinfos_fileset_path');
     if (vrmf == null)
 	return "";
-    return Condor.swinfos.make_link(fileset_path, vrmf);
+    return Condor.swinfos.make_link(swinfos_fileset_path, vrmf);
 };
 
 Condor.swinfos.release_text = function (region, lookup) {
@@ -64,26 +64,42 @@ Condor.swinfos.make_link = function (ref, text) {
     return "<a href='" + ref + "'>" + text + "</a>"
 };
 
-/*
-
-I'm not sure I need this right now.
-
-function Condor.swinfos.doNothing(event) {
+Condor.swinfos.doNothing = function (event) {
     event.stop();
 };
 
-function Condor.swinfos.defectMouseDown(event) {
+Condor.swinfos.defectMouseDown = function (event) {
     event.stop();
     if (event.isRightClick()) {
-	this.ul.toggle();
+	if (this.ul.visible()) {
+	    if (this.clip)
+		this.clip.destroy();
+	    this.ul.hide();
+	} else {
+	    this.ul.show();
+	    this.clip = Condor.swinfos.makeClip(this.ul);
+	}
     }
 };
 
-function Condor.swinfos.defectMouseUp(event) {
+Condor.swinfos.makeClip = function (ele) {
+    var li = ele.down('.copy-to-clipboard');
+    if (!li)
+	return null;
+    var clip_text = li.innerHTML;
+    var new_text = "Copy '" + clip_text + "' to clipboard";
+    li.innerHTML = new_text;
+    var clip = new ZeroClipboard.Client();
+    clip.setText(clip_text);
+    clip.glue(li);
+    return clip;
+};
+
+Condor.swinfos.defectMouseUp = function (event) {
     event.stop();
 };
 
-function Condor.swinfos.defectClick(event) {
+Condor.swinfos.defectClick = function (event) {
     // if left click and list is not open, just allow the event to
     // proceed
     if (event.isLeftClick() && !this.ul.visible()) {
@@ -92,26 +108,40 @@ function Condor.swinfos.defectClick(event) {
     event.stop();
 };
 
-document.observe('dom:loaded', function() {
-    // javascript hooks for the Defect (first column)
-    $$('td:first-child').each(function (ele) {
-	var ul = ele.down('ul');
-	if (ul == null)
-	    return;
-	ele.observe('mousedown', defectMouseDown.bindAsEventListener(ele));
-	ele.observe('mouseup',   defectMouseUp.bindAsEventListener(ele));
-	ele.observe('click',     defectClick.bindAsEventListener(ele));
-	ele.observe('contextmenu', doNothing.bindAsEventListener(ele));
-	ele.ul = ul;
-	ul.setStyle({
-	    position: 'absolute'
-	});
-	ul.hide();
+Condor.swinfos.onPostUpdateElement = function (ele) {
+    var ul = ele.down('ul');
+    if (ul == null)
+	return;
+    // console.log("onPostUpdateElement");
+    ele.observe('mousedown', Condor.swinfos.defectMouseDown.bindAsEventListener(ele));
+    ele.observe('mouseup',   Condor.swinfos.defectMouseUp.bindAsEventListener(ele));
+    ele.observe('click',     Condor.swinfos.defectClick.bindAsEventListener(ele));
+    ele.observe('contextmenu', Condor.swinfos.doNothing.bindAsEventListener(ele));
+    ele.ul = ul;
+    ul.setStyle({
+	position: 'absolute',
+	zIndex: 1
     });
+    // Eventually we might want to work when javascript is disabled.
+    // If we do, we will send the ul not hidden and then hide it here.
+    // ul.hide();
+};
 
-    $$('.clipboard').each(function (ele) {
-	var clip = new ZeroClipboard.Client(ele);
-	clip.setText("blah blah blah");
-    });
+Condor.swinfos.onPostUpdate = function () {
+    $$('#ptfapardef_table td').each(Condor.swinfos.onPostUpdateElement);
+};
+
+Condor.swinfos.regionCallback = function (state, notifier, data) {
+    // console.log("regionCallback " + state);
+    if (state == "onPostUpdate")
+	Condor.swinfos.onPostUpdate();
+};
+
+Spry.Data.Region.addObserver("ptfapardef_table", Condor.swinfos.regionCallback);
+
+/*
+document.observe('dom:loaded', function() {
+    // Condor.swinfos.onPostUpdate();
+    Spry.Data.Region.addObserver("ptfapardef_table", Condor.swinfos.regionCallback);
 });
 */

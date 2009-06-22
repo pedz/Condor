@@ -1,9 +1,11 @@
 <!-- app/views/swinfos/show.xhtml.erb -->
 <%-
    @title = "swinfo for #{@param}"
-   add_javascripts("prototype", "swinfos")
-   add_stylesheets("swinfos");
+   add_stylesheets("swinfos")
+   add_javascripts("prototype")
    spry_json_dataset("ds1", url_for(), "path" => "ptfapardef")
+   add_javascripts("swinfos")
+   need_clipboard_assets
    -%>
 <h2><%= @title %></h2>
 <div id="ptfapardef_table" spry:region="ds1">
@@ -47,13 +49,71 @@
     <tbody>
       <tr spry:repeat="ds1" class="{function::Condor.swinfos.row_class}">
 	<td>{ds_RowNumberPlus1}</td>
-	<td>{function::Condor.swinfos.defect_text}</td>
-	<td>{function::Condor.swinfos.apar_text}</td>
-	<td>{function::Condor.swinfos.ptf_text}</td>
-	<td>{function::Condor.swinfos.abstract_text}</td>
-	<td>{function::Condor.swinfos.lpp_text}</td>
-	<td>{function::Condor.swinfos.vrmf_text}</td>
-	<td>{function::Condor.swinfos.release_text}</td>
+	<td>
+	  {function::Condor.swinfos.defect_text}
+	  <ul style='display: none;'>
+	    <li>
+	      <a href='{defect_path}'>Show CMVC Defect {defect}</a>
+	    </li>
+	    <li>
+	      <a href='{changes_path}'>Show Changes for {defect}</a>
+	    </li>
+	    <li class='copy-to-clipboard'>
+	      {defect}
+	    </li>
+	  </ul>
+	</td>
+	<td>
+	  {function::Condor.swinfos.apar_text}
+	  <ul style='display: none;'>
+	    <li class='copy-to-clipboard'>
+	      {apar}
+	    </li>
+	  </ul>
+	</td>
+	<td>
+	  {function::Condor.swinfos.ptf_text}
+	  <ul style='display: none;'>
+	    <li class='copy-to-clipboard'>
+	      {ptf}
+	    </li>
+	  </ul>
+	</td>
+	<td>
+	  {function::Condor.swinfos.abstract_text}
+	  <ul style='display: none;'>
+	    <li class='copy-to-clipboard'>
+	      {abstract}
+	    </li>
+	  </ul>
+	</td>
+	<td>
+	  {function::Condor.swinfos.lpp_text}
+	  <ul style='display: none;'>
+	    <li class='copy-to-clipboard'>
+	      {lpp}
+	    </li>
+	  </ul>
+	</td>
+	<td>
+	  {function::Condor.swinfos.vrmf_text}
+	  <ul style='display: none;'>
+	    <li>
+	      <a href='{fileset_path}'>Show Fileset Data</a>
+	    </li>
+	    <li class='copy-to-clipboard'>
+	      {vrmf}
+	    </li>
+	  </ul>
+	</td>
+	<td>
+	  {function::Condor.swinfos.release_text}
+	  <ul style='display: none;'>
+	    <li class='copy-to-clipboard'>
+	      {release}
+	    </li>
+	  </ul>
+	</td>
       </tr>
     </tbody>
   </table>

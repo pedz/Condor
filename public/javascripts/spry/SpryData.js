@@ -824,6 +824,15 @@ Spry.Utils.Notifier.prototype.notifyObservers = function(methodName, data)
 	if (!methodName)
 		return;
 
+/*
+    if (data == undefined)
+	console.log('notify ' + methodName + ' data undefined');
+    else if (data.region == undefined)
+	console.log('notify ' + methodName + ' region undefined');
+    else
+	console.log('notify ' + methodName + ' ' + data.region.name);
+*/
+
 	if (!this.suppressNotifications)
 	{
 		var len = this.observers.length;
@@ -3216,6 +3225,7 @@ Spry.Data.Region.evalScripts = true;
 Spry.Data.Region.addObserver = function(regionID, observer)
 {
 	var n = Spry.Data.Region.notifiers[regionID];
+    // console.log("addObserver");
 	if (!n)
 	{
 		n = new Spry.Utils.Notifier();
@@ -3234,6 +3244,7 @@ Spry.Data.Region.removeObserver = function(regionID, observer)
 Spry.Data.Region.notifyObservers = function(methodName, region, data)
 {
 	var n = Spry.Data.Region.notifiers[region.name];
+    // console.log('Spry.Data.Region.notifyObservers: ' + region.name);
 	if (n)
 	{
 		var dataObj = {};

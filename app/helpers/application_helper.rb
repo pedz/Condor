@@ -1,7 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def add_stylesheets(*args)
-    @stylesheets = ((@stylesheets ||= []) + args).uniq
+    @stylesheets = (@stylesheets ||= []) + args
   end
 
   def add_stylesheet_link_tag
@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def add_javascripts(*args)
-    @javascripts = ((@javascripts ||= []) + args).uniq
+    @javascripts = (@javascripts ||= []) + args
   end
 
   def add_javascript_include_tag
