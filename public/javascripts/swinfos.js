@@ -137,13 +137,17 @@ Condor.swinfos.onPostUpdateElement = function (ele) {
 };
 
 Condor.swinfos.onPostUpdate = function () {
-    $$('#ptfapardef_table td').each(Condor.swinfos.onPostUpdateElement);
+    $('loading-data').hide();
+
+    var table = $('ptfapardef_table');
+    table.select('td').each(Condor.swinfos.onPostUpdateElement);
 };
 
 Condor.swinfos.regionCallback = function (state, notifier, data) {
-    // console.log("regionCallback " + state);
     if (state == "onPostUpdate")
 	Condor.swinfos.onPostUpdate();
+    if (state == "onLoadingData")
+	$('loading-data').show();
 };
 
 Spry.Data.Region.addObserver("ptfapardef_table", Condor.swinfos.regionCallback);
