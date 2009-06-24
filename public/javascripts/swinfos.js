@@ -68,8 +68,18 @@ Condor.swinfos.doNothing = function (event) {
     event.stop();
 };
 
+Condor.swinfos.mouseDebug = function (event, str) {
+    return;
+    var left = " l: " + event.isLeftClick();
+    var right = " r: " + event.isRightClick();
+    var middle = " m: " + event.isMiddleClick();
+    console.log(str + left + middle + right);
+};
+
+
 Condor.swinfos.defectMouseDown = function (event) {
     event.stop();
+    Condor.swinfos.mouseDebug(event, "down");
     if (event.isRightClick()) {
 	if (this.ul.visible()) {
 	    if (this.clip)
@@ -106,11 +116,13 @@ Condor.swinfos.makeClip = function (ele) {
 
 Condor.swinfos.defectMouseUp = function (event) {
     event.stop();
+    Condor.swinfos.mouseDebug(event, "up");
 };
 
 Condor.swinfos.defectClick = function (event) {
     // if left click and list is not open, just allow the event to
     // proceed
+    Condor.swinfos.mouseDebug(event, "click");
     if (event.isLeftClick() && !this.ul.visible()) {
 	return;
     }
