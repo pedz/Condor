@@ -26,11 +26,31 @@
       <tr>
 	<td><%= link_to item.defect, swinfos_path(item.defect) %></td>
 	<td><%= link_to item.apar, swinfos_path(item.apar) %></td>
-	<td><%= link_to item.ptf, swinfos_path(item.ptf) %></td>
+	<td><%= if item.ptf
+		link_to item.ptf, swinfos_path(item.ptf)
+		else
+		"Not Build"
+		end
+		%></td>
 	<td><%= h item.abstract %></td>
-	<td><%= link_to item.lpp, swinfos_path(item.lpp) %></td>
-	<td><%= link_to item.vrmf, swinfos_path("#{item.lpp} #{item.vrmf}") %></td>
-	<td><%= h item.release %></td>
+	<td><%= if item.lpp
+		link_to item.lpp, swinfos_path(item.lpp)
+		else
+		""
+		end
+		%></td>
+	<td><%= if item.vrmf
+		link_to item.vrmf, swinfos_path("#{item.lpp} #{item.vrmf}")
+		else
+		""
+		fi
+		%></td>
+	<td><%= if item.release
+		h item.release
+		else
+		h item.version
+		end
+		%></td>
       </tr>
       <%- end -%>
     </tbody>
