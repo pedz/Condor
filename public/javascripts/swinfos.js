@@ -64,34 +64,6 @@ Condor.swinfos.make_link = function (ref, text) {
     return "<a href='" + ref + "'>" + text + "</a>"
 };
 
-Condor.swinfos.doNothing = function (event) {
-    event.stop();
-};
-
-Condor.swinfos.mouseDebug = function (event, str) {
-    return;
-    var left = " l: " + event.isLeftClick();
-    var right = " r: " + event.isRightClick();
-    var middle = " m: " + event.isMiddleClick();
-    console.log(str + left + middle + right);
-};
-
-
-Condor.swinfos.defectMouseDown = function (event) {
-    event.stop();
-    Condor.swinfos.mouseDebug(event, "down");
-    if (event.isRightClick()) {
-	if (this.ul.visible()) {
-	    if (this.clip)
-		this.clip.destroy();
-	    this.ul.hide();
-	} else {
-	    this.ul.show();
-	    this.clip = Condor.swinfos.makeClip(this.ul);
-	}
-    }
-};
-
 Condor.swinfos.makeClip = function (ele) {
     var li = ele.down('.copy-to-clipboard');
     if (!li)
@@ -114,16 +86,88 @@ Condor.swinfos.makeClip = function (ele) {
     return clip;
 };
 
-Condor.swinfos.defectMouseUp = function (event) {
+Condor.swinfos.doNothing = function (event) {
     event.stop();
-    Condor.swinfos.mouseDebug(event, "up");
 };
 
-Condor.swinfos.defectClick = function (event) {
+Condor.swinfos.mouseDebug = function (event, str) {
+    // return;
+    var left = " l: " + event.isLeftClick();
+    var right = " r: " + event.isRightClick();
+    var middle = " m: " + event.isMiddleClick();
+    console.log(str + left + middle + right);
+};
+
+Condor.swinfos.tdMouseDown = function (event) {
+    // event.stop();
+    Condor.swinfos.mouseDebug(event, "down");
+    if (event.isRightClick()) {
+	if (this.ul.visible()) {
+	    if (this.clip)
+		this.clip.destroy();
+	    this.ul.hide();
+	} else {
+	    this.ul.show();
+	    this.clip = Condor.swinfos.makeClip(this.ul);
+	    this.justOpened = true;
+	}
+    }
+};
+
+Condor.swinfos.tdMouseUp = function (event) {
+    // event.stop();
+    Condor.swinfos.mouseDebug(event, "up");
+    
+    // Not td's link or text so it must be something in the drop down
+    // list.
+    if (event.isRightClick() && this.justOpened) {
+	var target = event.element();
+	// If user clicks down on the td's text, then moves over to a
+	// list item and releases, we want to pick that link.
+	this.justOpened = false;
+	if (target.up() != this) {
+	    var href = target.readAttribute('href');
+	    if (href) {
+		window.location = href;
+	    }
+	    return;
+
+	    // This doesn't work.  There is a "isTrusted" attribute
+	    // that is false and is not settable.  I'm guessing that
+	    // is the problem.
+	    var doc = this.ownerDocument;
+	    var eventObject = doc.createEvent('MouseEvents');
+	    eventObject.initMouseEvent('click',	       // type
+				       true,	       // bubbles
+				       true,	       // cancelable
+				       doc.defaultView, // windowObject
+				       1,	       // detail
+				       event.screenX,  // screenX
+				       event.screenY,  // screenY
+				       event.clientX,  // clientX
+				       event.clientY,  // clientY
+				       event.ctrlKey,  // ctrlKey
+				       event.altKey,   // altKey
+				       event.shiftKey, // shiftKey
+				       event.metaKey,  // metaKey
+				       0,	       // button
+				       event.relatedTarget );
+	    target.dispatchEvent(eventObject);
+	}
+    }
+};
+
+Condor.swinfos.tdClick = function (event) {
     // if left click and list is not open, just allow the event to
     // proceed
     Condor.swinfos.mouseDebug(event, "click");
     if (event.isLeftClick() && !this.ul.visible()) {
+	return;
+    }
+    // Or, if we click one of the list items.
+    var target = event.element();
+    if (target.up() != this) {
+	console.log('not stopping');
 	return;
     }
     event.stop();
@@ -134,9 +178,9 @@ Condor.swinfos.onPostUpdateElement = function (ele) {
     if (ul == null)
 	return;
     // console.log("onPostUpdateElement");
-    ele.observe('mousedown', Condor.swinfos.defectMouseDown.bindAsEventListener(ele));
-    ele.observe('mouseup',   Condor.swinfos.defectMouseUp.bindAsEventListener(ele));
-    ele.observe('click',     Condor.swinfos.defectClick.bindAsEventListener(ele));
+    ele.observe('mousedown', Condor.swinfos.tdMouseDown.bindAsEventListener(ele));
+    ele.observe('mouseup',   Condor.swinfos.tdMouseUp.bindAsEventListener(ele));
+    ele.observe('click',     Condor.swinfos.tdClick.bindAsEventListener(ele));
     ele.observe('contextmenu', Condor.swinfos.doNothing.bindAsEventListener(ele));
     ele.ul = ul;
     ul.setStyle({
