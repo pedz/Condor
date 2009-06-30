@@ -50,7 +50,14 @@ ActionController::Routing::Routes.draw do |map|
                   :controller => 'image_paths',
                   :action => 'show')
 
+  # Special path for ptf apar def constants
   map.resources :ptf_apar_defs, :only => [ :show ]
+
+  # Special path to the apar draft reflector.
+  map.apar_drafts('apar_drafts/:search_type/:search_arg',
+                  :controller => 'apar_drafts',
+                  :search_type => /defect|apar|pmr/,
+                  :action => 'show')
 
   # Normal resource paths created by rake for basic database forms.
   map.resources :aix_files, :only => [ :index, :show ]

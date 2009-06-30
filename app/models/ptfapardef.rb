@@ -3,6 +3,14 @@ class Ptfapardef < ActiveRecord::Base
     @controller = controller
   end
 
+  def apar_draft_defect_path
+    @controller.__send__(:apar_drafts_path, "defect", defect)
+  end
+
+  def apar_draft_apar_path
+    @controller.__send__(:apar_drafts_path, "apar", apar)
+  end
+
   def defect_path
     @controller.__send__(:defect_path, defect)
   end
