@@ -1,33 +1,7 @@
 <!-- app/views/welcome/index.html.erb -->
 <h1>Welcome to Condor</h1>
-<p>
-  Condor is the CMVC / RP2 half of my web based tools to help with
-  support work.  There are three areas to Condor.
-  <ol>
-    <li><span style='font-weight: bold'>"swinfo" data:</span> This is
-    the ptfapardef.constant information produced by the build group.
-    Currently, there are no ties to RP2.  The ptfapardef.constant data
-    contains some of what is in RP2 but also contains other
-    information not in RP2.  The ptfapardef data is created at build
-    time.  Thus, information about defects not yet built are not in
-    Condor.</li>
-    <li><span style='font-weight: bold'>Packaging data.</span>  The
-    install images on truth stored in /530images, 520images, ... have
-    been ransacked.  For a particular path on truth which goes to an
-    install image, the list of packages, lpps, and filesets have been
-    pulled out.  The list of files that each file set would apply can
-    be listed.  The VRMF of the fileset has also been stored.  In
-    effect, this is a which_fileset database but it knows what
-    actually shipped and where -- not what was suppose to ship.</li>
-    <li><span style='font-weight: bold'>CMVC.</span>The third piece is
-    a few ties to CMVC to pull over Defects, source files, changes a
-    defect made, diffs between the source files, and things like that.
-    Over time, I plan to move my CMVC bash / perl scripts into this
-    tool.</li>
-  </ol>
-</p>
 <h3>Swinfo</h3>
-<p>
+<p style='width: 40em;'>
   Enter a defect, APAR, PTF, Lpp name (e.g. bos.rte) or Fileset
   (e.g. bos.rte 5.3.0.30 -- with the space.  The VRMF can be
   incomplete such as 5.3.8)
@@ -83,3 +57,56 @@
     </td>
   </tr>
 </table>
+<p>
+  Condor is the CMVC / RP2 half of my web based tools to help with
+  support work.  There are four to Condor.
+  <dl style='width: 40em;'>
+    <dt><span style='font-weight: bold'>swinfo data</span></dt>
+    <dd>
+      <p>
+	As defects get built, a ptfapardef.constant file is maintained.
+	This file relates PTFs, APARs, defects, Lpps, and vrmf levels.
+      </p>
+      <p>
+	The PC in RP2 is created when an APAR is connected to a
+	defect.  This is done before build time so it is the first
+	(and most- official) place that connects APARs to defects.
+	RP2 does not have "releases" (e.g. bos325, tcp53H) but has
+	"versions" (e.g. 53H or 61D).  So, in some views, if the
+	defect is not built, it will show the version rather than the
+	release.
+      </p>
+      <p>
+	Both the ptfapardef.constant files and PC Views from RP2 are
+	pulled into Condor periodically.
+      </p>
+    </dd>
+    <dt><span style='font-weight: bold'>Packaging data</span></dt>
+    <dd>
+      <p>
+	The install images on truth stored in /530images, /520images,
+	etc have been ransacked.  For a particular path on truth which
+	goes to an install image, the list of packages, lpps, and
+	filesets have been pulled out.  The list of files that each
+	file set would apply can be listed.  The VRMF of the fileset
+	has also been stored.  In effect, this is a which_fileset
+	database but it knows what actually shipped and where -- not
+	what was suppose to ship.
+      </p>
+      <p>
+	The packages as well as each file have their SHA1 hash
+	computed and stored.  This can be used to make sure the
+	customers have the version of the file they should have.
+      </p>
+    </dd>
+    <dt><span style='font-weight: bold'>CMVC.</span></dt>
+    <dd>
+      <p>
+	The last piece is a few ties to CMVC to pull over Defects,
+	source files, changes a defect made, diffs between the source
+	files, and things like that.  Overwrite time, I plan to move
+	my CMVC bash / perl scripts into this tool.
+      </p>
+    </dd>
+  </dl>
+</p>
