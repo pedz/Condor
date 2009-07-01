@@ -91,7 +91,7 @@ Condor.swinfos.doNothing = function (event) {
 };
 
 Condor.swinfos.mouseDebug = function (event, str) {
-    // return;
+    return;
     var left = " l: " + event.isLeftClick();
     var right = " r: " + event.isRightClick();
     var middle = " m: " + event.isMiddleClick();
@@ -167,7 +167,7 @@ Condor.swinfos.tdClick = function (event) {
     // Or, if we click one of the list items.
     var target = event.element();
     if (target.up() != this) {
-	console.log('not stopping');
+	// console.log('not stopping');
 	return;
     }
     event.stop();
