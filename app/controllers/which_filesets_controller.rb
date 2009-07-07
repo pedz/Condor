@@ -20,7 +20,7 @@ class WhichFilesetsController < ApplicationController
     respond_to do |format|
       format.html { render :action => "show" }
       format.xml  {
-        render :xml => @files.to_xml(:include => { :filesets => { :include => :lpp }})
+        render :xml => @files.to_xml(:include => { :filesets => { :include => [:lpp, :service_packs] }})
       }
     end
   end
