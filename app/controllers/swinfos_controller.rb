@@ -27,19 +27,29 @@ class SwinfosController < ApplicationController
           @items = Ptfapardef.find_all_by_lpp(item)
         end
         @items.each { |item| item.controller = self }
-        render :json => @items.to_json(:only => [:defect, :apar, :ptf, :abstract,
-                                                 :lpp, :vrmf, :release,
-                                                 :version ],
-                                       :methods => [ :apar_draft_defect_path,
-                                                     :apar_draft_apar_path,
-                                                     :swinfos_defect_path,
-                                                     :defect_path,
-                                                     :changes_path,
-                                                     :swinfos_apar_path,
-                                                     :swinfos_ptf_path,
-                                                     :swinfos_lpp_path,
-                                                     :swinfos_fileset_path,
-                                                     :fileset_path])
+        render :json => @items.to_json(:only => [
+                                                 :abstract,
+                                                 :apar,
+                                                 :defect,
+                                                 :lpp,
+                                                 :ptf,
+                                                 :release,
+                                                 :service_pack,
+                                                 :version,
+                                                 :vrmf
+                                                ],
+                                       :methods => [
+                                                    :apar_draft_apar_path,
+                                                    :apar_draft_defect_path,
+                                                    :changes_path,
+                                                    :defect_path,
+                                                    :fileset_path,
+                                                    :swinfos_apar_path,
+                                                    :swinfos_defect_path,
+                                                    :swinfos_fileset_path,
+                                                    :swinfos_lpp_path,
+                                                    :swinfos_ptf_path
+                                                   ])
       }
     end
   end
