@@ -56,6 +56,13 @@ Condor.swinfos.release_text = function (region, lookup) {
     return release;
 };
 
+Condor.swinfos.service_pack_text = function (region, lookup) {
+    var servicePack = lookup('service_pack');
+    if (servicePack == null)
+	return "";
+    return servicePack;
+};
+
 Condor.swinfos.row_class = function (region, lookup) {
     return "nth-" + ((parseInt(lookup('ds_RowNumber')) % 4) + 1);
 };

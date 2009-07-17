@@ -40,6 +40,7 @@
 	<th spry:sort="lpp">LPP</th>
 	<th spry:sort="vrmf">VRMF</th>
 	<th spry:sort="release">Release</th>
+	<th spry:sort="service_pack">Service Pack</th>
       </tr>
     </thead>
     <tfoot>
@@ -121,6 +122,9 @@
 	      {release}
 	    </li>
 	  </ul>
+	</td>
+	<td>
+	  {function::Condor.swinfos.service_pack_text}
 	</td>
       </tr>
     </tbody>
