@@ -28,10 +28,14 @@ class SwinfosController < ApplicationController
     @param = params[:item]
     respond_to do |format|
       format.html { render :action => "show", :layout => "spry" }
-      format.json { render :json => @items.to_json(:only => ATTR_LIST,
-                                                   :methods => METH_LIST) }
-      format.xml  { render :xml => @items.to_xml(:only => ATTR_LIST,
-                                                 :methods => METH_LIST) }
+      format.json {
+        find_items
+        render :json => @items.to_json(:only => ATTR_LIST, :methods => METH_LIST)
+      }
+      format.xml  {
+        find_items
+        render :xml => @items.to_xml(:only => ATTR_LIST, :methods => METH_LIST)
+      }
     end
   end
 
