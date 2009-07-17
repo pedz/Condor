@@ -3,7 +3,7 @@ class FileChange
   attr_reader :abstract, :prev_sccsid
 
   def initialize(release, defect, level, sccsid, path, type, reference,
-                 abstract, prev_sccsid = nil)
+                 prev_sccsid, abstract)
     @release = release
     @defect = defect
     @level = level
@@ -80,13 +80,13 @@ class FileChange
 		p.name as path, \
 		c.type, \
 		d.reference, \
-		d.abstract, \
-                prev.SID as prev_sccsid \
+                prev.SID as prev_sccsid, \
+		d.abstract \
                 \"") do |io|
       io.each_line do |line|
         line.chomp!
         RAILS_DEFAULT_LOGGER.debug("line is #{line}")
-        changes << new(*line.split(/\|/))
+        changes << new(*line.split(/\|/), 9)
       end
     end
     changes
