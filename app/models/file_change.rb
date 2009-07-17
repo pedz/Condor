@@ -12,7 +12,7 @@ class FileChange
     @type = type
     @reference = reference
     @abstract = abstract
-    @prev_sccsid = prev_sccsid
+    @prev_sccsid = prev_sccsid unless prev_sccsid.empty?
   end
 
   def self.find(file)
