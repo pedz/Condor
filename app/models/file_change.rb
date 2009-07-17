@@ -86,7 +86,7 @@ class FileChange
       io.each_line do |line|
         line.chomp!
         RAILS_DEFAULT_LOGGER.debug("line is #{line}")
-        changes << new(*line.split(/\|/), 9)
+        changes << new(*line.split(/\|/, 9))
       end
     end
     changes
