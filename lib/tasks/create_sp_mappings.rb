@@ -134,7 +134,7 @@ dirname_sp_mappings = [
 { :dirname => "610images/sp/6100-01-04",                  :sp => "6100-01-04" },
 { :dirname => "610images/sp/6100-01-05",                  :sp => "6100-01-05" },
 { :dirname => "610images/mls/tl02",                       :sp => "6100-02" },
-{ :dirname => "610images/base/LK4T-1482-04/installp/ppc", :sp => "6100-02-00" },
+{ :dirname => "610images/base/LK4T-1482-04/installp/ppc", :sp => "6100-02" },
 { :dirname => "610images/sp/6100-02-01",                  :sp => "6100-02-01" },
 { :dirname => "610images/sp/6100-02-02",                  :sp => "6100-02-02" },
 { :dirname => "610images/sp/6100-02-03",                  :sp => "6100-02-03" },
