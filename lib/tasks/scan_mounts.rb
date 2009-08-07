@@ -4,7 +4,7 @@
 # install / update images on truth.
 
 # Note that this script should be run as root with a command like:
-# scripts/runner lib/tasks/scan_mounts
+# script/runner lib/tasks/scan_mounts.rb
 
 # It depends upon data being a symbolic link to the shared/data
 # directory which should be set up via the capistrano deploy
