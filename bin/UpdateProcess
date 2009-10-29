@@ -34,3 +34,21 @@ On tcp237:
     Restore the db from the new db
       1) cd ~/condor
       2) rake 'db:restore[/usr/local/db-dumps/condor-20091028.db]' RAILS_ENV=production
+
+At this point, the new database is running.  But if new file were
+added during the scan_mounts process, the mapping for them to service
+packs will not be present.
+
+So...
+
+On tcp237:
+  As Apache
+    Get the image paths without service packets
+      1) cd ~
+         ./get-paths > paths-out
+
+    Now update lib/tasks/create_sp_mappings.rb with the new entries.
+    Push the changes to production (and stage if you want), and
+    finally, (for the production side):
+      1) cd ~/condor
+         RAILS_ENV=production script/runner lib/tasks/create_sp_mappings.rb
