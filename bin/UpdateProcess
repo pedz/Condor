@@ -1,0 +1,36 @@
+Steps to update Condor:
+
+On P51:
+  As pedzan
+    Update cached rp2 pc_view entries
+      1) cd /usr/dumps/pc_view/new
+         ./pull-new
+      2) cd /usr/local/www/condor/current
+         script/runner lib/tasks/import_pc_views.rb /usr/dumps/pc_view/new/new-out
+
+    Update cached ptfapardef.constant entries
+      (must have valid gsa and dfs ticket.  When dfs is completely
+      gone then rework the directories being searched.)
+      1) cd /usr/local/www/condor/current/data/current
+         ./do-update
+
+  As root
+    Update the ptf image caches
+      1) cd /usr/local/www/condor/current
+         script/runner lib/tasks/scan_mounts.rb
+
+  As pedzan
+    Delete the old "Not built yet" entries:
+      1) cd /usr/local/www/condor/current
+         script/runner lib/tasks/delete_old.rb
+
+    Now dump the db.  (The condor-20091028.db name will change)
+      1) cd /usr/local/www/condor/current
+      2) rake 'db:dump[/usr/dumps/db-snapshots/condor-20091028.db]'
+      3) scp /usr/dumps/db-snapshots/condor-20091028.db root@tcp237:/usr/local/db-dumps
+
+On tcp237:
+  As Apache
+    Restore the db from the new db
+      1) cd ~/condor
+      2) rake 'db:restore[/usr/local/db-dumps/condor-20091028.db]' RAILS_ENV=production
