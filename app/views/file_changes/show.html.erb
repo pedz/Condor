@@ -7,7 +7,9 @@
       <ul class="path">
 	File <%= path %>
 <%    until file_change.nil? || file_change.path != path %>
-<%      release = file_change.release %>
+<%      release = file_change.release
+	version = release[-3, 3]
+%>
         <ul class="release">
 	  Product <%= h release %> [<%= h file_change.level %>]
 <%      until file_change.nil? || file_change.release != release %>
@@ -30,14 +32,28 @@
 		                   file_change.sccsid) %>
 	    <%= h file_change.type %>
 <%=
-   ptfapardef = Ptfapardef.find(:first, :conditions => { :defect => file_change.defect, :release => release } )
-   unless ptfapardef.nil?
-     if ptfapardef.service_pack
-       ptfapardef.service_pack
-     else
-       "Not Built"
-     end
+   # while this may look horrible, I believe eventually Rails will
+   # cache things up and it will become fast.
+   a = "Not Built"
+   s = "Not Built"
+   defect = Defefct.find_by_name(file_change.defect, :include => [ :apars, :versions ])
+   if defect
+     adv = defect.apar_defect_version_maps.first { |m| m.version.name == version }
+     if adv
+       a = adv.apar.name
+       ptf = adv.ptfs.first
+       if ptf
+         fileset = ptf.filesets.first
+         if fileset
+           service_pack = fileset.service_packs.first
+           if service_pack
+             s = service_pack.name
+           end
+         end
+       end
+     end   
    end
+   "#{s}: #{a}"
 %>
 	    <%= link_to file_change.defect, defect_path(file_change.defect) %>:
 	    <%= h file_change.abstract %>
