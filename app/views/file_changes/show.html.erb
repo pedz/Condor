@@ -29,6 +29,16 @@
 		                   file_change.path.split(/\//),
 		                   file_change.sccsid) %>
 	    <%= h file_change.type %>
+<%=
+   ptfapardef = Ptfapardef.find(:first, :conditions => { :defect => file_change.defect, :release => release } )
+   unless ptfapardef.nil?
+     if ptfapardef.service_pack
+       ptfapardef.service_pack
+     else
+       "Not Built"
+     end
+   end
+%>
 	    <%= link_to file_change.defect, defect_path(file_change.defect) %>:
 	    <%= h file_change.abstract %>
 <%        file_change = @file_changes.shift %>
