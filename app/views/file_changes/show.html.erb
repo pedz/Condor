@@ -35,7 +35,7 @@
    # while this may look horrible, I believe eventually Rails will
    # cache things up and it will become fast.
    a = "Not Built"
-   s = "Not Built"
+   s = "Not Shipped"
    defect = Defect.find_by_name(file_change.defect, :include => [ :apars, :versions ])
    if defect
      adv = defect.apar_defect_version_maps.enum_find { |m| m.version.name == version }
