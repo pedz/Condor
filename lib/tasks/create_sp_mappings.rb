@@ -52,6 +52,7 @@ dirname_sp_mappings = [
 { :dirname => "520images/sp/5200-10-05",                  :sp => "5200-10-05" },
 { :dirname => "520images/sp/5200-10-06",                  :sp => "5200-10-06" },
 { :dirname => "520images/sp/5200-10-07",                  :sp => "5200-10-07" },
+{ :dirname => "520images/sp/5200-10-08",                  :sp => "5200-10-08" },
 { :dirname => "530images/base/lcd4-7463-01/installp/ppc", :sp => "5300-00-00" },
 { :dirname => "530images/base/lcd4-7463-02/installp/ppc", :sp => "5300-00-00" },
 { :dirname => "530images/base/lcd4-7463-03/installp/ppc", :sp => "5300-01-00" },
@@ -64,7 +65,7 @@ dirname_sp_mappings = [
 { :dirname => "530images/base/lcd4-7463-13/installp/ppc", :sp => "5300-09-00" },
 { :dirname => "530images/base/LCD4-7544-11/installp/ppc", :sp => "5300-10-00" },
 { :dirname => "530images/base/LCD4-7544-12/installp/ppc", :sp => "5300-10-01" },
-{ :dirname => "530images/base/LCD4-7544-13/installp/ppc", :sp => "5300-11-00" },
+{ :dirname => "530images/base/LDC4-7544-13/installp/ppc", :sp => "5300-11-00" },
 { :dirname => "530images/mls/ml01",                       :sp => "5300-01-00" },
 { :dirname => "530images/mls/ml02",                       :sp => "5300-02-00" },
 { :dirname => "530images/mls/ml03",                       :sp => "5300-03-00" },
@@ -126,6 +127,7 @@ dirname_sp_mappings = [
 { :dirname => "530images/sp/5300-10-01",                  :sp => "5300-10-01" },
 { :dirname => "530images/sp/5300-10-02",                  :sp => "5300-10-02" },
 { :dirname => "530images/sp/5300-11-01",                  :sp => "5300-11-01" },
+{ :dirname => "530images/sp/5300-11-02",                  :sp => "5300-11-02" },
 { :dirname => "610images/base/lcd8-0730-00",              :sp => "6100-00-00" },
 { :dirname => "610images/base/dec2007DVD/installp/ppc",   :sp => "6100-00-01" },
 { :dirname => "610images/base/may2008DVD/installp/ppc",   :sp => "6100-01-00" },
@@ -165,6 +167,8 @@ dirname_sp_mappings = [
 { :dirname => "610images/sp/6100-03-02",                  :sp => "6100-03-02" },
 { :dirname => "610images/sp/6100-03-03",                  :sp => "6100-03-03" },
 { :dirname => "610images/sp/6100-04-01",                  :sp => "6100-04-01" },
+{ :dirname => "610images/sp/6100-04-02",                  :sp => "6100-04-02" },
+{ :dirname => "610images/sp/6100-04-03",                  :sp => "6100-04-03" },
 ]
 
 dirname_sp_mappings.each_with_index do |mapping, index|
