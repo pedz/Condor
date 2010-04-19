@@ -6,6 +6,8 @@
 # type out the whole command like:
 # script/runner lib/tasks/import_consts.rb file1 file2 ...
 
+VRMF_PAT = Regexp.new("[0-9]+.[0-9]+.[0-9]+.[0-9]+")
+
 begin
   Rails.logger.level = ActiveSupport::BufferedLogger::WARN
   
@@ -17,8 +19,18 @@ begin
         
         line.chomp!
         fields = line.split(/\|/)
-        next if fields.length != 9
-        
+        if fields.length < 9
+          STDERR.puts("line has too few fields: '#{line}'")
+          next
+        end
+        vrmf_field = fields.length - 1
+        vrmf_field -= 1 while (vrmf_field > 7 && VRMF_PAT.match(fields[vrmf_field]).nil?)
+        if vrmf_field <= 7
+          STDERR.puts("can not find vrmf field in line: '#{line}'")
+          next
+        end
+        abstract = fields[7 .. (vrmf_field - 1)].join('|')
+
         ptf = Ptf.find_or_create_by_name fields[0]
         apar = Apar.find_or_create_by_name fields[1]
         defect = Defect.find_or_create_by_name fields[2]
@@ -60,11 +72,11 @@ begin
         end
         
         if apar.abstract.nil?
-          apar.abstract = fields[7]
+          apar.abstract = abstract
           apar.save!
         end
         
-        fileset = lpp.filesets.find_or_create_by_vrmf fields[8]
+        fileset = lpp.filesets.find_or_create_by_vrmf fields[vrmf_field]
         
         FilesetPtfMap.find_or_create_by_fileset_id_and_ptf_id(fileset.id, ptf.id)
       end
