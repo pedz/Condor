@@ -5,7 +5,7 @@ unless respond_to?(:env)
 end
 
 if env == 'production'
-  set :domain,      "apache@tcp237.austin.ibm.com"
+  set :domain,      "condor@tcp237.austin.ibm.com"
 elsif env == 'staging'
   set :domain,      "apache@p51.austin.ibm.com"
 else
