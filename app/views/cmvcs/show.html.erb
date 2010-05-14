@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @cmvc.user_id %>
+</p>
+
+<p>
+  <b>Login:</b>
+  <%=h @cmvc.login %>
+</p>
+
+
+<%= link_to 'Edit', edit_cmvc_path(@cmvc) %> |
+<%= link_to 'Back', cmvcs_path %>

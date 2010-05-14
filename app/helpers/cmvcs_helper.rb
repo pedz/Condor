@@ -1,0 +1,2 @@
+module CmvcsHelper
+end

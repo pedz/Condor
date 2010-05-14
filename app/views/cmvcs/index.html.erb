@@ -1,0 +1,22 @@
+<h1>Listing cmvcs</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Login</th>
+  </tr>
+
+<% @cmvcs.each do |cmvc| %>
+  <tr>
+    <td><%=h cmvc.user_id %></td>
+    <td><%=h cmvc.login %></td>
+    <td><%= link_to 'Show', cmvc %></td>
+    <td><%= link_to 'Edit', edit_cmvc_path(cmvc) %></td>
+    <td><%= link_to 'Destroy', cmvc, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New cmvc', new_cmvc_path %>
