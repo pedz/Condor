@@ -1,13 +1,29 @@
 <h1>Editing user <%= @user.ldap_id %></h1>
 
-<% form_for(@user) do |f| %>
-  <%= f.error_messages %>
+<% form_for(@user) do |user_form| %>
+  <%= user_form.error_messages %>
   <p>
-    <%= f.label :admin %><br />
-    <%= f.check_box :admin %>
+    <%= user_form.label :admin %><br />
+    <%= user_form.check_box :admin %>
   </p>
+
+  <% user_form.fields_for :cmvc do |cmvc_form| %>
+    <p>
+      <div>
+	<%= cmvc_form.label :login, 'CMVC Login:' %>
+	<%= cmvc_form.text_field :login %>
+      </div>
+
+      <% unless cmvc_form.object.new_record? %>
+        <div>
+	  <%= cmvc_form.label :_delete, 'Remove:' %>
+	  <%= cmvc_form.check_box :_delete %>
+	</div>
+      <% end %>
+    </p>
+  <% end %>
   <p>
-    <%= f.submit 'Update' %>
+    <%= user_form.submit 'Update' %>
   </p>
 <% end %>
 

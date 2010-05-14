@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :cmvcs
+  # map.resources :cmvcs
 
-  map.resources :users, :except => [ :new, :create, :delete ]
+  map.resources :users, :except => [ :new, :create, :delete ], :has_one => :cmvc
 
   # Path for swinfos
   map.swinfos('swinfos/:item',

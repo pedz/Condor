@@ -1,20 +1,14 @@
+# This controller is nested under user/:id/cmvc as a has_one
 class CmvcsController < ApplicationController
-  # GET /cmvcs
-  # GET /cmvcs.xml
-  def index
-    @cmvcs = Cmvc.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @cmvcs }
-    end
-  end
-
   # GET /cmvcs/1
   # GET /cmvcs/1.xml
   def show
-    @cmvc = Cmvc.find(params[:id])
-
+    if admin?
+      user = User.find(params[:user_id])
+    else
+      user = application_user
+    end
+    @cmvc = user.cmvc
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @cmvc }

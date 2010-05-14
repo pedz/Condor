@@ -4,12 +4,16 @@
   <tr>
     <th>Ldap</th>
     <th>Admin</th>
+    <th>CMVC</th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
     <td><%=h user.ldap_id %></td>
     <td><%=h user.admin %></td>
+    <td>
+      <%= user.cmvc ? user.cmvc.login : "&lt;none&gt;" %>
+    </td>
     <td><%= link_to 'Show', user %></td>
     <% if admin? -%>
       <td><%= link_to 'Edit', edit_user_path(user) %></td>

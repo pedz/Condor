@@ -2,12 +2,14 @@
   <b>Ldap:</b>
   <%=h @user.ldap_id %>
 </p>
-
 <p>
   <b>Admin:</b>
   <%=h @user.admin %>
 </p>
-
+<p>
+  <b>CMVC Login:</b>
+  <%= @user.cmvc ? @user.cmvc.login : "&lt;none&gt;" %>
+</p>
 
 <% if admin? -%>
   <%= link_to 'Edit', edit_user_path(@user) %> |
