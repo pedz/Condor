@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :users, :except => [ :new, :create, :delete ]
+
   # Path for swinfos
   map.swinfos('swinfos/:item',
              :controller => 'swinfos',

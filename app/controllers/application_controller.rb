@@ -19,6 +19,12 @@ class ApplicationController < ActionController::Base
     NONE_AUTHENTICATE = File.exists?(RAILS_ROOT + "/config/no_ldap")
   end
 
+  # Return true if current user is an administrator of the site
+  def admin?
+    application_user.admin
+  end
+  helper_method :admin?
+
   # I'm scared to use "user" so I'm going with "application_user".
   # I keep user_id in the session.
   def application_user
