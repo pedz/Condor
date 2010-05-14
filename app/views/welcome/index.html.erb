@@ -1,21 +1,27 @@
 <!-- app/views/welcome/index.html.erb -->
 <h1>Welcome to Condor</h1>
+<p style='font-size: larger; color: orange; background-color: black; width: 60ex'>
+  Condor is being made more secure.  I don't have a great way to test
+  it besides on the production server.  You might see errors or other
+  problems.  If you do, get a cup of coffee, wait a while, and try
+  again.  If the problem persists, drop me an email or sametime.
+</p>
 <h3>Swinfo</h3>
 <p style='width: 40em;'>
   Enter a defect, APAR, PTF, Lpp name (e.g. bos.rte) or Fileset
   (e.g. bos.rte 5.3.0.30 -- with the space.  The VRMF can be
   incomplete such as 5.3.8)
-  <% form_tag swinfos_form_path do -%>
-      <%= text_field_tag "item" %>
-      <%= submit_tag nil, :class => "concat-fields" %>
-  <% end -%>
+  <% form_tag swinfos_form_path do %>
+    <%= text_field_tag "item" %>
+    <%= submit_tag nil, :class => "concat-fields" %>
+  <% end %>
 </p>
 <h3>Which Fileset</h3>
 <p>
   Type in a file name or path
-  <% form_tag which_filesets_form_path do -%>
-      <%= text_field_tag "path" %>
-      <%= submit_tag nil, :class => "concat-fields" %>
+  <% form_tag which_filesets_form_path do %>
+    <%= text_field_tag "path" %>
+    <%= submit_tag nil, :class => "concat-fields" %>
   <% end %>
 </p>
 <h3>CMVC Activities</h3>
@@ -23,9 +29,9 @@
   <tr>
     <th>Retrive CMVC Defect</th>
     <td>
-      <% form_tag :controller => "defects" do -%>
-      <%= text_field_tag "path" %>
-      <%= submit_tag nil, :class => "concat-fields" %>
+      <% form_tag :controller => "defects" do %>
+        <%= text_field_tag "path" %>
+        <%= submit_tag nil, :class => "concat-fields" %>
       <% end %>
     </td>
     <td>
@@ -35,9 +41,9 @@
   <tr>
     <th>View Changes for a CMVC Defect</th>
     <td>
-      <% form_tag changes_form_path do -%>
-      <%= text_field_tag "path" %>
-      <%= submit_tag nil, :class => "concat-fields" %>
+      <% form_tag changes_form_path do %>
+	<%= text_field_tag "path" %>
+	<%= submit_tag nil, :class => "concat-fields" %>
       <% end %>
     </td>
     <td>
@@ -47,9 +53,9 @@
   <tr>
     <th>View Change History for a file</th>
     <td>
-      <% form_tag file_changes_form_path do -%>
-      <%= text_field_tag "path" %>
-      <%= submit_tag nil, :class => "concat-fields" %>
+      <% form_tag file_changes_form_path do %>
+	<%= text_field_tag "path" %>
+	<%= submit_tag nil, :class => "concat-fields" %>
       <% end %>
     </td>
     <td>
