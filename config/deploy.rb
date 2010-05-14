@@ -13,11 +13,13 @@ else
   exit 1
 end
 
-set :application, "condor"
-set :repository,  "#{domain}:repositories/condor.git"
-set :scm,         :git
-set :deploy_via,  :remote_cache
-set :branch,      "master"
+set :application,           "condor"
+set :repository,            "#{domain}:repositories/condor.git"
+set :scm,                   :git
+set :deploy_via,            :copy
+set :branch,                "master"
+set :copy_remote_tar,       "/usr/local/bin/tar"
+set :git_enable_submodules, true
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
