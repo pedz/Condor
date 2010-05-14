@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/activerecord_constraints"]
+	path = vendor/plugins/activerecord_constraints
+	url = git@github.com:pedz/activerecord_constraints.git
