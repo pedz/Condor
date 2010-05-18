@@ -5,7 +5,7 @@ class SrcFilesController < ApplicationController
       :version => params[:version],
       :path => params[:path].join('/')
     }
-    @src_file = SrcFile.find(@params)
+    @src_file = SrcFile.find(@params, application_user)
     @basename = params[:path].last
 
     respond_to do |format|
