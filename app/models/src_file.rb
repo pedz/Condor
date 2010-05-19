@@ -1,8 +1,7 @@
 class SrcFile < SCM::CMVC
   def self.find(options, user)
     logger.debug("hi")
-    raise "CMVC Login Required" unless (user.cmvc && !user.cmvc.blank?)
-    lines = []
+    raise SCM::LoginRequired.new unless (user.cmvc && !user.cmvc.blank?)
     string = "/usr/local/cmvc/bin/File \
                 -extract #{options[:path]} \
                 -release #{options[:release]} \
@@ -10,9 +9,10 @@ class SrcFile < SCM::CMVC
                 -family aix \
                 -become #{user.cmvc.login} \
                 -stdout"
-    IO.popen(string) do |io|
-      lines = io.readlines
+    cmd_result = popen(string)
+    if cmd_result.exit_status != 0
+      raise SCM::PopenFailed.new(cmd_result.exit_status, cmd_result.stderr)
     end
-    lines
+    cmd_result.stdout
   end
 end

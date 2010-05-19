@@ -1,6 +1,46 @@
+require 'tempfile'
+
 module SCM
+  class PopenFailed < Exception
+    attr_reader :exit_status, :stderr
+    def initialized(exit_status, stderr)
+      @exit_status = exit_status
+      @stderr = stderr
+    end
+  end
+
+  class LoginRequired < Exception
+  end
+
   class Base
+    # Initialized in config/initializers/loggers.rb
     cattr_accessor :logger
+
+    CmdResult = Struct.new(:stdout, :stderr, :exit_status)
+
+    # calls cmd via popen and returns a CmdResult with stdout, stderr,
+    # and exit_status
+    def popen(cmd)
+      # create a temp file
+      err_file = Tempfile.new("condor")
+      # call the command.  Redirect stderr to temp file
+      io = IO.popen("#{cmd} 2> #{err.path}")
+      # get the standard output
+      stdout = io.readlines
+      # close the popen command
+      io.close
+      # get the exit code of the popen command
+      exit_status = $?
+      # Now we have to "open" the temp file which does a rewind and
+      # open for read.
+      err_file.open
+      # Read what was put into the temp file via stderr
+      stderr = err_file.readlines
+      # close and delete the temp file
+      err_file.close(true)
+      # return the stdout, stderr, and exit code
+      CmdResult.new(stdout, stderr, exit_status)
+    end
 
 =begin
 This is what I need to do...
@@ -54,4 +94,3 @@ irb(main):013:0> pedzan@newtoy<1> on ttyp0
     
   end
 end
-  
