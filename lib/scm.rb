@@ -1,2 +1,2 @@
 require 'scm/base'
-require 'svm/cmvc'
+require 'scm/cmvc'
