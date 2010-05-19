@@ -1,4 +1,4 @@
-class SrcFile < SCM::SMVC
+class SrcFile < SCM::CMVC
   def self.find(options, user)
     logger.debug("hi")
     raise "CMVC Login Required" unless (user.cmvc && !user.cmvc.blank?)
