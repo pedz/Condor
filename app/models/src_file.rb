@@ -1,5 +1,6 @@
-class SrcFile
+class SrcFile < SCM::SMVC
   def self.find(options, user)
+    logger.debug("hi")
     raise "CMVC Login Required" unless (user.cmvc && !user.cmvc.blank?)
     lines = []
     string = "/usr/local/cmvc/bin/File \
@@ -9,7 +10,6 @@ class SrcFile
                 -family aix \
                 -become #{user.cmvc.login} \
                 -stdout"
-    puts(string)
     IO.popen(string) do |io|
       lines = io.readlines
     end
