@@ -19,6 +19,9 @@ class ApplicationController < ActionController::Base
     NONE_AUTHENTICATE = File.exists?(RAILS_ROOT + "/config/no_ldap")
   end
 
+  rescue_from SCM::LoginRequired, :with => :login_required
+  rescue_from SCM::PopenFailed,   :with => :popen_failed
+
   # Return true if current user is an administrator of the site
   def admin?
     application_user.admin
@@ -164,5 +167,14 @@ class ApplicationController < ActionController::Base
       request.env['X-HTTP_AUTHORIZATION'] ||
       request.env['X_HTTP_AUTHORIZATION'] ||
       request.env['REDIRECT_X_HTTP_AUTHORIZATION']
+  end
+
+  def login_required(exception)
+    session[:original_uri] = request.request_uri
+    flash[:error] = "A CMVC id is required for source code access"
+    redirect_to edit_user_url(application_user)
+  end
+
+  def popen_failed(exception)
   end
 end
