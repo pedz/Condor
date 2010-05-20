@@ -12,4 +12,10 @@
     <%= h line.chomp %>
   <% end -%>
   </pre>
+  <% if (md = /0010-057 Login (\S+) on (\S+)/.match(@exception.stderr[0])) %>
+    The command: <br />
+    <%= "Host -create #{md[1]}@#{md[2]}"%>
+    <br />
+    will provide the access Condor is needing for.
+  <% end %>
 </p>
