@@ -25,7 +25,7 @@ module SCM
       # create a temp file
       err_file = Tempfile.new("condor")
       # call the command.  Redirect stderr to temp file
-      io = IO.popen("#{cmd} 2> #{err.path}")
+      io = IO.popen("#{cmd} 2> #{err_file.path}")
       # get the standard output
       stdout = io.readlines
       # close the popen command
