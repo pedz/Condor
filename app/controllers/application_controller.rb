@@ -171,7 +171,13 @@ class ApplicationController < ActionController::Base
 
   def login_required(exception)
     session[:original_uri] = request.request_uri
-    flash[:error] = "A CMVC id is required for source code access"
+    flash[:error] =
+      "A CMVC id is required for source code access<br/>
+       Due to security and access concerns, Condor uses your CMVC id
+       to access CMVC.  Enter your CMVC id below.  You also need to
+       execute a <q>Host -create</q> command for the hosts that Condor
+       makes requests from.<br/>
+       The exact command needed should be printed for you on the next page."
     redirect_to edit_user_url(application_user)
   end
 
