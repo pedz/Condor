@@ -29,13 +29,6 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @user.cmvc = Cmvc.new unless @user.cmvc
-    unless admin?
-      flash[:error] = "Not authorized to edit User record"
-      respond_to do |format|
-        format.html { render :action => "show" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
-    end
   end
 
   # PUT /users/1
