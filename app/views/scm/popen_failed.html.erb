@@ -14,8 +14,9 @@
   </pre>
   <% if (md = /0010-057 Login (\S+) on host (\S+)/.match(@exception.stderr[0])) %>
     The command: <br />
-    <%= "Host -create #{md[1]}@#{md[2]}"%>
+    <%= "Host -create #{md[1]}@#{md[2]} -become #{application_user.cmvc.login} -family aix"%>
     <br />
-    will provide the access Condor is needing for.
+    from a host you already have CMVC access from will provide the
+    access Condor is needing for.
   <% end %>
 </p>
