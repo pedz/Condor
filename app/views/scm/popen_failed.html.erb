@@ -8,6 +8,8 @@
   failed with exit status of <%= @exception.exit_status.exitstatus %><br />
   Standard Error was:
   <pre>
-    <%= h @exception.stderr %>
+  <% @exception.stderr.each do |line| -%>
+    <%= h line.chomp %>
+  <% end -%>
   </pre>
 </p>
