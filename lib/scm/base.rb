@@ -3,7 +3,7 @@ require 'tempfile'
 module SCM
   class PopenFailed < Exception
     attr_reader :cmd, :exit_status, :stderr
-    def initialized(cmd, exit_status, stderr)
+    def initialize(cmd, exit_status, stderr)
       @cmd = cmd
       @exit_status = exit_status
       @stderr = stderr
