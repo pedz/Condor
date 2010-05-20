@@ -176,5 +176,7 @@ class ApplicationController < ActionController::Base
   end
 
   def popen_failed(exception)
+    @exception = exception
+    render "scm/popen_failed.html", :layout => "scm"
   end
 end

@@ -1,0 +1,13 @@
+<!-- views/scm/popen_failed.html.erb -->
+<!-- called with @exception set -->
+<p>
+  The command:
+  <pre>
+    <%= h @exception.cmd %>
+  </pre>
+  failed with exit status of <%= @exception.exit_status %><br />
+  Standard Error was:
+  <pre>
+    <%= h @exception.stderr %>
+  </pre>
+</p>
