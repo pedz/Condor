@@ -21,7 +21,7 @@ module SCM
 
     # calls cmd via popen and returns a CmdResult with stdout, stderr,
     # and exit_status
-    def popen(cmd)
+    def self.popen(cmd)
       # create a temp file
       err_file = Tempfile.new("condor")
       # call the command.  Redirect stderr to temp file
