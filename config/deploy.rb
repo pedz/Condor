@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 unless respond_to?(:env)
   STDERR.puts "Please use --set-before env=<env>"

@@ -30,9 +30,14 @@ namespace :deploy do
     # run "cd #{current_path}/ && mongrel_rails cluster::stop"
   end
 
-  desc "Hook to set up database.yml"
-  task :after_update_code, :roles => :app do
-    run "cp #{db_path} #{release_path}/config/database.yml"
-    run "ln -s #{shared_path}/data #{release_path}"
-  end
+  # desc "Hook to set up database.yml"
+  # task :after_update_code, :roles => :app do
+  #   run "cp #{db_path} #{release_path}/config/database.yml"
+  #   run "ln -s #{shared_path}/data #{release_path}"
+  # end
+end
+
+after "update:code" do
+  run "cp #{db_path} #{release_path}/config/database.yml"
+  run "ln -s #{shared_path}/data #{release_path}"
 end
