@@ -37,7 +37,7 @@ namespace :deploy do
   # end
 end
 
-after "update:code" do
+after "deploy:update_code" do
   run "cp #{db_path} #{release_path}/config/database.yml"
   run "ln -s #{shared_path}/data #{release_path}"
 end
