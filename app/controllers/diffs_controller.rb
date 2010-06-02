@@ -7,8 +7,8 @@ class DiffsController < ApplicationController
       :path => params[:path].join('/')
     }
     @old_params = find_prev_version(@new_params)
-    @old_file = SrcFile.find(@old_params)
-    @new_file = SrcFile.find(@new_params)
+    @old_file = SrcFile.find(@old_params, application_user)
+    @new_file = SrcFile.find(@new_params, application_user)
 
     @mc = MyCallbacks.new
     @bal = Diff::LCS.traverse_balanced(@old_file, @new_file, @mc)
