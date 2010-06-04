@@ -35,12 +35,17 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
+    user_params = params[:user]
     if admin?
-      @user.admin = params[:user][:admin]
+      @user.admin = user_params[:admin]
+    else
+      # Only admin's can set the cmvc field but we do it in the update
+      # attributes below
+      user_params.delete :cmvc
     end
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         flash[:notice] = 'User was successfully updated.'
         format.html {
           uri = session[:original_uri]

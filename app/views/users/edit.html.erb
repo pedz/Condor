@@ -2,32 +2,36 @@
 
 <% form_for(@user) do |user_form| %>
   <%= user_form.error_messages %>
-  <% if admin? -%>
+  <% if admin? %>
     <p>
       <%= user_form.label :admin %>
       <br />
       <%= user_form.check_box :admin %>
     </p>
   <% end %>
-  <% user_form.fields_for :cmvc do |cmvc_form| %>
-    <p>
-      <div>
-	<%= cmvc_form.label :login, 'CMVC Login:' %>
-	<%= cmvc_form.text_field :login %>
-      </div>
 
-      <% unless cmvc_form.object.new_record? %>
-        <div>
-	  <%= cmvc_form.label :_delete, 'Remove:' %>
-	  <%= cmvc_form.check_box :_delete %>
+  <% if admin? %>
+
+    <% user_form.fields_for :cmvc do |cmvc_form| %>
+      <p>
+	<div>
+	  <%= cmvc_form.label :login, 'CMVC Login:' %>
+	  <%= cmvc_form.text_field :login %>
 	</div>
-      <% end %>
-    </p>
+
+	<% unless cmvc_form.object.new_record? %>
+          <div>
+	    <%= cmvc_form.label :_delete, 'Remove:' %>
+	    <%= cmvc_form.check_box :_delete %>
+	  </div>
+	<% end %>
+      </p>
+    <% end %>
   <% end %>
   <p>
     <%= user_form.submit 'Update' %>
   </p>
 <% end %>
-
+      
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>
