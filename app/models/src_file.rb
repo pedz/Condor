@@ -39,9 +39,7 @@ class SrcFile < SCM::CMVC
     if login.blank?
       raise SCM::LoginNotFound.new
     end
-    if user.cmvc
-      user.cmvc.destroy
-    end
+    logger.info("find_cmvc_id: user.cmvc.class = #{user.cmvc.class}")
     user.cmvc.create! :login => login
   end
 end
