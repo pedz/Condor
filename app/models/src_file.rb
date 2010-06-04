@@ -41,7 +41,6 @@ class SrcFile < SCM::CMVC
     end
     if user.cmvc
       user.cmvc.destroy
-      user.cmvc = nil
     end
     user.cmvc.create! :login => login
   end
