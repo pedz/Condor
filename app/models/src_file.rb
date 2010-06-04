@@ -1,7 +1,7 @@
 class SrcFile < SCM::CMVC
   def self.find(options, user)
     logger.info("hi from SrcFile")
-    find_cmvc_id(user) unless (user.cmvc && !user.cmvc.blank?)
+    find_cmvc_id(user) unless (user.cmvc && user.cmvc.login && !user.cmvc.login.blank?)
     raise SCM::LoginRequired.new unless (user.cmvc && !user.cmvc.blank?)
     string = "/usr/local/cmvc/bin/File \
                 -extract #{options[:path]} \
@@ -39,8 +39,12 @@ class SrcFile < SCM::CMVC
     if login.blank?
       raise SCM::LoginNotFound.new
     end
-    logger.info("find_cmvc_id: user.cmvc.class = #{user.cmvc.class}")
-    logger.info("find_cmvc_id: user.class = #{user.class}")
-    user.cmvc.create! :login => login
+    if user.cmvc
+      user.cmvc.update_attributes({ :login => login })
+    else
+      c = Cmvc.create :login => login
+      user.cmvc = c
+      user.save
+    end
   end
 end
