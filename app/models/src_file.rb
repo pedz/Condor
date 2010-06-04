@@ -35,7 +35,7 @@ class SrcFile < SCM::CMVC
       logger.info("stderr = #{cmd_result.stderr}")
       raise SCM::PopenFailed.new(string, cmd_result.exit_status, cmd_result.stderr)
     end
-    login = cmd_result.stdout.chomp
+    login = cmd_result.stdout[0].chomp
     if login.blank?
       raise SCM::LoginNotFound.new
     end
