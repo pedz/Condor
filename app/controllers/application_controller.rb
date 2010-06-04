@@ -21,6 +21,9 @@ class ApplicationController < ActionController::Base
 
   rescue_from SCM::LoginRequired, :with => :login_required
   rescue_from SCM::PopenFailed,   :with => :popen_failed
+  rescue_from SCM::NoLDAP,        :with => :no_ldap_failure
+  rescue_from SCM::NoUID,         :with => :no_ldap_uid
+  rescue_from SCM::LoginNotFound, :with => :scm_login_not_found
 
   # Return true if current user is an administrator of the site
   def admin?
@@ -184,5 +187,20 @@ class ApplicationController < ActionController::Base
   def popen_failed(exception)
     @exception = exception
     render "scm/popen_failed.html", :layout => "scm"
+  end
+
+  def no_ldap_failure(exception)
+    @exception = exception
+    render "scm/no_ldap_failure", :layout => "scm"
+  end
+
+  def no_ldap_uid(exception)
+    @exception = exception
+    render "scm/no_ldap_uid", :layout => "scm"
+  end
+
+  def scm_login_not_found(exception)
+    @exception = exception
+    render "scm/scm_login_not_found", :layout => "scm"
   end
 end
