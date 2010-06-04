@@ -40,6 +40,7 @@ class SrcFile < SCM::CMVC
       raise SCM::LoginNotFound.new
     end
     logger.info("find_cmvc_id: user.cmvc.class = #{user.cmvc.class}")
+    logger.info("find_cmvc_id: user.class = #{user.class}")
     user.cmvc.create! :login => login
   end
 end
