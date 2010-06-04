@@ -16,6 +16,12 @@ module SCM
   class NoLDAP < Exception
   end
 
+  class NoUID < Exception
+  end
+
+  class LoginNotFound < Exception
+  end
+  
   class Base
     # Initialized in config/initializers/loggers.rb
     cattr_accessor :logger
