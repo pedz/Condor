@@ -1,11 +1,14 @@
 <!-- app/views/welcome/index.html.erb -->
 <h1>Welcome to Condor</h1>
+
 <p style='font-size: larger; color: orange; background-color: black; width: 60ex'>
+  <span style='color: red;'>This message has changed:</span>
   Condor has been made more secure.  When accessing CMVC source, it
-  now requires that you use your own CMVC id.  It is suppose to trap
-  and politely ask you if and when that need comes up.  I've tested
-  this on my development and staging servers as best I can but I'm
-  still nervous about it.  As usual, ping me if you see any problems.
+  now requires that you use your own CMVC id.  Condor now finds your
+  CMVC id using the <q>UID</q> field from your Bluepages LDAP record
+  and matching it to the <q>ccnum</q> field in the CMVC UserView.  A
+  <q>Host</q> record will still be needed.  As usual, ping me if you
+  see any problems.
 </p>
 <h3>Swinfo</h3>
 <p style='width: 40em;'>
