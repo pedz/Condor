@@ -30,9 +30,9 @@
 	    <li>Go to <a href='http://rchasa02.rchland.ibm.com/reqauth4me'>Reqauth4Me</a>.</li>
 	    <li>Pick <q>Query Logins</q> on the left side.</li>
 	    <li>Enter your CMVC Login Id
-	      (<%= #{application_user.cmvc.login} %>) and the Family (aix).
-	      The form does a search so your serial number is not
-	      needed</li>
+	      (<%= application_user.cmvc.login %>) and the Family
+	      (aix).  The form does a search so your serial number is
+	      not needed</li>
 	    <li>Once you see your login, pick it and hit "Modify".</li>
 	    <li>Then add <q>condor@quinta.austin.ibm.com</q> to
 	    the <q>Hosts</q> list.</li>
@@ -46,5 +46,6 @@
 	  finally <q>Add Hosts</q>.
 	</li>
       </ol>
+    </p>
   <% end %>
 </p>
