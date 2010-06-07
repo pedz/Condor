@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# -*- coding: binary -*-
 
 # This script is an all-in-one script that pulls in data from the
 # install / update images on truth.
@@ -40,7 +41,7 @@ def main_loop
     mount_path = MOUNT_POINT + dir
     unless mount_path.mountpoint?        # may already be mounted
       mount_path.mkpath                  # create the directory
-      system("mount", mount, mount_path) # mount the file system
+      system("mount", mount, mount_path.to_s) # mount the file system
     end
     mount_path.cleanpath.find do |image_path|
       next unless image_path.file?    # skip all but flat files
@@ -66,7 +67,7 @@ class ImageFile
     @image, @full_path = image, full_path
   end
   
-  BACKUP_MAGIC = "\x09\x00\x6b\xea".freeze
+  BACKUP_MAGIC = "\x09\x00\x6b\xea".force_encoding(:binary).freeze
   
   # reads the first four bytes to see if it is a backup file ( a
   # possible install / update image.  If it is not a backup file, then
