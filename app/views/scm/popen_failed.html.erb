@@ -13,10 +13,38 @@
   <% end -%>
   </pre>
   <% if (md = /0010-057 Login (\S+) on host (\S+)/.match(@exception.stderr[0])) %>
-    The command: <br />
-    <%= "Host -create #{md[1]}@#{md[2]} -become #{application_user.cmvc.login} -family aix"%>
-    <br />
-    from a host you already have CMVC access from will provide the
-    access Condor is needing.
+    <p>
+      There are some choices of how to fix this:
+      <ol>
+	<li>
+	  <p>
+	    The command: <br />
+	    <%= "Host -create #{md[1]}@#{md[2]} -become #{application_user.cmvc.login} -family aix"%>
+	    <br />
+	    from a host you already have CMVC access from will provide the
+	    access Condor is needing.
+	  </p>
+	</li>
+	<li>
+	  <ul>
+	    <li>Go to <a href='http://rchasa02.rchland.ibm.com/reqauth4me'>Reqauth4Me</a>.</li>
+	    <li>Pick <q>Query Logins</q> on the left side.</li>
+	    <li>Enter your CMVC Login Id
+	      (<%= #{application_user.cmvc.login} %>) and the Family (aix).
+	      The form does a search so your serial number is not
+	      needed</li>
+	    <li>Once you see your login, pick it and hit "Modify".</li>
+	    <li>Then add <q>condor@quinta.austin.ibm.com</q> to
+	    the <q>Hosts</q> list.</li>
+	    <li>Hit submit.</li>
+	  </ul>
+	</li>
+	<li>
+	  On my Mac GUI for CMVC (which I hope is the same as the GUI
+	  for PCs), I found the place to add a Host under
+	  the <q>Actions</q> menu, then pick <q>Users</q>, and
+	  finally <q>Add Hosts</q>.
+	</li>
+      </ol>
   <% end %>
 </p>
