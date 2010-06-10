@@ -1,12 +1,16 @@
 <!-- app/views/which_filesets/show.html.erb -->
 <%- @title = "Which Filesets for #{@path}" -%>
 <ul>
-  <%- @files.each do |file| -%>
-  <li><%= h file.path -%></li>
-  <ul>
-    <%- file.filesets.map{ |fileset| fileset.lpp.name }.sort.uniq.each do |lpp| -%>
-      <li><%= h lpp %></li>
+  <%- if @files.length == 0 -%>
+    Did not find any shipped files matching <%= @path %>
+  <%- else -%>
+    <%- @files.each do |file| -%>
+      <li><%= h file.path -%></li>
+      <ul>
+	<%- file.filesets.map{ |fileset| fileset.lpp.name }.sort.uniq.each do |lpp| -%>
+	  <li><%= h lpp %></li>
+	<%- end -%>
+      </ul>
     <%- end -%>
-  </ul>
   <%- end -%>
 </ul>
