@@ -50,4 +50,15 @@
       </ol>
     </p>
   <% end %>
+  <% if (md = /0010-183 .* FileExtract/.match(@exception.stderr[0])) %>
+    <p>
+      Condor tried to fetch a copy of the file from CMVC but was
+      rejected.  You need to get <q>extractor</q> access of the
+      component mentioned in the above message added to your CMVC id.
+    </p>
+    <p>
+      For support personnel, the suggested process is to contact your
+      WW team lead and funnel the requests through them.
+    </p>
+  <% end %>
 </p>
