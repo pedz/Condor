@@ -58,10 +58,15 @@ class SwinfosController < ApplicationController
     when /^([^ ]+) +([^ ]+)$/ # Fileset name with vrmf
       lpp, vrmf = item.split(' ')
       @items = Ptfapardef.find_all_by_lpp(lpp,
+                                          # :select => "distinct apar, ptf, abstract, lpp, vrmf, version, service_pack",
+                                          # :select => "distinct defect, abstract",
                                           :conditions => [ 'vrmf LIKE ?', "#{vrmf}%"])
       
     else                    # Just a fileset name
-      @items = Ptfapardef.find_all_by_lpp(item)
+      @items = Ptfapardef.find_all_by_lpp(item,
+                                          # :select => "distinct defect, abstract"
+                                          # :select => "distinct apar, ptf, abstract, lpp, vrmf, version, service_pack"
+                                          )
     end
     @items.each { |item| item.controller = self }
   end

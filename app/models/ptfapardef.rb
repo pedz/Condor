@@ -4,39 +4,71 @@ class Ptfapardef < ActiveRecord::Base
   end
 
   def apar_draft_defect_path
-    @controller.__send__(:apar_drafts_path, "defect", defect)
+    if attributes.has_key? :defect
+      @controller.__send__(:apar_drafts_path, "defect", defect)
+    else
+      ""
+    end
   end
 
   def apar_draft_apar_path
-    @controller.__send__(:apar_drafts_path, "apar", apar)
+    if attributes.has_key? :apar
+      @controller.__send__(:apar_drafts_path, "apar", apar)
+    else
+      ""
+    end
   end
 
   def defect_path
-    @controller.__send__(:defect_path, defect)
+    if attributes.has_key? :defect
+      @controller.__send__(:defect_path, defect)
+    else
+      ""
+    end
   end
 
   def changes_path
-    @controller.__send__(:changes_path, defect)
+    if attributes.has_key? :defect
+      @controller.__send__(:changes_path, defect)
+    else
+      ""
+    end
   end
 
   def swinfos_defect_path
-    swinfors_path(defect)
+    if attributes.has_key? :defect
+      swinfors_path(defect)
+    else
+      ""
+    end
   end
 
   def swinfos_apar_path
-    swinfors_path(apar)
+    if attributes.has_key? :apar
+      swinfors_path(apar)
+    else
+      ""
+    end
   end
 
   def swinfos_ptf_path
-    swinfors_path(ptf)
+    if attributes.has_key? :ptf
+      swinfors_path(ptf)
+    else
+      ""
+    end
   end
 
   def swinfos_lpp_path
-    swinfors_path(lpp)
+    if attributes.has_key? :lpp
+      swinfors_path(lpp)
+    else
+      ""
+    end
   end
 
   def fileset_path
-    if !fileset_id.nil?
+    if attributes.has_key? :fileset_id
       @controller.__send__(:fileset_path, fileset_id)
     else
       ""
@@ -44,7 +76,11 @@ class Ptfapardef < ActiveRecord::Base
   end
 
   def swinfos_fileset_path
-    swinfors_path("#{lpp} #{vrmf}")
+    if attributes.has_key?(:vrmf) && attributes.has_key?(:lpp)
+      swinfors_path("#{lpp} #{vrmf}")
+    else
+      ""
+    end
   end
 
   private
