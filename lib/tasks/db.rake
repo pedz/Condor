@@ -12,6 +12,6 @@ namespace :db do
   task :dump, [:filename] => :load_config do |t, args|
     raise "task dump: filename expected" unless !args.filename.blank?
     config = ActiveRecord::Base.configurations[RAILS_ENV]
-    sh "pg_dump -U #{config["username"]} --file=#{args.filename} --exclude-table=users --exclude-table=cmvcs --format=custom #{config["database"]}"
+    sh "pg_dump -U #{config["username"]} --file=#{args.filename} --exclude-table=users --exclude-table=cmvcs --exclude-table=users_id_seq --exclude-table=cmvcs_id_seq --format=custom #{config["database"]}"
   end
 end
