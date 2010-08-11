@@ -5,6 +5,7 @@ class Fileset < ActiveRecord::Base
   has_many   :package_fileset_maps
   has_many   :fileset_aix_file_maps
   has_many   :ptfapardefs
+  has_many   :upd_pc_views
 
   # Secondary Relationships
   has_many :ptfs,          :through => :fileset_ptf_maps

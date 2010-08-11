@@ -1,5 +1,6 @@
 class Defect < ActiveRecord::Base
   has_many :apar_defect_version_maps
+  has_many :upd_pc_views
   
   # Secondary relations
   has_many :apars,                :through => :apar_defect_version_maps
