@@ -5,6 +5,8 @@
 # the same meaning but are remapped.  For example, ptf_name from the
 # rp2 view is replaced with ptf_id.  Here is the complete list.
 #
+# bc_name is the build name.  It is kept unchanged.
+#
 # ptf_id is found by taking ptf_name and finding it in the ptfs table
 # and then using its id.
 #
@@ -23,10 +25,11 @@ class CreateUpdPcViews < ActiveRecord::Migration
     create_table :upd_pc_views do |t|
       t.integer :update_id
       t.integer :pc_id
-      t.fk :ptf_id
-      t.fk :fileset_id
-      t.fk :defect_id
-      t.fk :version_id
+      t.string  :bc_name
+      t.fk      :ptf_id
+      t.fk      :fileset_id
+      t.fk      :defect_id
+      t.fk      :version_id
       t.timestamps
       t.unique [ :update_id, :pc_id ]
     end

@@ -1,4 +1,4 @@
-class UpdPcViews < ActiveRecord::Base
+class UpdPcView < ActiveRecord::Base
   belongs_to :ptf
   belongs_to :fileset
   belongs_to :defect
