@@ -3,7 +3,7 @@
    @title = "swinfo for #{@param}"
    add_stylesheets("swinfos")
    add_javascripts("prototype")
-   spry_json_dataset("ds1", url_for(), "path" => "ptfapardef")
+   spry_json_dataset("ds1", url_for(), "path" => "upd_apar_def")
    add_javascripts("swinfos")
    need_clipboard_assets
    -%>
@@ -39,7 +39,7 @@
 	<th>Abstract</th>
 	<th spry:sort="lpp">LPP</th>
 	<th spry:sort="vrmf">VRMF</th>
-	<th spry:sort="release">Release</th>
+	<th spry:sort="version">Version</th>
 	<th spry:sort="service_pack">Service Pack</th>
       </tr>
     </thead>
@@ -116,10 +116,10 @@
 	  </ul>
 	</td>
 	<td>
-	  {function::Condor.swinfos.release_text}
+	  {function::Condor.swinfos.version_text}
 	  <ul style='display: none;'>
 	    <li class='copy-to-clipboard'>
-	      {release}
+	      {version}
 	    </li>
 	  </ul>
 	</td>

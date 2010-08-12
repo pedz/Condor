@@ -56,6 +56,11 @@ Condor.swinfos.release_text = function (region, lookup) {
     return release;
 };
 
+Condor.swinfos.version_text = function (region, lookup) {
+    var version = lookup('version');
+    return version;
+};
+
 Condor.swinfos.service_pack_text = function (region, lookup) {
     var servicePack = lookup('service_pack');
     if (servicePack == null)

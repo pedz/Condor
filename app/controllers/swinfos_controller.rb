@@ -5,7 +5,6 @@ class SwinfosController < ApplicationController
                :defect,
                :lpp,
                :ptf,
-               :release,
                :service_pack,
                :version,
                :vrmf
@@ -46,24 +45,24 @@ class SwinfosController < ApplicationController
     item_upcase = item.upcase
     case item_upcase
     when /^I[XYZ][0-9][0-9][0-9][0-9][0-9]$/ # APAR
-      @items = Ptfapardef.find_all_by_apar(item_upcase)
+      @items = UpdAparDef.find_all_by_apar(item_upcase)
       
     when /^[0-9]+$/         # Defect
-      @items = Ptfapardef.find_all_by_defect(item)
+      @items = UpdAparDef.find_all_by_defect(item)
       
       
     when /^U[0-9][0-9][0-9][0-9][0-9][0-9]$/ # PTF
-      @items = Ptfapardef.find_all_by_ptf(item_upcase)
+      @items = UpdAparDef.find_all_by_ptf(item_upcase)
       
     when /^([^ ]+) +([^ ]+)$/ # Fileset name with vrmf
       lpp, vrmf = item.split(' ')
-      @items = Ptfapardef.find_all_by_lpp(lpp,
+      @items = UpdAparDef.find_all_by_lpp(lpp,
                                           # :select => "distinct apar, ptf, abstract, lpp, vrmf, version, service_pack",
                                           # :select => "distinct defect, abstract",
                                           :conditions => [ 'vrmf LIKE ?', "#{vrmf}%"])
       
     else                    # Just a fileset name
-      @items = Ptfapardef.find_all_by_lpp(item,
+      @items = UpdAparDef.find_all_by_lpp(item,
                                           # :select => "distinct defect, abstract"
                                           # :select => "distinct apar, ptf, abstract, lpp, vrmf, version, service_pack"
                                           )

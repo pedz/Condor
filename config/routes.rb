@@ -4,6 +4,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :except => [ :new, :create, :delete ], :has_one => :cmvc
 
   # Path for swinfos
+  map.swinfos('swinfos/js/:item',
+             :controller => 'swinfos',
+             :action => 'show',
+             :item => /.*/)
   map.swinfos('swinfos/:item',
              :controller => 'swinfos',
              :action => 'show',
