@@ -51,10 +51,10 @@
 GOOD_FAMILY = Regexp.new("aix")
 GOOD_VERSION = Regexp.new("^(5[234].|6..)$")
 
-begin
-  Rails.logger.level = ActiveSupport::BufferedLogger::WARN
+Rails.logger.level = ActiveSupport::BufferedLogger::WARN
 
-  File.open(ARGV[0]) do |file|
+File.open(ARGV[0]) do |file|
+  begin
     UpdPcView.transaction do
       file.each_line do |line|
         line.chomp!
@@ -65,7 +65,9 @@ begin
         next unless GOOD_VERSION.match(version_name)
         
         ptf = Ptf.find_or_create_by_name ptf_name
-        lpp = Lpp.find_or_create_by_name fileset_name
+        fileset_base_name = fileset_name.sub(/\..*/, '')
+        lpp_base = LppBase.find_or_create_by_name fileset_base_name
+        lpp = lpp_base.lpps.find_or_create_by_name fileset_name
         fileset = lpp.filesets.find_or_create_by_vrmf vrmf
         defect = Defect.find_or_create_by_name defect_name
         version = Version.find_or_create_by_name version_name
@@ -93,9 +95,10 @@ begin
         end
       end
     end
+  rescue => e
+    puts e.message
+    puts e.backtrace
+    puts "Line number is #{file.lineno}"
+    exit- 1
   end
-rescue => e
-  puts e.message
-  puts e.backtrace
-  exit 1
 end
