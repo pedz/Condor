@@ -157,7 +157,7 @@ namespace :stage do
   end
 
   desc 'Deploy and run migrations.'
-  task :migrations => [ :sync_production ] do
+  task :migrations => [ :sync_staging ] do
     sh "cap --set-before env=staging --set branch=#{ git_head} deploy:migrations"
   end
 

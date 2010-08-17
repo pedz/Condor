@@ -28,7 +28,7 @@ class SrcFile < SCM::CMVC
                 -family aix \
                 -become pedzan \
                 -general 'UserView' \
-                -where \"ccnum = '#{uid.downcase}'\" \
+                -where \"ccnum = '#{uid.downcase}' or ccnum = '#{uid}'\" \
                 -select login"
     cmd_result = popen(string)
     if cmd_result.exit_status != 0
