@@ -59,6 +59,7 @@ dirname_sp_mappings = [
 { :dirname => "530images/base/LCD4-7544-13",    :sp => "5300-11-00" },
 { :dirname => "530images/base/LCD4-7544-15",    :sp => "5300-11-02" },
 { :dirname => "530images/base/LCD4-7544-16",    :sp => "5300-12-00" },
+{ :dirname => "530images/base/LCD4-7544-18",    :sp => "5300-12-02" },
 { :dirname => "530images/base/lcd4-7463-01",    :sp => "5300-00-00" },
 { :dirname => "530images/base/lcd4-7463-02",    :sp => "5300-00-00" },
 { :dirname => "530images/base/lcd4-7463-03",    :sp => "5300-01-00" },
@@ -172,6 +173,7 @@ dirname_sp_mappings = [
 { :dirname => "610images/base/LK4T-1479-12",    :sp => "6100-04-03" },
 { :dirname => "610images/base/LK4T-1479-13",    :sp => "6100-05-00" },
 { :dirname => "610images/base/LK4T-1479-15",    :sp => "6100-06-00" },
+{ :dirname => "610images/base/LK4T-1479-16",    :sp => "6100-06-01" },
 { :dirname => "610images/base/LK4T-1482-04",    :sp => "6100-02-00" },
 { :dirname => "610images/base/dec2007DVD",      :sp => "6100-00-01" },
 { :dirname => "610images/base/lcd8-0730-00",    :sp => "6100-00-00" },
@@ -261,6 +263,7 @@ dirname_sp_mappings = [
 { :dirname => "610images/sp/6100-06-09",        :sp => "6100-06-09" },
 { :dirname => "610images/sp/6100-06-10",        :sp => "6100-06-10" },
 { :dirname => "610images/sp/6100-06-11",        :sp => "6100-06-11" },
+{ :dirname => "710images/base/LK4T-1710-01",    :sp => "7100-00-01" },
 ]
 
 dirname_sp_mappings.each_with_index do |mapping, index|
