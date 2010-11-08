@@ -49,7 +49,7 @@
 # version_id.
 
 GOOD_FAMILY = Regexp.new("aix")
-GOOD_VERSION = Regexp.new("^(5[234].|6..)$")
+GOOD_VERSION = Regexp.new("^(5[234].|[67]..)$")
 
 Rails.logger.level = ActiveSupport::BufferedLogger::WARN
 

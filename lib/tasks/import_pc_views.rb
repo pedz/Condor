@@ -13,7 +13,7 @@
 # 220324|frankzhu|aix|42G|OPEN|UNKNOWN|NOT_SPECIFIED|
 
 GOOD_FAMILY = Regexp.new("aix")
-GOOD_VERSION = Regexp.new("^(5[234].|6..)$")
+GOOD_VERSION = Regexp.new("^(5[234].|[67]..)$")
 
 begin
   Rails.logger.level = ActiveSupport::BufferedLogger::WARN

@@ -18,6 +18,7 @@
 require File.dirname(__FILE__) + "/toc-parser"
 
 MOUNT_LIST = [
+              "truth.austin.ibm.com:/710images",
               "truth.austin.ibm.com:/610images",
               "truth.austin.ibm.com:/530images",
               "truth.austin.ibm.com:/520images"
