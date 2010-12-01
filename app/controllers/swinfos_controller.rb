@@ -2,6 +2,7 @@ class SwinfosController < ApplicationController
   ATTR_LIST = [
                :abstract,
                :apar,
+               :cq_defect,
                :defect,
                :lpp,
                :ptf,
@@ -44,6 +45,9 @@ class SwinfosController < ApplicationController
     item = @param
     item_upcase = item.upcase
     case item_upcase
+    when /^[A-Z][A-Z][0-9][0-9][0-9][0-9]*$/ # CQ Defect name
+      @items = UpdAparDef.find_all_by_cq_defect(item_upcase)
+
     when /^I[XYZ][0-9][0-9][0-9][0-9][0-9]$/ # APAR
       @items = UpdAparDef.find_all_by_apar(item_upcase)
       

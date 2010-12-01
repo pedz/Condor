@@ -37,7 +37,7 @@ begin
         defect = Defect.find_or_create_by_name defect
         unless cq_defect.nil?
           if defect.cq_defect == "NONE"
-            defect.update(:cq_defect => cq_defect)
+            defect.update_attributes(:cq_defect => cq_defect)
           elsif defect.cq_defect != cq_defect
             throw "defect #{defect.name} as cq_defect of #{defect.cq_defect} in db but #{cq_defect} in rp2"
           end
@@ -58,7 +58,7 @@ begin
         # pc_id was added later so we update it if it is null to start
         # with and check it to be sure it is the same otherwise.
         if adv.pc_id.nil? || adv.pc_id == -1
-          adv.update(:pc_id => pc_id)
+          adv.update_attributes(:pc_id => pc_id)
         elsif adv.pc_id != pc_id
           throw "adv for defect #{defect.name} has pc_id of #{adv.pc_id} in db but #{pc_id} in rp2"
         end

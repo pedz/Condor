@@ -6,6 +6,9 @@
   <li>
     <%= link_to "Defect Changes", changes_path(defect) %>
   </li>
+  <li>
+    <%= "CQ Id #{defect.cq_defect}" %>
+  </li>
   <li class='clipboard'>
     Copy '<%= defect %>' to clipboard
     <%- need_clipboard_assets -%>
