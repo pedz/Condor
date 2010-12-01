@@ -35,7 +35,7 @@ begin
         # into the defect if we need to and check it to make sure it
         # is correct otherwise.
         defect = Defect.find_or_create_by_name defect
-        unless cq_defect.nil?
+        unless cq_defect.nil? or cq_defect == "null"
           if defect.cq_defect == "NONE"
             defect.update_attributes(:cq_defect => cq_defect)
           elsif defect.cq_defect != cq_defect
@@ -59,7 +59,7 @@ begin
         # with and check it to be sure it is the same otherwise.
         if adv.pc_id.nil? || adv.pc_id == -1
           adv.update_attributes(:pc_id => pc_id)
-        elsif adv.pc_id != pc_id
+        elsif adv.pc_id != pc_id.to_i
           throw "adv for defect #{defect.name} has pc_id of #{adv.pc_id} in db but #{pc_id} in rp2"
         end
       end
