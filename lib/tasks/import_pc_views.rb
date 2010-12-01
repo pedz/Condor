@@ -6,13 +6,14 @@
 # type out the whole command like:
 # script/runner lib/tasks/import_pc_views.rb file1 file2 ...
 
-# Sample input:
+# The default select of pc_view is no longer used.  Now this select is
+# used:
+# -select id,defect,product,apar,version,cq_defect_name
 #
-# 315731|rayc|aix|42G|APPROVED|NO_REQS_NEEDED|NO_NEEDED|
-# 302632|frankzhu|aix|42G|APPROVED|NO_REQS_NEEDED|NEEDS_ONE|
-# 220324|frankzhu|aix|42G|OPEN|UNKNOWN|NOT_SPECIFIED|
+# The first will be the pc_id which may come in handy later (like
+# updates)
 
-GOOD_FAMILY = Regexp.new("aix")
+GOOD_PRODUCT = Regexp.new("aix")
 GOOD_VERSION = Regexp.new("^(5[234].|[67]..)$")
 
 begin
@@ -22,10 +23,25 @@ begin
     Apar.transaction do
       file.each_line do |line|
         line.chomp!
-        defect, owner, family, version, state, apar_state, apar, ptfs = line.split('|')
-        next unless GOOD_FAMILY.match(family)
+        pc_id, defect, product, apar, version, cq_defect = line.split('|')
+
+        # restrict to only AIX for now.
+        next unless GOOD_PRODUCT.match(product)
+
+        # restrict to 5.2 and later versions
         next unless GOOD_VERSION.match(version)
+
+        # cq_defect was added after the fact so we put the cq_defect
+        # into the defect if we need to and check it to make sure it
+        # is correct otherwise.
         defect = Defect.find_or_create_by_name defect
+        unless cq_defect.nil?
+          if defect.cq_defect == "NONE"
+            defect.update(:cq_defect => cq_defect)
+          elsif defect.cq_defect != cq_defect
+            throw "defect #{defect.name} as cq_defect of #{defect.cq_defect} in db but #{cq_defect} in rp2"
+          end
+        end
         apar = Apar.find_or_create_by_name apar
         version = Version.find_or_create_by_name version
         
@@ -37,6 +53,14 @@ begin
         adv = AparDefectVersionMap.find(:first, :conditions => adv_hash)
         unless adv
           adv = AparDefectVersionMap.create(adv_hash)
+        end
+
+        # pc_id was added later so we update it if it is null to start
+        # with and check it to be sure it is the same otherwise.
+        if adv.pc_id.nil? || adv.pc_id == -1
+          adv.update(:pc_id => pc_id)
+        elsif adv.pc_id != pc_id
+          throw "adv for defect #{defect.name} has pc_id of #{adv.pc_id} in db but #{pc_id} in rp2"
         end
       end
     end
