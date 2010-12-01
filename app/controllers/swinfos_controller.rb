@@ -45,12 +45,14 @@ class SwinfosController < ApplicationController
     item = @param
     item_upcase = item.upcase
     case item_upcase
-    when /^[A-Z][A-Z][0-9][0-9][0-9][0-9]*$/ # CQ Defect name
-      @items = UpdAparDef.find_all_by_cq_defect(item_upcase)
-
-    when /^I[XYZ][0-9][0-9][0-9][0-9][0-9]$/ # APAR
+    when /^I[VXYZ][0-9][0-9][0-9][0-9][0-9]$/ # APAR
       @items = UpdAparDef.find_all_by_apar(item_upcase)
       
+      # This pattern may be too tight.  SW123456 and AX123456 fit but
+      # there may be other patterns I am not aware off.
+    when /^[A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9]$/ # CQ Defect name
+      @items = UpdAparDef.find_all_by_cq_defect(item_upcase)
+
     when /^[0-9]+$/         # Defect
       @items = UpdAparDef.find_all_by_defect(item)
       
