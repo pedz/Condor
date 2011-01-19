@@ -53,36 +53,9 @@ dirname_sp_mappings = [
 { :dirname => "520images/sp/5200-10-06",        :sp => "5200-10-06" },
 { :dirname => "520images/sp/5200-10-07",        :sp => "5200-10-07" },
 { :dirname => "520images/sp/5200-10-08",        :sp => "5200-10-08" },
-{ :dirname => "530images/aixlink/LCD4-1110-04", :sp => "sx25"},
-{ :dirname => "530images/base/LCD4-7544-11",    :sp => "5300-10-00" },
-{ :dirname => "530images/base/LCD4-7544-12",    :sp => "5300-10-01" },
-{ :dirname => "530images/base/LCD4-7544-13",    :sp => "5300-11-00" },
-{ :dirname => "530images/base/LCD4-7544-15",    :sp => "5300-11-02" },
-{ :dirname => "530images/base/LCD4-7544-16",    :sp => "5300-12-00" },
-{ :dirname => "530images/base/LCD4-7544-18",    :sp => "5300-12-02" },
-{ :dirname => "530images/base/lcd4-7463-01",    :sp => "5300-00-00" },
-{ :dirname => "530images/base/lcd4-7463-02",    :sp => "5300-00-00" },
-{ :dirname => "530images/base/lcd4-7463-03",    :sp => "5300-01-00" },
-{ :dirname => "530images/base/lcd4-7463-04",    :sp => "5300-03-00" },
-{ :dirname => "530images/base/lcd4-7463-05",    :sp => "5300-04-00" },
-{ :dirname => "530images/base/lcd4-7463-06",    :sp => "5300-05-00" },
-{ :dirname => "530images/base/lcd4-7463-07",    :sp => "5300-06-00" },
-{ :dirname => "530images/base/lcd4-7463-09",    :sp => "5300-07-00" },
-{ :dirname => "530images/base/lcd4-7463-11",    :sp => "5300-08-00" },
-{ :dirname => "530images/base/lcd4-7463-13",    :sp => "5300-09-00" },
+
 { :dirname => "530images/gpfs",                 :sp => "gpfs V3.2" },
-{ :dirname => "530images/mls/ml01",             :sp => "5300-01-00" },
-{ :dirname => "530images/mls/ml02",             :sp => "5300-02-00" },
-{ :dirname => "530images/mls/ml03",             :sp => "5300-03-00" },
-{ :dirname => "530images/mls/tl04",             :sp => "5300-04-00" },
-{ :dirname => "530images/mls/tl05",             :sp => "5300-05-00" },
-{ :dirname => "530images/mls/tl06",             :sp => "5300-06-00" },
-{ :dirname => "530images/mls/tl07",             :sp => "5300-07-00" },
-{ :dirname => "530images/mls/tl08",             :sp => "5300-08-00" },
-{ :dirname => "530images/mls/tl09",             :sp => "5300-09-00" },
-{ :dirname => "530images/mls/tl10",             :sp => "5300-10-00" },
-{ :dirname => "530images/mls/tl11",             :sp => "5300-11-00" },
-{ :dirname => "530images/mls/tl12",             :sp => "5300-12-00" },
+
 { :dirname => "530images/sp/5300-03-CSP",       :sp => "5300-03-CSP" },
 { :dirname => "530images/sp/5300-04-01",        :sp => "5300-04-01" },
 { :dirname => "530images/sp/5300-04-02",        :sp => "5300-04-02" },
@@ -167,25 +140,36 @@ dirname_sp_mappings = [
 { :dirname => "530images/sp/5300-12-08",        :sp => "5300-12-08" },
 { :dirname => "530images/sp/5300-12-09",        :sp => "5300-12-09" },
 { :dirname => "530images/sp/5300-12-10",        :sp => "5300-12-10" },
-{ :dirname => "610images/base/LK4T-1479-06",    :sp => "6100-03-00" },
-{ :dirname => "610images/base/LK4T-1479-07",    :sp => "6100-03-01" },
-{ :dirname => "610images/base/LK4T-1479-08",    :sp => "6100-04-00" },
-{ :dirname => "610images/base/LK4T-1479-12",    :sp => "6100-04-03" },
-{ :dirname => "610images/base/LK4T-1479-13",    :sp => "6100-05-00" },
-{ :dirname => "610images/base/LK4T-1479-15",    :sp => "6100-06-00" },
-{ :dirname => "610images/base/LK4T-1479-16",    :sp => "6100-06-01" },
-{ :dirname => "610images/base/LK4T-1482-04",    :sp => "6100-02-00" },
-{ :dirname => "610images/base/dec2007DVD",      :sp => "6100-00-01" },
-{ :dirname => "610images/base/lcd8-0730-00",    :sp => "6100-00-00" },
-{ :dirname => "610images/base/may2008DVD",      :sp => "6100-01-00" },
-{ :dirname => "610images/mls/tl01",             :sp => "6100-01-00" },
-{ :dirname => "610images/mls/tl02",             :sp => "6100-02-00" },
-{ :dirname => "610images/mls/tl03",             :sp => "6100-03-00" },
-{ :dirname => "610images/mls/tl04",             :sp => "6100-04-00" },
-{ :dirname => "610images/mls/tl05",             :sp => "6100-05-00" },
-{ :dirname => "610images/mls/tl06",             :sp => "6100-06-00" },
-{ :dirname => "610images/mls/tl07",             :sp => "6100-07-00" },
-{ :dirname => "610images/mls/tl08",             :sp => "6100-08-00" },
+{ :dirname => "530images/mls/ml01",             :sp => "5300-01-00" },
+{ :dirname => "530images/mls/ml02",             :sp => "5300-02-00" },
+{ :dirname => "530images/mls/ml03",             :sp => "5300-03-00" },
+{ :dirname => "530images/mls/tl04",             :sp => "5300-04-00" },
+{ :dirname => "530images/mls/tl05",             :sp => "5300-05-00" },
+{ :dirname => "530images/mls/tl06",             :sp => "5300-06-00" },
+{ :dirname => "530images/mls/tl07",             :sp => "5300-07-00" },
+{ :dirname => "530images/mls/tl08",             :sp => "5300-08-00" },
+{ :dirname => "530images/mls/tl09",             :sp => "5300-09-00" },
+{ :dirname => "530images/mls/tl10",             :sp => "5300-10-00" },
+{ :dirname => "530images/mls/tl11",             :sp => "5300-11-00" },
+{ :dirname => "530images/mls/tl12",             :sp => "5300-12-00" },
+{ :dirname => "530images/aixlink/LCD4-1110-04", :sp => "sx25"},
+{ :dirname => "530images/base/LCD4-7544-11",    :sp => "5300-10-00" },
+{ :dirname => "530images/base/LCD4-7544-12",    :sp => "5300-10-01" },
+{ :dirname => "530images/base/LCD4-7544-13",    :sp => "5300-11-00" },
+{ :dirname => "530images/base/LCD4-7544-15",    :sp => "5300-11-02" },
+{ :dirname => "530images/base/LCD4-7544-16",    :sp => "5300-12-00" },
+{ :dirname => "530images/base/LCD4-7544-18",    :sp => "5300-12-02" },
+{ :dirname => "530images/base/lcd4-7463-01",    :sp => "5300-00-00" },
+{ :dirname => "530images/base/lcd4-7463-02",    :sp => "5300-00-00" },
+{ :dirname => "530images/base/lcd4-7463-03",    :sp => "5300-01-00" },
+{ :dirname => "530images/base/lcd4-7463-04",    :sp => "5300-03-00" },
+{ :dirname => "530images/base/lcd4-7463-05",    :sp => "5300-04-00" },
+{ :dirname => "530images/base/lcd4-7463-06",    :sp => "5300-05-00" },
+{ :dirname => "530images/base/lcd4-7463-07",    :sp => "5300-06-00" },
+{ :dirname => "530images/base/lcd4-7463-09",    :sp => "5300-07-00" },
+{ :dirname => "530images/base/lcd4-7463-11",    :sp => "5300-08-00" },
+{ :dirname => "530images/base/lcd4-7463-13",    :sp => "5300-09-00" },
+
 { :dirname => "610images/sp/6100-00-01",        :sp => "6100-00-01" },
 { :dirname => "610images/sp/6100-00-02",        :sp => "6100-00-02" },
 { :dirname => "610images/sp/6100-00-03",        :sp => "6100-00-03" },
@@ -263,8 +247,26 @@ dirname_sp_mappings = [
 { :dirname => "610images/sp/6100-06-09",        :sp => "6100-06-09" },
 { :dirname => "610images/sp/6100-06-10",        :sp => "6100-06-10" },
 { :dirname => "610images/sp/6100-06-11",        :sp => "6100-06-11" },
-{ :dirname => "710images/base/LK4T-1710-00",    :sp => "7100-00-00" },
-{ :dirname => "710images/base/LK4T-1710-01",    :sp => "7100-00-01" },
+{ :dirname => "610images/mls/tl01",             :sp => "6100-01-00" },
+{ :dirname => "610images/mls/tl02",             :sp => "6100-02-00" },
+{ :dirname => "610images/mls/tl03",             :sp => "6100-03-00" },
+{ :dirname => "610images/mls/tl04",             :sp => "6100-04-00" },
+{ :dirname => "610images/mls/tl05",             :sp => "6100-05-00" },
+{ :dirname => "610images/mls/tl06",             :sp => "6100-06-00" },
+{ :dirname => "610images/mls/tl07",             :sp => "6100-07-00" },
+{ :dirname => "610images/mls/tl08",             :sp => "6100-08-00" },
+{ :dirname => "610images/base/LK4T-1479-06",    :sp => "6100-03-00" },
+{ :dirname => "610images/base/LK4T-1479-07",    :sp => "6100-03-01" },
+{ :dirname => "610images/base/LK4T-1479-08",    :sp => "6100-04-00" },
+{ :dirname => "610images/base/LK4T-1479-12",    :sp => "6100-04-03" },
+{ :dirname => "610images/base/LK4T-1479-13",    :sp => "6100-05-00" },
+{ :dirname => "610images/base/LK4T-1479-15",    :sp => "6100-06-00" },
+{ :dirname => "610images/base/LK4T-1479-16",    :sp => "6100-06-01" },
+{ :dirname => "610images/base/LK4T-1482-04",    :sp => "6100-02-00" },
+{ :dirname => "610images/base/dec2007DVD",      :sp => "6100-00-01" },
+{ :dirname => "610images/base/lcd8-0730-00",    :sp => "6100-00-00" },
+{ :dirname => "610images/base/may2008DVD",      :sp => "6100-01-00" },
+
 { :dirname => "710images/sp/7100-00-01",        :sp => "7100-00-01" },
 { :dirname => "710images/sp/7100-00-02",        :sp => "7100-00-02" },
 { :dirname => "710images/sp/7100-00-03",        :sp => "7100-00-03" },
@@ -301,6 +303,9 @@ dirname_sp_mappings = [
 { :dirname => "710images/sp/7100-02-10",        :sp => "7100-02-10" },
 { :dirname => "710images/sp/7100-02-11",        :sp => "7100-02-11" },
 { :dirname => "710images/sp/7100-02-12",        :sp => "7100-02-12" },
+{ :dirname => "710images/base/LK4T-1710-00",    :sp => "7100-00-00" },
+{ :dirname => "710images/base/LK4T-1710-01",    :sp => "7100-00-01" },
+
 ]
 
 dirname_sp_mappings.each_with_index do |mapping, index|
@@ -309,7 +314,19 @@ dirname_sp_mappings.each_with_index do |mapping, index|
   puts "Mapping #{index} of #{dirname_sp_mappings.length}: #{mapping[:dirname]} #{mapping[:sp]}"
   images.each do |image|
     image.package.filesets.each do |fileset|
-      ServicePackFilesetMap.find_or_create_by_service_pack_id_and_fileset_id(sp.id, fileset.id)
+      # Change of how we do this.  We see if we have any service pack
+      # specified for this package.  If we do, we just leave well
+      # enough alone.  The reason is that the ML and TL levels we were
+      # guessing were SP00 but often they are not.  This should give
+      # us a more dependable result.
+      #
+      # We also arrange the list above so that we set the service pack
+      # for all of the SP levels since that is more reliable and then
+      # process the TL's and finally the base levels.
+      #
+      unless ServicePackFilesetMap.find_or_create_by_service_pack_id(sp.id)
+        ServicePackFilesetMap.find_or_create_by_service_pack_id_and_fileset_id(sp.id, fileset.id)
+      end
     end
   end
 end
