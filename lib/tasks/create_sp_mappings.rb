@@ -325,7 +325,7 @@ dirname_sp_mappings.each_with_index do |mapping, index|
       # for all of the SP levels since that is more reliable and then
       # process the TL's and finally the base levels.
       #
-      unless ServicePackFilesetMap.find_all_by_fileset_id(fileset.id).length == 0
+      if ServicePackFilesetMap.find_all_by_fileset_id(fileset.id).length == 0
         ServicePackFilesetMap.find_or_create_by_service_pack_id_and_fileset_id(sp.id, fileset.id)
       end
     end
