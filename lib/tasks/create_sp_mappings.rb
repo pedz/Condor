@@ -314,8 +314,9 @@ dirname_sp_mappings.each_with_index do |mapping, index|
   puts "Mapping #{index} of #{dirname_sp_mappings.length}: #{mapping[:dirname]} #{mapping[:sp]}"
   images.each do |image|
     image.package.filesets.each do |fileset|
+      #
       # Change of how we do this.  We see if we have any service pack
-      # specified for this package.  If we do, we just leave well
+      # specified for this fileset.  If we do, we just leave well
       # enough alone.  The reason is that the ML and TL levels we were
       # guessing were SP00 but often they are not.  This should give
       # us a more dependable result.
@@ -324,7 +325,7 @@ dirname_sp_mappings.each_with_index do |mapping, index|
       # for all of the SP levels since that is more reliable and then
       # process the TL's and finally the base levels.
       #
-      unless ServicePackFilesetMap.find_by_service_pack_id(sp.id)
+      unless ServicePackFilesetMap.find_all_by_fileset_id(fileset.id).length == 0
         ServicePackFilesetMap.find_or_create_by_service_pack_id_and_fileset_id(sp.id, fileset.id)
       end
     end
