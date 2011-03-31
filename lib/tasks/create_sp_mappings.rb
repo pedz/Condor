@@ -239,6 +239,7 @@ dirname_sp_mappings = [
 { :dirname => "610images/sp/6100-06-01",        :sp => "6100-06-01" },
 { :dirname => "610images/sp/6100-06-02",        :sp => "6100-06-02" },
 { :dirname => "610images/sp/6100-06-03",        :sp => "6100-06-03" },
+{ :dirname => "610images/sp/6100-06-03.1",      :sp => "6100-06-03.1" },
 { :dirname => "610images/sp/6100-06-04",        :sp => "6100-06-04" },
 { :dirname => "610images/sp/6100-06-05",        :sp => "6100-06-05" },
 { :dirname => "610images/sp/6100-06-06",        :sp => "6100-06-06" },
