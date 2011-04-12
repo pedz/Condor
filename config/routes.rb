@@ -41,6 +41,14 @@ ActionController::Routing::Routes.draw do |map|
                         :controller => 'file_changes',
                         :action => 'show')
 
+  # Path for looking up SHA1 of AIX  files.
+  map.sha1_lookup('sha1_lookup/:sha1',
+                       :controller => 'shipped_files',
+                       :action => 'show')
+  map.sha1_lookup_form('sha1_lookup',
+                       :controller => 'shipped_files',
+                       :action => 'show')
+
   # Special path for CMVC source files
   map.src_files('src_files/:release/*path/:version',
                 :controller => 'src_files',

@@ -29,6 +29,15 @@
     <%= submit_tag nil, :class => "concat-fields" %>
   <% end %>
 </p>
+<h3>SHA1 file verification</h3>
+<p>
+  Do: csum -h SHA1 &lt;path&gt; <br/>
+  Paste the sha1 results into the box below and Condor will find the path(s) for that file, where it was shipped, etc.
+  <% form_tag sha1_lookup_form_path do %>
+    <%= text_field_tag "sha1" %>
+    <%= submit_tag nil, :class => "concat-fields" %>
+  <% end %>
+</p>
 <h3>CMVC Activities</h3>
 <table>
   <tr>
