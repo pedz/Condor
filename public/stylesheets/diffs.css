@@ -16,11 +16,11 @@ pre.change {
 }
 
 pre.discard-a {
-    background-color: red;
+    background-color: pink;
 }
 
 pre.discard-b {
-    background-color: green;
+    background-color: lightGreen;
 }
 
 #control-table {
