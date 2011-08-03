@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # An image path is somewhat completely concocted but I keep them to
 # help figure out which image paths I have not ransacked yet.
 #

@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 #!/usr/bin/env ruby
 
 # This module is able to parse a toc file.  lpp_name is one form of a

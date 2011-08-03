@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 #!/usr/bin/env ruby
 
 # I gave up trying to use runner magically.  To run these scripts just

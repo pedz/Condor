@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # Table for APARs
 # Note that abstract may be null (which sucks) but in the case that
 # the APAR is found first via a pc_view record, the abstract is not

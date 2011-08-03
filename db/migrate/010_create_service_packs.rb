@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # Currently this is not used any where but the name will be soemthing
 # like "5.3 TL03 SP02".  I don't know yet of a reliable place to link
 # this data in.  It may be that They are added by hand whenever a new

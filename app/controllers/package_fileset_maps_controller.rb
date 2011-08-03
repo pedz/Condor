@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 class PackageFilesetMapsController < ApplicationController
   # GET /package_fileset_maps
   # GET /package_fileset_maps.xml

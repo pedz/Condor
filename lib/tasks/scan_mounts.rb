@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 # -*- coding: binary -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 
 # This script is an all-in-one script that pulls in data from the
 # install / update images on truth.

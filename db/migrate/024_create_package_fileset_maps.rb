@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # A package ships many filesets.  But the next package may ship a
 # subset of the previous filesets un changed.  Thus there must be a
 # many to many mapping from packages to filesets.  This map provides

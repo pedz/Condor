@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # A file as it appears on an installed AIX system.  The sha1 is
 # computed so it can be determined when the shipped file actually
 # changes.  We also create an index on the basename to help

@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 class ServicePackFilesetMapsController < ApplicationController
   # GET /service_pack_fileset_maps
   # GET /service_pack_fileset_maps.xml

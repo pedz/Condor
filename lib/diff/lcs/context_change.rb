@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # Represents a contextual change. Contains the position and values of the
 # elements in the old and the new sequenced enumerables as well as the action
 # taken.

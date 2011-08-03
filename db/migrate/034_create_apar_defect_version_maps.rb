@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # Essentially these maps are produced from the pc_view input.  The
 # exception is when a ptfapardef record specifies something that has
 # not yet been seen in a pc_view record.

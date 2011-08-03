@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 #
 # This is currently not used.  When I first toyed with the diff
 # processing, I put each line into a string table which I assumed

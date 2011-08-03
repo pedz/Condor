@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 class FileChange
   attr_reader :release, :defect, :level, :sccsid, :path, :type, :reference
   attr_reader :abstract, :prev_sccsid

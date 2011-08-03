@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 #
 # This migration ties in with a change to import_pc_views.  I added
 # the pc_id to the apar_defect_version_maps table thinking that it

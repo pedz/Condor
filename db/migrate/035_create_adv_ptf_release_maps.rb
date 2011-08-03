@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # These maps are produced from the ptfapardef records.  The first
 # piece is the apar, defect, version mapping.  This is usually created
 # before this mapping.  The creation process for this mapping first

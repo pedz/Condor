@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # Its unfortunate but "release" has two meanings.  I believe
 # everywhere in Condor, "release" will be a cmvc release and not a
 # release such as "5.2", etc.

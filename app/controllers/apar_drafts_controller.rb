@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 class AparDraftsController < ApplicationController
   APAR_DRAFT_URL = "https://amt.austin.ibm.com/cgi-bin/secure_aparmgt?search_type=%s&search_arg=%s&ACTION=draft_search"
   def show

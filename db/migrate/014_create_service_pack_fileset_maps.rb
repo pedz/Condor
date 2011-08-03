@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # It may be that a fileset ships in only one service pack but I rather
 # doubt it.  And clearly a service pack ships many filesets.  So the
 # mapping must be many to many.  This map provides that.

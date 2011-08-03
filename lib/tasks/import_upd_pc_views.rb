@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 #!/usr/bin/env ruby
 #
 # This script will read in upd_pc_views that come from rp2.  Initially

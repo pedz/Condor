@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 # This view essentially replicates the ptfapardef records.
 class AddPtfAparDefsView < ActiveRecord::Migration
   def self.up

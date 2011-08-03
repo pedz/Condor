@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 class Version < ActiveRecord::Base
   has_many :releases
   has_many :apar_defect_version_maps

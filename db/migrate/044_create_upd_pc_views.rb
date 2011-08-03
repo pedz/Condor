@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2007-2011 Ease Software, Inc. and Perry Smith
+# All Rights Reserved
+#
 #
 # The upd_pc_views is a direct mapping of the upd_pc_view from rp2.
 # The update_id and pc_id are unchanged.  They can be used to find if
