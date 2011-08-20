@@ -92,7 +92,7 @@ class ImageFile
           return
         end
       end
-    rescue => e
+    rescue Exception => e
       STDERR.puts e.message
       @image.package = error_package
       @image.save
@@ -156,7 +156,7 @@ class ImageFile
             if fileset_hash.has_key?(fs.lpp.name)
               STDERR.puts "Image at #{@full_path} has two filesets with the " +
                 "same lpp name of #{fs.lpp.ame}"
-              exit(1)
+              exit(2)
             end
             fileset_hash[fs.lpp.name] = fs
             @package.filesets << fs
@@ -194,10 +194,10 @@ class ImageFile
         end
       end
       @image.save
-    rescue => e
+    rescue Exception => e
       STDERR.puts e.message
       STDERR.puts e.backtrace
-      exit(1)
+      exit(3)
     ensure
       # remove_temp_dir
     end
@@ -296,8 +296,8 @@ begin
   $stderr.reopen(LOG_PATH.to_s, "w")
   main_loop
   exit(0)
-rescue => e
+rescue Exception => e
   STDERR.puts e.message
   STDERR.puts e.backtrace
-  exit(1)
+  exit(4)
 end
