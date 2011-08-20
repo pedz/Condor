@@ -44,6 +44,7 @@ begin
         
         family = Family.find_or_create_by_name fields[6]
         releases = fields[5].split(/ /).map do |release_name|
+          next if release_name.length < 3
           version = Version.find_or_create_by_name release_name[-3,3]
           
           release_hash = {

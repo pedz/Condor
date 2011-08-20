@@ -295,6 +295,7 @@ end
 begin
   $stderr.reopen(LOG_PATH.to_s, "w")
   main_loop
+  exit(0)
 rescue => e
   STDERR.puts e.message
   STDERR.puts e.backtrace
