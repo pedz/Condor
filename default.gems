@@ -1,0 +1,23 @@
+# default.gems generated gem export file. Note that any env variable settings will be missing. Append these after using a ';' field separator
+actionmailer -v2.3.5
+actionpack -v2.3.5
+activeldap -v1.2.1
+activerecord -v2.3.5
+activeresource -v2.3.5
+activesupport -v2.3.5
+capistrano -v2.5.18
+daemons -v1.1.2
+eventmachine -v0.12.10
+gettext -v2.1.0
+gettext_activerecord -v2.1.0
+highline -v1.6.1
+locale -v2.0.5
+net-scp -v1.0.4
+net-sftp -v2.0.5
+net-ssh -v2.1.4
+net-ssh-gateway -v1.0.1
+pg -v0.10.1
+rack -v1.0.1
+rails -v2.3.5
+rails-footnotes -v3.6.7
+thin -v1.2.7
