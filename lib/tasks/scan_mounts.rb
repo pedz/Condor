@@ -167,8 +167,10 @@ class ImageFile
           # called liblpp in the same directory and then expand the
           # libllpp.a file into it.  We pull out the .inventory files
           TEMP_DIR.find do |path|
+            STDERR.puts "DEBUG: path=#{path}"
             next unless path.basename.to_s == "liblpp.a"
             result = expand_liblpp(path) do |child|
+              STDERR.puts "DEBUG: child=#{child}"
               next unless (match1 = INVENTORY_REGEXP.match(child.basename.to_s))
               if (fs = fileset_hash[match1[1]]).nil?
                 STDERR.puts "Image at #{@full_path} has inventory file " +
@@ -181,6 +183,7 @@ class ImageFile
               # of the liblpp.a files.  We find the lines with a colon
               # which are the full path names of the installed files.
               child.readlines.each do |line|
+                STDERR.puts "DEBUG: line=#{line}"
                 next unless (match2 = COLON_REGEXP.match(line))
                 af = aix_file(match2[1])
                 if !af.new_record? &&
