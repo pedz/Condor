@@ -22,12 +22,11 @@
 require File.dirname(__FILE__) + "/toc-parser"
 
 MOUNT_LIST = [
-              "truth.austin.ibm.com:/vioimages"
-              # "truth.austin.ibm.com:/vioimages",
-              # "truth.austin.ibm.com:/710images",
-              # "truth.austin.ibm.com:/610images",
-              # "truth.austin.ibm.com:/530images",
-              # "truth.austin.ibm.com:/520images"
+              "truth.austin.ibm.com:/vioimages",
+              "truth.austin.ibm.com:/710images",
+              "truth.austin.ibm.com:/610images",
+              "truth.austin.ibm.com:/530images",
+              "truth.austin.ibm.com:/520images"
              ].freeze
 
 ROOT = Pathname.new(File.dirname(__FILE__) + "/../..").realpath
@@ -147,7 +146,11 @@ class ImageFile
       # We now need to understand the lpp_name file if one exists.  If one
       # does not, then we just exit.
       lpp_name = TEMP_DIR + "lpp_name"
-      return unless lpp_name.file?
+      unless lpp_name.file?
+        @image.package = not_a_backup
+        @image.save
+        return
+      end
 
       lpp_name.open do |file|
         # We assume each image path has only one package.  This may
@@ -209,7 +212,11 @@ class ImageFile
                 end
               end
             end
-            return if result == false
+            if result == false
+              @image.package = not_a_backup
+              @image.save
+              return
+            end
           end
         end
       end
