@@ -32,7 +32,7 @@ MOUNT_LIST = [
 ROOT = Pathname.new(File.dirname(__FILE__) + "/../..").realpath
 DATA = (ROOT + "data").realpath
 MOUNT_POINT = DATA + "mounts"
-TEMP_DIR = DATA + "temp"
+TEMP_DIR = Pathname.new("/usr/dumps/temp")
 LOG_PATH = Pathname.new("log/scan_mounts.log")
 
 # main_loop of the scan_mounts script runs thru the MOUNT_LIST.  For
