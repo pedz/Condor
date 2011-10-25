@@ -30,7 +30,7 @@ dirname_sp_mappings = [
 { :dirname => "520images/base/lcd4-1133-07",    	:sp => "5200-07" },
 { :dirname => "520images/base/lcd4-1133-08",    	:sp => "5200-08" },
 { :dirname => "520images/base/lcd4-1133-09",    	:sp => "5200-09" },
-{ :dirname => "520images/base/lcd4-1133-11",    	:sp => "5200-11" },
+{ :dirname => "520images/base/lcd4-1133-11",    	:sp => "5200-10" },
 { :dirname => "520images/mls/ml01",             	:sp => "5200-01" },
 { :dirname => "520images/mls/ml02",             	:sp => "5200-02" },
 { :dirname => "520images/mls/ml03",             	:sp => "5200-03" },
@@ -310,6 +310,7 @@ dirname_sp_mappings = [
 { :dirname => "710images/sp/7100-02-10",        	:sp => "7100-02-10" },
 { :dirname => "710images/sp/7100-02-11",        	:sp => "7100-02-11" },
 { :dirname => "710images/sp/7100-02-12",        	:sp => "7100-02-12" },
+{ :dirname => "710images/mls/tl01",                     :sp => "7100-01-00" },
 { :dirname => "710images/base/LK4T-1710-00",    	:sp => "7100-00-00" },
 { :dirname => "710images/base/LK4T-1710-01",    	:sp => "7100-00-01" },
 { :dirname => "710images/base/LK4T-1710-02",    	:sp => "7100-00-03" },
@@ -326,6 +327,7 @@ dirname_sp_mappings = [
 { :dirname => "vioimages/2.1/fp22",			:sp => "VIOS 2.1.2.10-FP22"},
 { :dirname => "vioimages/2.1/fp23",			:sp => "VIOS 2.1.3.10-FP23"},
 { :dirname => "vioimages/2.2/FP2.2.0.12-FP-24-SP-02",	:sp => "VIOS 2.2.0.12-FP24 SP02"},
+{ :dirname => "vioimages/2.2/FP2.2.0.13-FP-24-SP-03",	:sp => "VIOS 2.2.0.12-FP24 SP03"},
 ]
 
 dirname_sp_mappings.each_with_index do |mapping, index|
