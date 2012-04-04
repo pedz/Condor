@@ -77,7 +77,7 @@ begin
           end
         end
         
-        if apar.abstract.nil?
+        unless apar.abstract.nil?
           apar.abstract = abstract
           apar.save!
         end
