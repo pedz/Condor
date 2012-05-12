@@ -21,32 +21,25 @@
 
 require File.dirname(__FILE__) + "/toc-parser"
 
-MOUNT_LIST = [
-              "truth.austin.ibm.com:/vioimages",
-              "truth.austin.ibm.com:/710images",
-              "truth.austin.ibm.com:/610images",
-              "truth.austin.ibm.com:/530images",
-              "truth.austin.ibm.com:/520images"
-             ].freeze
 
 ROOT = Pathname.new(File.dirname(__FILE__) + "/../..").realpath
 DATA = (ROOT + "data").realpath
-MOUNT_POINT = DATA + "mounts"
 TEMP_DIR = Pathname.new("/usr/sata/dumps/temp")
-LOG_PATH = Pathname.new("log/scan_mounts.log")
-GSA_PATTERN = "/gsa/ausgsa/projects/a/aix/aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
+LOG_PATH = Pathname.new("log/scan_gsa.log")
+GSA_BASE    = Pathname.new("/gsa/ausgsa/projects/a/aix")
+GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
 
-# main_loop of the scan_mounts script runs thru the MOUNT_LIST.  For
-# each item in the list, it creates a mount point if one does not
-# already exists and mounts the file system if it is not already
-# mounted.  Then it does a find on the new mounted file system.  For
-# each flat file, process_file is called.
+# main_loop of the scan_mounts script runs thru the matches for
+# GSA_PATTERN.  For each item in the list, it creates a mount point if
+# one does not already exists and mounts the file system if it is not
+# already mounted.  Then it does a find on the new mounted file
+# system.  For each flat file, process_file is called.
 def main_loop
-  Dir.glob(GSA_PATTERN, 0) do |gsa_dir|
-    STDERR.puts "Searching #{gsa_dir}"
+  Pathname.glob(GSA_PATTERN.to_s, 0) do |gsa_dir|
+    STDERR.puts "\nSearching #{gsa_dir}\n"
     STDERR.flush
     gsa_dir.cleanpath.find do |image_path|
-      STDERR.puts "Reviewing #{image_path}"
+      STDERR.puts "\nReviewing #{image_path}"
       STDERR.flush
       next unless image_path.file?    # skip all but flat files
       process_file(image_path)
@@ -58,7 +51,9 @@ end
 # it is, it assumes that things have not changed and it is skipped.
 # It then creates an ImageFile and passes the processing off to it.
 def process_file(image_path)
-  relative_path = image_path.relative_path_from(MOUNT_POINT)
+  relative_path = image_path.relative_path_from(GSA_BASE)
+  STDERR.puts "relative path = #{relative_path}"
+  STDERR.flush
   return if ImagePath.find_by_path(relative_path.to_s)
   image_file = ImageFile.new(ImagePath.new(:path => relative_path.to_s), image_path)
   image_file.process
@@ -94,6 +89,7 @@ class ImageFile
         end
       end
     rescue Exception => e
+      STDERR.puts "ERROR"
       STDERR.puts e.message
       STDERR.flush
       @image.package = error_package
@@ -216,6 +212,7 @@ class ImageFile
       end
       @image.save
     rescue Exception => e
+      STDERR.puts "ERROR"
       STDERR.puts e.message
       STDERR.puts e.backtrace
       STDERR.flush
@@ -327,6 +324,7 @@ begin
   main_loop
   exit(0)
 rescue Exception => e
+  STDERR.puts "ERROR"
   STDERR.puts e.message
   STDERR.puts e.backtrace
   STDERR.flush
