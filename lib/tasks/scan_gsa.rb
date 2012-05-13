@@ -25,6 +25,7 @@ require File.dirname(__FILE__) + "/toc-parser"
 ROOT = Pathname.new(File.dirname(__FILE__) + "/../..").realpath
 DATA = (ROOT + "data").realpath
 TEMP_DIR = Pathname.new("/usr/sata/dumps/temp")
+TEMP2_DIR = Pathname.new("/usr/sata/dumps/temp")
 LOG_PATH = Pathname.new("log/scan_gsa.log")
 GSA_BASE    = Pathname.new("/gsa/ausgsa/projects/a/aix")
 GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
@@ -35,7 +36,9 @@ GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,
 # already mounted.  Then it does a find on the new mounted file
 # system.  For each flat file, process_file is called.
 def main_loop
-  Pathname.glob(GSA_PATTERN.to_s, 0) do |gsa_dir|
+  Pathname.glob(GSA_PATTERN.to_s, 0).sort do |a, b|
+    a.to_s <=> b.to_s
+  end.each do |gsa_dir|
     STDERR.puts "\nSearching #{gsa_dir}\n"
     STDERR.flush
     gsa_dir.cleanpath.find do |image_path|
@@ -126,6 +129,7 @@ class ImageFile
   def process_package
     begin
       return unless restore_package
+      return unless chmod_package
 
       # The old "populate" script would change the permissions on all the
       # directories in the exploided package be 777.  It would then add
@@ -237,7 +241,15 @@ class ImageFile
   def remove_temp_dir
     STDERR.puts "Removing temp dir"
     STDERR.flush
-    TEMP_DIR.rmtree if TEMP_DIR.directory?
+    if TEMP_DIR.directory?
+      begin
+        chmod_package
+        TEMP_DIR.rmtree
+      rescue
+        TEMP2_DIR.mkpath
+        TEMP_DIR.rename(TEMP2_DIR)
+      end
+    end
   end
   
   def expand_liblpp(path)
@@ -276,6 +288,7 @@ class ImageFile
       STDERR.flush
       Dir.chdir(TEMP_DIR.to_s)
       $stdout.reopen("/dev/null")
+      $stdin.reopen("/dev/null")
       Kernel.exec("/usr/sbin/restore", "-xqf", "#{@full_path.to_s}")
     end
     
@@ -283,7 +296,31 @@ class ImageFile
     Process.wait(pid)
     status = $?
     if status != 0
-      STDERR.puts "restore exited with status of #{status} from #{@full_path}"
+      STDERR.puts "ERROR: restore exited with status of #{status} from #{@full_path}"
+      STDERR.flush
+      return false
+    end
+    return true
+  end
+
+  def chmod_package
+    STDERR.puts "Doing chmod"
+    STDERR.flush
+    pid = Kernel.fork
+    
+    # Child
+    if pid.nil?
+      Dir.chdir(TEMP_DIR.to_s)
+      $stdout.reopen("/dev/null")
+      $stdin.reopen("/dev/null")
+      Kernel.exec("/usr/bin/chmod", "-R", "u=rwx", ".")
+    end
+    
+    # Parent
+    Process.wait(pid)
+    status = $?
+    if status != 0
+      STDERR.puts "ERROR: chmod exited with status of #{status}"
       STDERR.flush
       return false
     end
@@ -322,7 +359,7 @@ end
 begin
   $stderr.reopen(LOG_PATH.to_s, "w")
   main_loop
-  exit(0)
+  0
 rescue Exception => e
   STDERR.puts "ERROR"
   STDERR.puts e.message
