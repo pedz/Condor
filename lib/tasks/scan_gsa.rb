@@ -153,7 +153,7 @@ class ImageFile
         first_time = true
         Toc::Parser.parse(file).each do |parsed_package|
           unless first_time
-            STDERR.puts "#{@full_path} has more than one package in its lpp_name"
+            STDERR.puts "ERROR: #{@full_path} has more than one package in its lpp_name"
             STDERR.flush
             exit(1)
           end
@@ -163,7 +163,7 @@ class ImageFile
           parsed_package.filesets.each do |parsed_fileset|
             fs = fileset(parsed_fileset)
             if fileset_hash.has_key?(fs.lpp.name)
-              STDERR.puts "Image at #{@full_path} has two filesets with the " +
+              STDERR.puts "ERROR: Image at #{@full_path} has two filesets with the " +
                 "same lpp name of #{fs.lpp.ame}"
               STDERR.flush
               exit(2)
@@ -184,7 +184,7 @@ class ImageFile
               STDERR.flush
               next unless (match1 = INVENTORY_REGEXP.match(child.basename.to_s))
               if (fs = fileset_hash[match1[1]]).nil?
-                STDERR.puts "Image at #{@full_path} has inventory file " +
+                STDERR.puts "ERROR: Image at #{@full_path} has inventory file " +
                   "for '#{match1[1]}' but was not entered in the lpp_name." +
                   " - skipping..."
                 STDERR.flush
@@ -220,9 +220,9 @@ class ImageFile
       STDERR.puts e.message
       STDERR.puts e.backtrace
       STDERR.flush
-      exit(3)
+      # Try and keep going.
     ensure
-      # remove_temp_dir
+      remove_temp_dir
     end
   end
   
@@ -264,7 +264,7 @@ class ImageFile
     Process.wait(pid)
     status = $?
     if status != 0
-      STDERR.puts "ar x of #{path} failed from #{@full_path}"
+      STDERR.puts "ERROR: ar x of #{path} failed from #{@full_path}"
       STDERR.flush
       return false
     end
