@@ -37,7 +37,7 @@ GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,
 # system.  For each flat file, process_file is called.
 def main_loop
   Pathname.glob(GSA_PATTERN.to_s, 0).sort do |a, b|
-    a.to_s <=> b.to_s
+    a.to_s.sub(/Gold/, '-00') <=> b.to_s.sub(/Gold/, '-00')
   end.each do |gsa_dir|
     STDERR.puts "\nSearching #{gsa_dir}\n"
     STDERR.flush
@@ -92,7 +92,7 @@ class ImageFile
         end
       end
     rescue Exception => e
-      STDERR.puts "ERROR"
+      STDERR.puts "ERROR -- set error_package"
       STDERR.puts e.message
       STDERR.flush
       @image.package = error_package
