@@ -28,8 +28,7 @@ TEMP_DIR = Pathname.new("/usr/sata/dumps/temp")
 TEMP2_DIR = Pathname.new("/usr/sata/dumps/temp")
 LOG_PATH = Pathname.new("log/scan_gsa.log")
 GSA_BASE    = Pathname.new("/gsa/ausgsa/projects/a/aix")
-# GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
-GSA_PATTERN = GSA_BASE + "aix{61S/6100-07-04,71F/7100-01-04}_SPGold/{update,inst}.images"
+GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
 
 # main_loop of the scan_mounts script runs thru the matches for
 # GSA_PATTERN.  For each item in the list, it creates a mount point if
@@ -87,17 +86,15 @@ class ImageFile
         magic = file.read(4)
         unless magic == BACKUP_MAGIC
           # Flat file that is not a backup image
-          @image.package = not_a_backup
-          @image.save
+          image_is('not-a-backup')
           return
         end
       end
     rescue Exception => e
-      STDERR.puts "ERROR -- set error_package"
+      STDERR.puts "ERROR -- permission error"
       STDERR.puts e.message
       STDERR.flush
-      @image.package = error_package
-      @image.save
+      image_is('permission-error')
       return
     end
     
@@ -130,7 +127,7 @@ class ImageFile
   def process_package
     begin
       return unless restore_package
-      return unless chmod_package
+      return unless chmod_package(true)
 
       # The old "populate" script would change the permissions on all the
       # directories in the exploided package be 777.  It would then add
@@ -142,8 +139,7 @@ class ImageFile
       # does not, then we just exit.
       lpp_name = TEMP_DIR + "lpp_name"
       unless lpp_name.file?
-        @image.package = not_a_backup
-        @image.save
+        image_is('not-a-backup')
         return
       end
 
@@ -156,7 +152,8 @@ class ImageFile
           unless first_time
             STDERR.puts "ERROR: #{@full_path} has more than one package in its lpp_name"
             STDERR.flush
-            exit(1)
+            image_is('more-than-one-package')
+            return
           end
           @package = new_package(parsed_package.name)
           @image.package = @package
@@ -167,7 +164,8 @@ class ImageFile
               STDERR.puts "ERROR: Image at #{@full_path} has two filesets with the " +
                 "same lpp name of #{fs.lpp.ame}"
               STDERR.flush
-              exit(2)
+              image_is('two-filesets')
+              return
             end
             fileset_hash[fs.lpp.name] = fs
             @package.filesets << fs
@@ -189,6 +187,7 @@ class ImageFile
                   "for '#{match1[1]}' but was not entered in the lpp_name." +
                   " - skipping..."
                 STDERR.flush
+                image_is('extra-inventory-file')
                 next
               end
 
@@ -208,8 +207,7 @@ class ImageFile
               end
             end
             if result == false
-              @image.package = not_a_backup
-              @image.save
+              image_is('not-a-backup')
               return
             end
           end
@@ -244,7 +242,7 @@ class ImageFile
     STDERR.flush
     if TEMP_DIR.directory?
       begin
-        chmod_package
+        chmod_package(false)
         TEMP_DIR.rmtree
       rescue
         TEMP2_DIR.mkpath
@@ -267,6 +265,7 @@ class ImageFile
     if status != 0
       STDERR.puts "ERROR: ar x of #{path} failed from #{@full_path}"
       STDERR.flush
+      image_is('ar-failed')
       return false
     end
 
@@ -285,8 +284,6 @@ class ImageFile
     
     # Child
     if pid.nil?
-      STDERR.puts "#{@full_path.to_s}"
-      STDERR.flush
       Dir.chdir(TEMP_DIR.to_s)
       $stdout.reopen("/dev/null")
       $stdin.reopen("/dev/null")
@@ -299,14 +296,19 @@ class ImageFile
     if status != 0
       STDERR.puts "ERROR: restore exited with status of #{status} from #{@full_path}"
       STDERR.flush
+      image_is('restore-failed')
       return false
     end
     return true
   end
 
-  def chmod_package
-    STDERR.puts "Doing chmod"
-    STDERR.flush
+  # log is a boolean.  If called on the normal path, it is true.
+  # Otherwise, it is false
+  def chmod_package(log = false)
+    if log
+      STDERR.puts "Doing chmod"
+      STDERR.flush
+    end
     pid = Kernel.fork
     
     # Child
@@ -314,15 +316,18 @@ class ImageFile
       Dir.chdir(TEMP_DIR.to_s)
       $stdout.reopen("/dev/null")
       $stdin.reopen("/dev/null")
-      Kernel.exec("/usr/bin/chmod", "-R", "u=rwx", ".")
+      Kernel.exec("/usr/bin/chmod", "-Rh", "u=rwx", ".")
     end
     
     # Parent
     Process.wait(pid)
     status = $?
     if status != 0
-      STDERR.puts "ERROR: chmod exited with status of #{status}"
-      STDERR.flush
+      if log
+        STDERR.puts "ERROR: chmod exited with status of #{status}"
+        STDERR.flush
+        image_is('chmod-failed')
+      end
       return false
     end
     return true
@@ -334,12 +339,9 @@ class ImageFile
     Package.new(:name => package_name, :sha1 => @sha1)
   end
   
-  def error_package
-    Package.find_or_create_by_name_and_sha1("error-package", "0")
-  end
-  
-  def not_a_backup
-    Package.find_or_create_by_name_and_sha1("not-a-backup", "0")
+  def image_is(s)
+    @image.package = Package.find_or_create_by_name_and_sha1(s, "0")
+    @image.save
   end
 
   def lpp_base(lpp_name)
