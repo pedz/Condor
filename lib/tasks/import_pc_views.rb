@@ -65,7 +65,7 @@ begin
         if adv.pc_id.nil? || adv.pc_id == -1
           adv.update_attributes(:pc_id => pc_id)
         elsif adv.pc_id != pc_id.to_i
-          throw "adv for defect #{defect.name} has pc_id of #{adv.pc_id} in db but #{pc_id} in rp2"
+          throw "adv for apar/defect/version #{defect.name}/#{apar.name}/#{version.name} has pc_id of #{adv.pc_id} in db but #{pc_id} in rp2"
         end
       end
     end

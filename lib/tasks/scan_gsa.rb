@@ -28,7 +28,8 @@ TEMP_DIR = Pathname.new("/usr/sata/dumps/temp")
 TEMP2_DIR = Pathname.new("/usr/sata/dumps/temp")
 LOG_PATH = Pathname.new("log/scan_gsa.log")
 GSA_BASE    = Pathname.new("/gsa/ausgsa/projects/a/aix")
-GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
+# GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
+GSA_PATTERN = GSA_BASE + "aix{61S/6100-07-04,71F/7100-01-04}_SPGold/{update,inst}.images"
 
 # main_loop of the scan_mounts script runs thru the matches for
 # GSA_PATTERN.  For each item in the list, it creates a mount point if
