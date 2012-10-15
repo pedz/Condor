@@ -27,8 +27,17 @@ DATA = (ROOT + "data").realpath
 TEMP_DIR = Pathname.new("/usr/sata/dumps/temp")
 TEMP2_DIR = Pathname.new("/usr/sata/dumps/temp")
 LOG_PATH = Pathname.new("log/scan_gsa.log")
-GSA_BASE    = Pathname.new("/gsa/ausgsa/projects/a/aix")
-GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
+
+# AIX 6.1 and 7.1 base and pattern
+# GSA_BASE    = Pathname.new("/gsa/ausgsa/projects/a/aix")
+# GSA_PATTERN = GSA_BASE + "aix{61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
+
+# To include 5.3 but tends to die mid-way through
+# GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,inst}.images"
+
+# For VIO, use these two instead
+GSA_BASE=Pathname.new("/gsa/ausgsa/projects/s/service/images/61/update")
+GSA_PATTERN = GSA_BASE + "VIOS_*"
 
 # main_loop of the scan_mounts script runs thru the matches for
 # GSA_PATTERN.  For each item in the list, it creates a mount point if
@@ -36,6 +45,7 @@ GSA_PATTERN = GSA_BASE + "aix{53?/5300,61?/6100,71?/7100}-{??Gold,*_SP}/{update,
 # already mounted.  Then it does a find on the new mounted file
 # system.  For each flat file, process_file is called.
 def main_loop
+  puts GSA_PATTERN
   Pathname.glob(GSA_PATTERN.to_s, 0).sort do |a, b|
     a.to_s.sub(/Gold/, '-00') <=> b.to_s.sub(/Gold/, '-00')
   end.each do |gsa_dir|
