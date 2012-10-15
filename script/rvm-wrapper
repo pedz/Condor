@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-RVMRC=/usr/local/lib/rvm
-[[ -s "${RVMRC}" ]] && source "${RVMRC}"
-
 cd $PWD
+PATH=/usr/local/prvm/ruby-1.9.1-p376/bin:$PATH
 cmd=$1
 shift
 exec $cmd "$@"
