@@ -30,7 +30,9 @@ class SwinfosController < ApplicationController
               ]
   def show
     logger.debug("Accepts = #{request.accepts.inspect}")
-    @param = params[:item]
+    # Trim leading white space, trailing white space, and reduce
+    # multiple spaces to just one space.
+    @param = params[:item].sub(/^ +/, '').sub(/ +$/, '').gsub(/ +/, ' ')
     respond_to do |format|
       format.html { render :action => "show", :layout => "spry" }
       format.json {

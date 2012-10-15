@@ -31,7 +31,7 @@ def process_images(pat, sp_name)
   images = ImagePath.find(:all, :conditions => "path like '#{pat}'")
   length = images.length
   images.each_with_index do |image, index|
-    puts "processing image #{index} of #{length}"
+    # puts "processing image #{index} of #{length}"
     image.package.filesets.each do |fileset|
       ServicePackFilesetMap.find_or_create_by_service_pack_id_and_fileset_id(sp.id, fileset.id)
     end
@@ -43,8 +43,9 @@ def process_service_packs(sp_name)
   puts "processing service pack #{sp_name}"
   sp = ServicePack.find_by_name(sp_name)
   filesets = sp.filesets
-  puts "#{filesets.length} to be processed"
+  # puts "#{filesets.length} to be processed"
   last_lpp_name = ""
+  unshipped = ServicePack.find_or_create_by_name('unshipped')
   filesets.sort do |a, b|
     if a.lpp.name != b.lpp.name
       a.lpp.name <=> b.lpp.name
@@ -55,10 +56,11 @@ def process_service_packs(sp_name)
       (0 .. 3).map { |i| bv[i] <=> av[i] }.detect(l) { |c| c != 0 }
     end
   end.each do |fileset|
-    puts "#{fileset.lpp.name} #{fileset.vrmf}"
+    # puts "#{fileset.lpp.name} #{fileset.vrmf}"
     if last_lpp_name == fileset.lpp.name
-      puts "#{fileset.lpp.name} #{fileset.vrmf} should be deleted"
+      # puts "#{fileset.lpp.name} #{fileset.vrmf} should be deleted"
       ServicePackFilesetMap.find_by_service_pack_id_and_fileset_id(sp.id, fileset.id).destroy
+      ServicePackFilesetMap.find_or_create_by_service_pack_id_and_fileset_id(unshipped.id, fileset.id)
     else
       last_lpp_name = fileset.lpp.name
     end
