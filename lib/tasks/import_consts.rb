@@ -78,7 +78,7 @@ begin
         end
         
         unless apar.abstract.nil?
-          apar.abstract = abstract
+          apar.abstract = abstract[0 .. 250]
           apar.save!
         end
         
