@@ -1,4 +1,4 @@
-#!/bin/ksh -x
+#!/bin/ksh
 
 # This script runs down the "data" directory updating the data we get
 # from the ptfapardef.const files.  It needs to have valid dfs and gsa
@@ -13,6 +13,7 @@ else
   newer="${all}"
 fi
 for i in $newer ; do
+  echo $i
   rm -rf here
   sort $i -o here
   if [[ -r ../completed/$i ]] ; then
@@ -21,7 +22,7 @@ for i in $newer ; do
     cp here new-lines
   fi
   if ( cd ../../../current ; \
-       lib/tasks/import_consts.rb data/current/new-lines ) ; then
+       script/runner lib/tasks/import_consts.rb data/current/new-lines ) ; then
     mkdir -p $( dirname ../completed/$i )
     mv here ../completed/$i
   else
