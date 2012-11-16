@@ -12,6 +12,7 @@ if [[ -r last-update ]] ; then
 else
   newer="${all}"
 fi
+ls -l $newer
 for i in $newer ; do
   echo $i
   rm -rf here
@@ -21,13 +22,22 @@ for i in $newer ; do
   else
     cp here new-lines
   fi
-  if ( cd ../../../current ; \
-       script/runner lib/tasks/import_consts.rb data/current/new-lines ) ; then
-    mkdir -p $( dirname ../completed/$i )
-    mv here ../completed/$i
-  else
-    exit 1
+  if [[ -s new-lines ]] ; then
+    rm -rf d
+    mkdir d
+    ( cd d ; split -50000l ../new-lines )
+    for splits in d/* ; do
+      if ( cd ../../../current ; \
+	  script/runner lib/tasks/import_consts.rb data/current/$splits ) ; then
+	true
+      else
+	exit 1
+      fi
+    done
+    rm -rf d
   fi
+  mkdir -p $( dirname ../completed/$i )
+  mv here ../completed/$i
   rm -f new-lines
 done
 mv now last-update
