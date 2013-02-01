@@ -9,8 +9,8 @@ var diffControl = function () {
     }
 
     function show_pair(idx) {
-	var top = $("diff-top-" + idx)
-	var bot = $("diff-bot-" + idx)
+	var top = $("diff-top-" + idx);
+	var bot = $("diff-bot-" + idx);
 	if (top && bot) {
 	    show_thing(top);
 	    show_thing(bot);
@@ -31,7 +31,7 @@ var diffControl = function () {
 	init: function() {
 	    show_pair(1);
 	}
-    }
+    };
 }();
 
 document.observe('dom:loaded', function() {
