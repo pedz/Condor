@@ -26,7 +26,7 @@ DATA = (ROOT + "data").realpath
 TEMP_DIR = Pathname.new("/usr/sata/dumps/temp")
 TEMP2_DIR = Pathname.new("/usr/sata/dumps/temp")
 LOG_PATH = Pathname.new("log/scan_gsa.log")
-
+DEBUG = false
 
 # main_loop of the scan_mounts script runs thru the matches for
 # GSA_PATTERN.  For each item in the list, it creates a mount point if
@@ -174,12 +174,16 @@ class ImageFile
           # called liblpp in the same directory and then expand the
           # libllpp.a file into it.  We pull out the .inventory files
           TEMP_DIR.find do |path|
-            STDERR.puts "DEBUG: path=#{path}"
-            STDERR.flush
+            if DEBUG
+              STDERR.puts "DEBUG: path=#{path}"
+              STDERR.flush
+            end
             next unless path.basename.to_s == "liblpp.a"
             result = expand_liblpp(path) do |child|
-              STDERR.puts "DEBUG: child=#{child}"
-              STDERR.flush
+              if DEBUG
+                STDERR.puts "DEBUG: child=#{child}"
+                STDERR.flush
+              end
               next unless (match1 = INVENTORY_REGEXP.match(child.basename.to_s))
               if (fs = fileset_hash[match1[1]]).nil?
                 STDERR.puts "ERROR: Image at #{@full_path} has inventory file " +
@@ -194,8 +198,10 @@ class ImageFile
               # of the liblpp.a files.  We find the lines with a colon
               # which are the full path names of the installed files.
               child.readlines.each do |line|
-                STDERR.puts "DEBUG: line=#{line}"
-                STDERR.flush
+                if DEBUG
+                  STDERR.puts "DEBUG: line=#{line}" 
+                  STDERR.flush
+                end
                 next unless (match2 = COLON_REGEXP.match(line))
                 af = aix_file(match2[1])
                 if !af.new_record? &&
