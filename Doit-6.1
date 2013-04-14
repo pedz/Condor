@@ -7,4 +7,4 @@ d="$( date )"
 script/runner lib/tasks/scan_gsa-6.1.rb
 s=$?
 d2="$( date )"
-echo "$d - Status is $s - $d2" | mail -s scan_gsa pedzsan@gmail.com
+echo "$d - Status is $s - $d2" | mail -s '6.1 scan_gsa' pedzsan@gmail.com
