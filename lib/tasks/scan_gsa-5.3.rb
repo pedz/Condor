@@ -9,4 +9,4 @@
 GSA_BASE    = Pathname.new("/gsa/ausgsa/projects/a/aix")
 GSA_PATTERN = GSA_BASE + "aix53?/5300-{??Gold,*_SP}/{update,inst}.images"
 
-require 'scan_gsa'
+require 'lib/tasks/scan_gsa'
