@@ -7,6 +7,6 @@
 
 # AIX 6.1 base and pattern
 GSA_BASE    = Pathname.new("/gsa/ausgsa/projects/a/aix")
-GSA_PATTERN = GSA_BASE + "aix61?/6100-{??Gold,*_SP}/{update,inst}.images"
+GSA_PATTERN = GSA_BASE + "aix61[M-Z]/6100-{??Gold,*_SP}/{update,inst}.images"
 
 require 'lib/tasks/scan_gsa'
