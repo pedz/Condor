@@ -36,6 +36,7 @@ set :deploy_base, "/usr/local/www"
 
 # The real database.yml is kept out of the tree in this path
 set :db_path, "#{deploy_base}/database-files/#{application}-database.yml"
+set :ldap_path, "#{deploy_base}/database-files/#{application}-ldap.yml"
 
 # The deploy_to is a variable that Capistrano needs
 set :deploy_to, "#{deploy_base}/#{application}"

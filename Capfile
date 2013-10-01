@@ -39,5 +39,6 @@ end
 
 after "deploy:update_code" do
   run "cp #{db_path} #{release_path}/config/database.yml"
+  run "cp #{ldap_path} #{release_path}/config/ldap.yml"
   run "ln -s #{shared_path}/data #{release_path}"
 end
