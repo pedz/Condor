@@ -23,8 +23,8 @@ require File.dirname(__FILE__) + "/toc-parser"
 
 ROOT = Pathname.new(File.dirname(__FILE__) + "/../..").realpath
 DATA = (ROOT + "data").realpath
-TEMP_DIR = Pathname.new("/usr/sata/dumps/temp")
-TEMP2_DIR = Pathname.new("/usr/sata/dumps/temp")
+TEMP_DIR = Pathname.new("/home/condor/work/tmp")
+TEMP2_DIR = Pathname.new("/home/condor/work/tmp")
 LOG_PATH = Pathname.new("log/scan_gsa.log")
 DEBUG = false
 
