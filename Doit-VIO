@@ -2,6 +2,7 @@
 #
 # This may be an overkill script but it scans GSA for new updates
 #
+export LDR_CNTRL=MAXDATA=0x30000000
 d="$( date )"
 ( cd ~/log ; .old/save-log )
 script/runner lib/tasks/scan_gsa-VIO.rb
